@@ -6,7 +6,6 @@ module.exports = {
             res.json(Class)
         })
 
-
     },
     getClassByAge(req, res) {
         const age = req.params.age;

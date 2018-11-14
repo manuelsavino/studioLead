@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import ParentForm from './ParentForm'
-import ChildForm from './ChildForm'
-import API from "../../utils/API";
+import ParentForm from '../components/ParentForm'
+import ChildForm from '../components/ChildForm'
+import Results from '../components/Results'
+import API from '../utils/API';
 
 export default class LeadForm extends Component {
     state = {
@@ -65,7 +66,18 @@ export default class LeadForm extends Component {
                     values={values}
                 />
             case 3:
-                return <h1>Results</h1>
+                return (
+                    <Results
+                        cFirstName={this.state.cFirstName}
+                        nextStep={this.nextStep}
+                        previousStep={this.previousStep} />
+                )
+
+            case 4:
+                return (
+                    <h1>Confirmation Page</h1>
+                )
+
             default:
                 return null;
         }

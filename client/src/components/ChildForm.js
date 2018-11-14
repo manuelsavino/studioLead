@@ -21,7 +21,7 @@ class ChildForm extends Component {
     render() {
         const { values, handleChange } = this.props;
         return (
-            <div className="form">
+            <div className="container">
                 <Typography component="h2" variant="h2" gutterBottom>
                     Future Dancer's Information
                 </Typography>

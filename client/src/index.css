@@ -3,8 +3,11 @@
 .form{
     width: 60%;
     margin: auto;
-    /* background-color: green; */
+}
 
+.container{
+    width: 75%;
+    margin: auto;
 }
 
 @media only screen 
@@ -12,8 +15,24 @@
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
-    .form{
+    .container{
         width: 90%;
     }
 
+}
+
+.results{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.eachClass{
+    border: solid 1px #ccc;
+    text-align: center;
+
+}
+
+.eachClass:hover{
+    background-color: #D3D3D3;
 }

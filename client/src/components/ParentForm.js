@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography'
@@ -43,7 +42,7 @@ class ParentForm extends Component {
         const { values, handleChange } = this.props;
 
         return (
-            <div className="form">
+            <div className="container">
                 <Typography component="h2" variant="h2" gutterBottom>
                     Your Information
                 </Typography>
