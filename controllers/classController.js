@@ -9,7 +9,8 @@ module.exports = {
     },
     getClassByAge(req, res) {
         const age = req.params.age;
-        const ageQuery = "";
+        let ageQuery = "";
+
 
         if (age >= 3 && age <= 4) {
             ageQuery = "3-4"
@@ -24,7 +25,7 @@ module.exports = {
         }
         db.Class.find({
             ageGroup: ageQuery,
-            numberOfOpenings: { $gte: 1 }
+            status: true
         }).then(resp => { res.json(resp) })
 
     },
@@ -33,10 +34,11 @@ module.exports = {
         const { nameOfClass, numberOfOpenings, ageGroup, time, schedule } = req.body
         const Class = { nameOfClass, numberOfOpenings, ageGroup, time, schedule }
         db.Class.create(Class, (err, Class) => {
+            if (err) {
+                console.log(err)
+            }
             res.json(Class)
         })
-
-
     }
 
 

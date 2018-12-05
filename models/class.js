@@ -4,12 +4,13 @@ const mongoose = require('mongoose'),
 
 const classSchema = new Schema({
     nameOfClass: String,
-    numberOfOpenings: Number,
+    status: { type: Boolean, default: true },
     ageGroup: String,
     schedule: [
-        { type: String }
+        { type: Number }
     ],
-    time: String
+    time: String,
+    location: String
 
 })
 

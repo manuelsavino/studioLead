@@ -1,5 +1,6 @@
 module.exports = {
 
-    Class: require('./class')
-
+    Class: require('./class'),
+    Location: require('./location'),
+    Lead: require('./lead')
 }

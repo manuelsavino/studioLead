@@ -28,11 +28,27 @@
 }
 
 .eachClass{
-    border: solid 1px #ccc;
+    border: solid 1px #009688;
     text-align: center;
+    min-height: 200px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.2)
+
 
 }
 
+.eachday{
+    border: solid 1px #FF5722;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.2)
+}
+
 .eachClass:hover{
-    background-color: #D3D3D3;
+    background-color: #009688;
+    color: white;
+
+}
+
+.eachday:hover{
+    background-color: #FF5722;
+    color: white;
 }

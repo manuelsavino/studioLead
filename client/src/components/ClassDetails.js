@@ -1,23 +1,17 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
+import moment from 'moment'
 
-export default function ClassDetails(props) {
-    const { NameOfClass, ageGroup, schedule, next } = props
+export default function ClassDetails({ NameOfClass, schedule, time, next, id }) {
+    const formatSchedule = schedule.map(day => moment().day(day).format('ddd '))
+
     return (
-        <div className="eachClass" onClick={() => next()}>
 
-            <Typography variant="h4" gutterBottom>
-                {NameOfClass}
-            </Typography>
-
-            <Typography variant="h4" gutterBottom>
-                {ageGroup}
-            </Typography>
-
-            <Typography variant="h4" gutterBottom>
-                {schedule}
-            </Typography>
-
+        <div className="eachClass" onClick={(e) => next(e, NameOfClass, schedule, id, time)}>
+            <h3 className="display-4">{NameOfClass}</h3>
+            <h4>{formatSchedule}</h4>
+            <h4>{moment(time, 'HH:mm').format('h:mm A')}</h4>
         </div>
     )
 }
+
+
