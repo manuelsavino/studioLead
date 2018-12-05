@@ -2,21 +2,20 @@ import React, { Component } from 'react'
 import ClassDetails from './ClassDetails'
 import API from '../utils/API';
 
-
-
-
-
 export default class Results extends Component {
     constructor(props) {
         super(props)
         // this.continue = this.continue.bind(this)
-
         this.state = {
-            results: []
+            results: [],
+            loading: true
         }
+    }
 
+    componentWillMount = ()=>{
         API.getClassesByAge(this.props.age).then(results => {
-            this.setState({ results: results.data })
+            this.setState({ results: results.data, loading: false })
+            
         })
     }
 
@@ -32,24 +31,60 @@ export default class Results extends Component {
     render() {
 
         const { cFirstName } = this.props
-
-        if (this.state.results.length) {
-            const ClassesToRender = this.state.results.map(Class => { return <ClassDetails key={Class._id} id={Class._id} NameOfClass={Class.nameOfClass} schedule={Class.schedule} time={Class.time} next={this.continue} /> }, this)
-            return (
+        if(this.state.loading)
+        {
+            return(
                 <div className="container">
-                    <h2 className="display-4">This are the classes available for {cFirstName}</h2>
-                    <div className="results">
-                        {ClassesToRender}
+                    <div className="text-center">
+                        <ul id="progressbar">
+                            <li> Parent Information</li>
+                            <li>Child's Information</li>
+                            <li className="active">Choose a Class</li>
+                            <li>Pick a time</li>
+                            <li>Confirmation</li>
+                            <li>Submit</li>
+                        </ul>
                     </div>
-                    <button className="btn btn-primary mr-2" onClick={this.previousStep} >Go Back</button>
-
+                    <div className="card">
+                    
+                        <div className="card-body text-center">
+                    <img className="my-auto" src="./loading.gif" />
+                    </div>
+                    </div>
                 </div>
             )
+        }
+        else if (this.state.results.length) {
+            const ClassesToRender = this.state.results.map(Class => { return <ClassDetails key={Class._id} id={Class._id} NameOfClass={Class.nameOfClass} schedule={Class.schedule} time={Class.time} next={this.continue} /> }, this)
+            return <div className="container">
+                <div className="text-center">
+                  <ul id="progressbar">
+                    <li> Parent Information</li>
+                    <li>Child's Information</li>
+                    <li className="active">Choose a Class</li>
+                    <li>Pick a time</li>
+                    <li>Confirmation</li>
+                    <li>Submit</li>
+                  </ul>
+                </div>
+                <div className="card">
+                  <div className="card-body">
+                    <h1 className="display-4">
+                      These are the classes available for{" "}
+                      {cFirstName}
+                    </h1>
+
+                    <div className="results">{ClassesToRender}</div>
+                    <button className="btn btn-primary mr-2 mt-3" onClick={this.previousStep}>
+                      Go Back
+                    </button>
+                  </div>
+                </div>
+              </div>;
         } else {
             return (
                 <div className="container">
                     <h2 className="display-4">Sorry there are no classes available for {cFirstName}'s age at this time.</h2>
-
                     <button className="btn btn-primary mr-2" onClick={this.previousStep} >Go Back</button>
 
                 </div>

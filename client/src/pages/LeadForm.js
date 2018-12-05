@@ -101,23 +101,23 @@ export default class LeadForm extends Component {
                         nameOfClass={this.state.nameOfClass}
                         id={this.state.id}
                         time={this.state.time}
-
-
                     />
                 )
-
             case 5:
                 return (
                     <Confirmation
-                        nameOfClass={this.state.nameOfClass}
-                        schedule={this.state.schedule}
-                        ageGroup={this.state.ageGroup}
-                        cFirstName={this.state.cFirstName}
-                        cellPhone={this.state.cellPhone}
-                        date={this.state.date}
-                        time={this.state.time} />
+                        info={this.state}
+                        nextStep={this.nextStep}
+                        previousStep={this.previousStep}
+                        />
 
                 )
+            case 6:
+                return (
+                    <h1>Done</h1>                       
+
+                )
+
 
             default:
                 return null;

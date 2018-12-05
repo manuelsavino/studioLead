@@ -3,6 +3,11 @@
 .form{
     width: 60%;
     margin: auto;
+    background-color: white;
+}
+
+body{
+    background-color: #6441A5
 }
 
 .container{
@@ -10,7 +15,7 @@
     margin: auto;
 }
 
-@media only screen 
+/* @media only screen 
   and (min-device-width: 320px) 
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
@@ -19,7 +24,7 @@
         width: 90%;
     }
 
-}
+} */
 
 .results{
     display: grid;
@@ -32,7 +37,11 @@
     text-align: center;
     min-height: 200px;
     box-shadow: 0px 2px 5px rgba(0,0,0,.2)
+}
 
+.eachClass:hover{
+    background-color: #009688;
+    color: white;
 
 }
 
@@ -42,13 +51,67 @@
     box-shadow: 0px 2px 5px rgba(0,0,0,.2)
 }
 
-.eachClass:hover{
-    background-color: #009688;
-    color: white;
 
-}
 
 .eachday:hover{
     background-color: #FF5722;
     color: white;
 }
+
+#progressbar {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 16.66%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: white;
+    background: black;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:grey;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #ee0979;
+    color: green;
+}
+
