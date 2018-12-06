@@ -20,7 +20,15 @@ export default class PickATime extends Component {
 
 
     render() {
-        const dates = this.props.schedule.map((day, index) => <EachDay key={index} day={day} id={this.props.id} next={this.continue} />)
+        const dates = this.props.schedule.map((day, index) => (
+          <EachDay
+            key={index}
+            day={day}
+            id={this.props.id}
+            next={this.continue}
+                dayCount={this.props.schedule.length}
+          />
+        ));
         return <div className="container">
             <div className="text-center">
               <ul id="progressbar">
