@@ -1,20 +1,10 @@
 import React, { Component } from 'react'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Typography from '@material-ui/core/Typography';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormLabel from '@material-ui/core/FormLabel';
 import API from '../utils/API'
 
 export default class AddAClass extends Component {
     state = {
         nameOfClass: '',
-        ageGroup: '',
         monday: false,
         tuesday: false,
         wednesday: false,
@@ -22,8 +12,9 @@ export default class AddAClass extends Component {
         friday: false,
         saturday: false,
         sunday: false,
-        time: '',
-        numberOfOpenings: ''
+        time: '17:00',
+        min: 0,
+        max: 0
     }
 
     handleChange = event => {
@@ -36,6 +27,33 @@ export default class AddAClass extends Component {
     handleCheckBoxChange = name => event => {
         this.setState({ [name]: event.target.checked });
     };
+
+    onChange = (event) => {
+        const { name, value } = event.target;
+        const re = /^[0-9\b]+$/;
+        if (value === '' || re.test(event.target.value)) {
+            this.setState({ [name]: value })
+        }
+    }
+
+    dec = (event) => {
+        const { name } = event.target;
+        event.preventDefault()
+        if (this.state.min > 0 || this.state.max > 0) {
+            this.setState(
+                { [name]: this.state[name] - 1 }
+            )
+        }
+    }
+
+    inc = (event) => {
+        const { name } = event.target;
+        event.preventDefault()
+        this.setState(
+            { [name]: this.state[name] + 1 }
+        )
+    }
+
 
     handleFormSubmit = e => {
         e.preventDefault()
@@ -63,18 +81,16 @@ export default class AddAClass extends Component {
         }
 
 
-        const { nameOfClass, numberOfOpenings, time, ageGroup, } = this.state
+        const { nameOfClass, time, min, max } = this.state
         const classData = {
             nameOfClass,
-            numberOfOpenings,
             time,
-            ageGroup,
+            min,
+            max,
             schedule
         }
 
         API.createClass(classData).then(console.log("done"))
-
-
     }
 
 
@@ -82,135 +98,65 @@ export default class AddAClass extends Component {
         return (
             <div>
                 <div className="container">
-                    <Typography component="h2" variant="h2" gutterBottom>
-                        Add a class
-                </Typography>
-                    <TextField
-                        label="Name Of Class"
-                        name="nameOfClass"
-                        onChange={this.handleChange}
-                        // defaultValue={values.pFirstName}
-                        fullWidth
-                        margin="normal"
-                    />
+                    <form>
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Name of Class" name="nameOfClass" onChange={this.handleChange} />
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="monday" value="option1" onChange={this.handleCheckBoxChange('monday')} />
+                            <label className="form-check-label" htmlFor="monday">Monday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="tuesday" value="option2" onChange={this.handleCheckBoxChange('tuesday')} />
+                            <label className="form-check-label" htmlFor="tuesday">Tuesday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="wednesday" value="option1" onChange={this.handleCheckBoxChange('wednesday')} />
+                            <label className="form-check-label" htmlFor="wednesday">Wednesday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="thursday" value="option2" onChange={this.handleCheckBoxChange('thursday')} />
+                            <label className="form-check-label" htmlFor="thursday">Thursday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="friday" value="option1" onChange={this.handleCheckBoxChange('friday')} />
+                            <label className="form-check-label" htmlFor="friday">Friday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="saturday" value="option2" onChange={this.handleCheckBoxChange('saturday')} />
+                            <label className="form-check-label" htmlFor="saturday">Saturday</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="checkbox" id="sunday" value="option2" onChange={this.handleCheckBoxChange('sunday')} />
+                            <label className="form-check-label" htmlFor="sunday">Sunday</label>
+                        </div>
+                        <div className="form-group">
+                            <input type="time" className="form-control" value={this.state.time} name="time" onChange={this.handleChange} />
+                        </div>
 
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel htmlFor="age-simple">Age Group</InputLabel>
-                        <Select
-                            value={this.state.ageGroup}
-                            onChange={this.handleChange}
-                            inputProps={{
-                                name: 'ageGroup',
-                            }}
-                        // style={styles.TextField}
-                        >
-                            <MenuItem value={'3-4'}>3-4</MenuItem>
-                            <MenuItem value={'5-6'}>5-6</MenuItem>
-                            <MenuItem value={'7-9'}>7-9</MenuItem>
-                            <MenuItem value={'10-12'}>10-12</MenuItem>
-                            <MenuItem value={'13-17'}>13-17</MenuItem>
 
-                        </Select>
-                    </FormControl>
-                    <br />
-                    <br />
-                    <FormLabel component="legend">Days</FormLabel>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('monday')}
-                                value="monday"
-                                color="primary"
-                            />
-                        }
-                        label="Monday   "
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('tuesday')}
-                                value="tuesday"
-                                color="primary"
-                            />
-                        }
-                        label="Tuesday"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('wednesday')}
-                                value="wednesday"
-                                color="primary"
-                            />
-                        }
-                        label="Wednesday"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('thursday')}
-                                value="thursday"
-                                color="primary"
-                            />
-                        }
-                        label="Thursday"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('friday')}
-                                value="friday"
-                                color="primary"
-                            />
-                        }
-                        label="Friday"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('saturday')}
-                                value="saturday"
-                                color="primary"
-                            />
-                        }
-                        label="Saturday"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                // checked={this.state.checkedB}
-                                onChange={this.handleCheckBoxChange('sunday')}
-                                value="sunday"
-                                color="primary"
-                            />
-                        }
-                        label="Sunday"
-                    />
-                    <br />
-                    <br />
-                    <FormLabel component="legend">Time</FormLabel>
-                    <TextField
-                        id="time"
-                        type="time"
-                        defaultValue="07:30"
-                        fullWidth
-                        margin="normal"
-                        onChange={this.handleChange}
-                        name="time"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        inputProps={{
-                            step: 300, // 5 min
-                        }}
-                    />
-                    <br />
+                        <div className="input-group mb-3 w-25">
+                            <div className="input-group-prepend">
+                                <button className="btn btn-outline-secondary" name="min" onClick={this.dec}>-</button>
+                            </div>
+                            <input disabled type="text" className="form-control" value={this.state.min} />
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary" name="min" onClick={this.inc}>+</button>
+                            </div>
+                        </div>
+
+                        <div className="input-group mb-3 w-25">
+                            <div className="input-group-prepend">
+                                <button className="btn btn-outline-secondary" name="max" onClick={this.dec}>-</button>
+                            </div>
+                            <input disabled type="text" className="form-control" value={this.state.max} />
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary" name="max" onClick={this.inc}>+</button>
+                            </div>
+                        </div>
+
+                    </form>
+
 
 
                     <Button

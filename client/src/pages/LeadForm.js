@@ -5,6 +5,7 @@ import Results from '../components/Results'
 import PickATime from '../components/pickATime'
 import Confirmation from '../components/Confirmation'
 import API from '../utils/API';
+import './lead.css';
 
 export default class LeadForm extends Component {
     state = {
@@ -13,10 +14,10 @@ export default class LeadForm extends Component {
         pLastName: 'Savino',
         cFirstName: 'Elliana',
         cLastName: 'Lopera',
-        age: '5',
-        cellPhone: '',
-        emailAddress: 'manuelsavino@gmail.com   ',
-        id: 'none',
+        age: '4',
+        cellPhone: '(786)434-5555',
+        emailAddress: 'manuelsavino@gmai.com',
+        id: '',
         nameOfClass: '',
         schedule: '',
         date: '',
@@ -109,12 +110,12 @@ export default class LeadForm extends Component {
                         info={this.state}
                         nextStep={this.nextStep}
                         previousStep={this.previousStep}
-                        />
+                    />
 
                 )
             case 6:
                 return (
-                    <h1>Done</h1>                       
+                    <h1>Done</h1>
 
                 )
 
