@@ -5,7 +5,8 @@ const mongoose = require('mongoose'),
 const classSchema = new Schema({
     nameOfClass: String,
     status: { type: Boolean, default: true },
-    ageGroup: String,
+    min: Number,
+    max: Number,
     schedule: [
         { type: Number }
     ],
