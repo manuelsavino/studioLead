@@ -15,7 +15,7 @@ export default class LeadForm extends Component {
         cFirstName: 'Elliana',
         cLastName: 'Lopera',
         age: '4',
-        cellPhone: '(786)434-5555',
+        parentCellphone: '(786)434-5555',
         emailAddress: 'manuelsavino@gmai.com',
         id: '',
         nameOfClass: '',
@@ -59,13 +59,18 @@ export default class LeadForm extends Component {
         });
     };
 
+    // handleSubmit = event =>{
+    //     const lead = {pFirstName, pLastName, cFirstName, cLastName, cellPhone} = this.state
 
+    //     // API.createLead()
+
+    // }
 
     render() {
 
         const { step } = this.state;
-        const { pFirstName, pLastName, cFirstName, cLastName, cellPhone, age, emailAddress } = this.state
-        const values = { pFirstName, pLastName, cFirstName, cLastName, cellPhone, age, emailAddress }
+        const { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, emailAddress } = this.state;
+        const values = { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, emailAddress };
 
         switch (step) {
             case 1:
@@ -74,7 +79,6 @@ export default class LeadForm extends Component {
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         values={values}
-
                     />
                 )
             case 2:
@@ -110,6 +114,7 @@ export default class LeadForm extends Component {
                         info={this.state}
                         nextStep={this.nextStep}
                         previousStep={this.previousStep}
+                        // handleSubmit={}
                     />
 
                 )

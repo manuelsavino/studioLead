@@ -7,9 +7,9 @@ export default function ClassDetails({ NameOfClass, schedule, time, next, id }) 
     return (
         <div className="card eachClass" onClick={(e) => next(e, NameOfClass, schedule, id, time)}>
             <div className="card-body">
-                <h3 className="display-4 sortaBlack">{NameOfClass}</h3>
-                <h4 className="sortaBlack">{formatSchedule}</h4>
-                <h4 className="sortaBlack">{moment(time, 'HH:mm').format('h:mm A')}</h4>
+                <h3 className="display-4 ">{NameOfClass}</h3>
+                <h4>{formatSchedule}</h4>
+                <h4>{moment(time, 'HH:mm').format('h:mm A')}</h4>
             </div>
         </div>
 

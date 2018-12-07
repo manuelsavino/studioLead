@@ -11,5 +11,10 @@ export default {
 
     getClassesByAge: function (age) {
         return axios.get(`/api/classes/getClassesByAge/${age}`)
-    }
+    },
+
+    createLead: function (leadData) {
+        return axios.post()
+        
+    } 
 }

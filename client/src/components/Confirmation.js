@@ -7,10 +7,13 @@ export default class Confirmation extends Component {
         this.props.nextStep();
 
     }
-
     previousStep = e => {
         e.preventDefault()
         this.props.previousStep();
+    }
+
+    handleSubmit = e => {
+        e.preventDefault()
     }
 
     render() {
