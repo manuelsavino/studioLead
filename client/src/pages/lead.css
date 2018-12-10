@@ -1,6 +1,6 @@
 
 body{
-    background: url('/bg.png') repeat;
+    /* background: url('/bg.png') repeat; */
 }
 
 .sortaBlack{
@@ -34,19 +34,18 @@ body{
     color: #484848;
 }
 
-.test:hover{
-    color: white;
-}
-
 .eachClass:hover{
     background-color: #80CBC4;
     color: white;
 }
 
+
 .eachday{
     border: solid 1px #FF5722;
     text-align: center;
-    box-shadow: 0px 2px 5px rgba(0,0,0,.2)
+    box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+    color: #484848;
+
 }
 
 .eachday:hover{

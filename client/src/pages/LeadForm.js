@@ -16,8 +16,8 @@ export default class LeadForm extends Component {
         cLastName: 'Lopera',
         age: '4',
         parentCellphone: '(786)434-5555',
-        emailAddress: 'manuelsavino@gmai.com',
-        id: '',
+        email: 'manuelsavino@gmai.com',
+        classTrying: '',
         nameOfClass: '',
         schedule: '',
         date: '',
@@ -25,11 +25,11 @@ export default class LeadForm extends Component {
 
     }
 
-    nextStep = (nameOfClass, schedule, id, time, date) => {
+    nextStep = (nameOfClass, schedule, classTrying, time, date) => {
         const { step } = this.state
         nameOfClass = nameOfClass || this.state.nameOfClass
         schedule = schedule || this.state.schedule
-        id = id || this.state.id
+        classTrying = classTrying || this.state.classTrying
         time = time || this.state.time
         date = date || this.state.date
 
@@ -38,7 +38,7 @@ export default class LeadForm extends Component {
             step: step + 1,
             nameOfClass,
             schedule,
-            id,
+            classTrying,
             time,
             date
         })
@@ -59,18 +59,19 @@ export default class LeadForm extends Component {
         });
     };
 
-    // handleSubmit = event =>{
-    //     const lead = {pFirstName, pLastName, cFirstName, cLastName, cellPhone} = this.state
+    handleSubmit = event => {
+        const { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, date, classTrying } = this.state
+        const data = { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, trialDate: date, classTrying }
 
-    //     // API.createLead()
+        API.createLead(data)
 
-    // }
+    }
 
     render() {
 
         const { step } = this.state;
-        const { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, emailAddress } = this.state;
-        const values = { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, emailAddress };
+        const { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, email, classTrying } = this.state;
+        const values = { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, email, classTrying };
 
         switch (step) {
             case 1:
@@ -114,7 +115,7 @@ export default class LeadForm extends Component {
                         info={this.state}
                         nextStep={this.nextStep}
                         previousStep={this.previousStep}
-                        // handleSubmit={}
+                        handleSubmit={this.handleSubmit}
                     />
 
                 )

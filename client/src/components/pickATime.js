@@ -24,7 +24,7 @@ export default class PickATime extends Component {
       <EachDay
         key={index}
         day={day}
-        id={this.props.id}
+        classTrying={this.props.classTrying}
         next={this.continue}
         dayCount={this.props.schedule.length}
       />

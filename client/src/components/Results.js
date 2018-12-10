@@ -19,9 +19,9 @@ export default class Results extends Component {
         })
     }
 
-    continue = (e, nameOfClass, schedule, id, time) => {
+    continue = (e, nameOfClass, schedule, classTrying, time) => {
         e.preventDefault()
-        this.props.nextStep(nameOfClass, schedule, id, time);
+        this.props.nextStep(nameOfClass, schedule, classTrying, time);
     }
     previousStep = e => {
         e.preventDefault()
@@ -53,7 +53,7 @@ export default class Results extends Component {
             )
         }
         else if (this.state.results.length) {
-            const ClassesToRender = this.state.results.map(Class => { return <ClassDetails key={Class._id} id={Class._id} NameOfClass={Class.nameOfClass} schedule={Class.schedule} time={Class.time} next={this.continue} /> }, this)
+            const ClassesToRender = this.state.results.map(Class => { return <ClassDetails key={Class._id} classTrying={Class._id} NameOfClass={Class.nameOfClass} schedule={Class.schedule} time={Class.time} next={this.continue} /> }, this)
             return <div className="container">
                 <div className="text-center">
                     <ul id="progressbar">

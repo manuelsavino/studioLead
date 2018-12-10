@@ -13,8 +13,8 @@ export default class AddAClass extends Component {
         saturday: false,
         sunday: false,
         time: '17:00',
-        min: 0,
-        max: 0
+        min: 1,
+        max: 1
     }
 
     handleChange = event => {
@@ -39,7 +39,7 @@ export default class AddAClass extends Component {
     dec = (event) => {
         const { name } = event.target;
         event.preventDefault()
-        if (this.state.min > 0 || this.state.max > 0) {
+        if (this.state.min > 0 && this.state.max > 0) {
             this.setState(
                 { [name]: this.state[name] - 1 }
             )

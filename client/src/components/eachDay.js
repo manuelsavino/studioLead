@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-export default function EachDay({ id, day, next, dayCount }) {
+export default function EachDay({ id, day, next }) {
 
     let days = []
     let count = 0;
@@ -13,7 +13,7 @@ export default function EachDay({ id, day, next, dayCount }) {
         let date = moment().day(day + i).format('MM/DD/YYYY')
         days.push(
             <div key={Math.random()} onClick={(e) => next(e, date, date, date, date, date)} className="eachday mb-2">
-                <h5 className="py-3 sortaBlack">
+                <h5 className="py-3">
                     {moment().day(day + i).format('dddd, MMMM Do YYYY')}
                 </h5>
             </div>)

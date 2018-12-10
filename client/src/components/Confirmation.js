@@ -4,6 +4,7 @@ import moment from 'moment'
 export default class Confirmation extends Component {
     continue = e => {
         e.preventDefault()
+        this.props.handleSubmit();
         this.props.nextStep();
 
     }
@@ -12,9 +13,7 @@ export default class Confirmation extends Component {
         this.props.previousStep();
     }
 
-    handleSubmit = e => {
-        e.preventDefault()
-    }
+
 
     render() {
         return <div className="container">

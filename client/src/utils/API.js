@@ -13,8 +13,12 @@ export default {
         return axios.get(`/api/classes/getClassesByAge/${age}`)
     },
 
-    createLead: function (leadData) {
-        return axios.post()
-        
-    } 
+    createLead: function (data) {
+        return axios.post('/api/leads/createLead', data)
+
+    },
+
+    getLeads: function () {
+        return axios.get('/api/leads/')
+    }
 }
