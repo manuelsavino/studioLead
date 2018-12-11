@@ -18,7 +18,6 @@ export default class Results extends Component {
 
         })
     }
-
     continue = (e, nameOfClass, schedule, classTrying, time) => {
         e.preventDefault()
         this.props.nextStep(nameOfClass, schedule, classTrying, time);
@@ -68,7 +67,7 @@ export default class Results extends Component {
                 <div className="card">
                     <div className="card-body">
                         <h1 className="display-4 sortaBlack">
-                            These are the classes available for {cFirstName}
+                            These are the classes available
                         </h1>
                         <p className="text-muted">Click on a class to continue</p>
 
@@ -82,8 +81,22 @@ export default class Results extends Component {
         } else {
             return (
                 <div className="container">
-                    <h2 className="display-4">Sorry there are no classes available for {cFirstName}'s age at this time.</h2>
-                    <button className="btn btn-danger mr-2" onClick={this.previousStep} >Go Back</button>
+                    <div className="text-center">
+                        <ul id="progressbar">
+                            <li> Parent Information</li>
+                            <li>Child's Information</li>
+                            <li className="active">Choose a Class</li>
+                            <li>Pick a date</li>
+                            <li>Confirm</li>
+                            <li>Done</li>
+                        </ul>
+                    </div>
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="display-4">Sorry there are no classes available for {cFirstName}'s age at this time.</h2>
+                            <button className="btn btn-danger mr-2" onClick={this.previousStep} >Go Back</button>
+                        </div>
+                    </div>
 
                 </div>
             )

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import API from '../utils/API'
 import DisplayLead from '../components/displayLead'
+import './lead.css';
+
 
 export default class Admin extends Component {
     constructor() {
@@ -25,11 +27,11 @@ export default class Admin extends Component {
             <Fragment>
                 <Navbar />
                 <div className="container">
-                    <h2> Admin Page</h2>
-                    <Link to={'/addAClass'}><h3>Add a class </h3></Link>
+                    <h2 className="display-4">Admin Page</h2>
                     <table className="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">Status</th>
                                 <th scope="col">Student First Name</th>
                                 <th scope="col">Student Last Name</th>
                                 <th scope="col">Parent First Name</th>

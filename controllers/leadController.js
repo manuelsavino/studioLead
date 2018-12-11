@@ -10,6 +10,7 @@ module.exports = {
     },
 
     getAllLeads(req, res) {
+        // db.Lead.sendNotification();
         db.Lead.find({}).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).sort({ 'trialDate': 1 }).exec((err, resp) => {
             if (err) {
                 console.log(err)
@@ -17,6 +18,20 @@ module.exports = {
                 res.json(resp)
             }
         })
+    },
+
+    handleSmsIn(req, res) {
+        let { From, Body } = req.body
+
+        record.create({ from: From, body: Body }, function (err, resp) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log(resp)
+            }
+        })
+        res.send(`<Response></Response>`)
     }
 
 

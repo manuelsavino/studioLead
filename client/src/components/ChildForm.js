@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
+import ClassDetails from './ClassDetails'
+import API from '../utils/API';
+
 class ChildForm extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            results: [],
+            loading: true
+        }
+    }
 
     continue = e => {
         e.preventDefault()
@@ -14,9 +24,16 @@ class ChildForm extends Component {
         this.props.previousStep();
     }
 
+    getClasses = event => {
+        this.props.handleChange(event)
+        API.getClassesByAge(this.props.values.age).then(results => {
+            this.setState({ results: results.data, loading: false })
+        })
+    }
+
 
     render() {
-        const { values, handleChange } = this.props;
+        const { values } = this.props;
         return <div className="container">
             <div className="text-center">
                 <ul id="progressbar">
@@ -31,20 +48,12 @@ class ChildForm extends Component {
             <div className="card">
                 <div className="card-body">
                     <h2 className="display-4 sortaBlack">
-                        Future Dancer's Information
+                        Future Dancer's Age
                 </h2>
-                    <p className="text-muted">Future dancer's as in the child</p>
-
-                    <form className="needs-validation">
+                    <p className="text-muted">How old is your child</p>
+                    <form>
                         <div className="form-group">
-                            <input required type="text" className="form-control" name="cFirstName" value={values.cFirstName} onChange={handleChange} placeholder="Child's First Name" />
-                        </div>
-                        <div className="form-group">
-                            <input required type="text" className="form-control" name="cLastName" value={values.cLastName} onChange={handleChange} placeholder="Child's Last Name" />
-                        </div>
-
-                        <div className="form-group">
-                            <select name="age" onChange={handleChange} className="form-control custom-select" value={values.age}>
+                            <select name="age" onChange={this.getClasses} className="form-control custom-select" value={values.age}>
                                 <option value="">Child's Age</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
@@ -62,19 +71,18 @@ class ChildForm extends Component {
                                 <option value="16">16</option>
                                 <option value="17">17</option>
                             </select>
-                            <div className="invalid-feedback">
-                                Example invalid custom select feedback
-                    </div>
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-danger mr-2" onClick={this.previousStep}>
-                                <i class="fas fa-arrow-left"></i> Go Back
-                    </button>
                             <button className="btn btn-success" type="submit" onClick={this.continue}>
                                 Continue <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
                     </form>
+                    {(!this.props.values.age ? <span></span>
+                        : <div className="results">
+                            {this.state.results.map(Class => { return <ClassDetails key={Class._id} classTrying={Class._id} NameOfClass={Class.nameOfClass} schedule={Class.schedule} time={Class.time} next={this.continue} /> }, this)}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>;

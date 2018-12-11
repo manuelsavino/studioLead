@@ -16,8 +16,8 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={LeadForm} />
+          <Route exact path="/admin/addAClass" component={AddAClass} />
           <Route path="/admin" component={Admin} />
-          <Route path="/addAClass" component={AddAClass} />
         </Switch>
       </Router>
     );

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Button from '@material-ui/core/Button';
-import API from '../utils/API'
+import React, { Component, Fragment } from 'react';
+import Navbar from '../components/Navbar';
+import API from '../utils/API';
 
 export default class AddAClass extends Component {
     state = {
@@ -96,8 +96,10 @@ export default class AddAClass extends Component {
 
     render() {
         return (
-            <div>
+            <Fragment>
+                <Navbar />
                 <div className="container">
+                    <h2 className="display-4">Add a class</h2>
                     <form>
                         <div className="form-group">
                             <input type="text" className="form-control" placeholder="Name of Class" name="nameOfClass" onChange={this.handleChange} />
@@ -154,20 +156,11 @@ export default class AddAClass extends Component {
                                 <button className="btn btn-outline-secondary" name="max" onClick={this.inc}>+</button>
                             </div>
                         </div>
-
+                        <button className="btn btn-primary" onClick={this.handleFormSubmit}>Submit</button>
                     </form>
 
-
-
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={this.handleFormSubmit}
-                        margin="normal">
-                        Continue
-                </Button>
                 </div >
-            </div>
+            </Fragment>
         )
     }
 }

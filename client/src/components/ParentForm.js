@@ -7,6 +7,11 @@ class ParentForm extends Component {
     this.props.nextStep();
   }
 
+  previousStep = e => {
+    e.preventDefault()
+    this.props.previousStep();
+  }
+
   render() {
 
     const { values, handleChange } = this.props;
@@ -43,7 +48,19 @@ class ParentForm extends Component {
           <div className="form-group">
             <input type="email" name="email" onChange={handleChange} className="form-control" placeholder="Parent Email Address" value={values.email} />
           </div>
+          <p className="text-muted">
+            Who will be trying our class?
+            </p>
           <div className="form-group">
+            <input required type="text" className="form-control" name="cFirstName" value={values.cFirstName} onChange={handleChange} placeholder="Child's First Name" />
+          </div>
+          <div className="form-group">
+            <input required type="text" className="form-control" name="cLastName" value={values.cLastName} onChange={handleChange} placeholder="Child's Last Name" />
+          </div>
+          <div className="form-group">
+            <button className="btn btn-danger mr-2" onClick={this.previousStep}>
+              <i class="fas fa-arrow-left"></i> Go Back
+                    </button>
             <button className="btn btn-success" onClick={this.continue}>
               Continue <i class="fas fa-arrow-right" />
             </button>

@@ -5,7 +5,14 @@ import moment from 'moment'
 export default function DisplayLead({ data }) {
     return (
         <tr>
-            <th scope="row">{data.cFirstName}</th>
+            {console.log(data)}
+            {(data.confirmed
+                ?
+                (<td className="text-center"><i className="fas fa-lg fa-grin-beam text-warning"></i></td>)
+                : (data.sms ? (<td className="text-center"><i className="fas fa-lg fa-comment-alt text-success"></i></td>)
+                    : (<td className="text-center"><i className="fas fa-lg fa-calendar text-primary"></i></td>))
+            )}
+            <td>{data.cFirstName}</td>
             <td>{data.cLastName}</td>
             <td>{data.pFirstName}</td>
             <td>{data.pLastName}</td>

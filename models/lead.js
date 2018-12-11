@@ -20,24 +20,30 @@ const LeadSchema = new Schema({
     },
     triedClass: { type: Boolean, default: false },
     trialDate: String,
-    signedUp: { type: Boolean, default: false }
+    signedUp: { type: Boolean, default: false },
+    sms: { type: Boolean, default: false },
+    confirmed: { type: Boolean, default: false },
+    messages: [{
+        type: Object
+    }]
+
 })
 
 
 LeadSchema.statics.sendNotification = () => {
     const tomorrow = moment().add(1, 'day').format('MM/DD/YYYY');
-    Lead.find({ trialDate: tomorrow }).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).exec((err, result) => {
+    Lead.find({ trialDate: tomorrow }).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).exec((err, leads) => {
         // res.json(result)
         // console.log(result)
-        if (result.length > 0) {
-            sendNotification(result)
-
+        if (leads.length > 0) {
+            sendNotification(leads)
         }
     })
 
-    function sendNotification(result) {
+    function sendNotification(leads) {
         const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-        result.forEach(function (lead) {
+        leads.forEach(function (lead) {
+
             const options = {
                 to: `+1${lead.parentCellphone}`,
                 from: process.env.TWILIO_PHONE_NUMBER,
@@ -49,7 +55,13 @@ LeadSchema.statics.sendNotification = () => {
                     console.log(err)
                 }
                 else {
-                    console.log(`messaged sent to ${lead.parentCellphone}`)
+                    // console.log(`messaged sent to ${lead.parentCellphone}`)
+                    if (response) {
+                        console.log('id:', lead._id)
+                        Lead.findOneAndUpdate({ _id: lead._id }, { $set: { 'sms': true } }).then(results => {
+                            console.log(results)
+                        })
+                    }
                 }
             })
         })

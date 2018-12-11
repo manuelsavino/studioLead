@@ -14,7 +14,7 @@ export default class LeadForm extends Component {
         pLastName: 'Savino',
         cFirstName: 'Elliana',
         cLastName: 'Lopera',
-        age: '4',
+        age: '',
         parentCellphone: '(786)434-5555',
         email: 'manuelsavino@gmai.com',
         classTrying: '',
@@ -23,6 +23,13 @@ export default class LeadForm extends Component {
         date: '',
         time: ''
 
+    }
+
+    getClasses = () => {
+        API.getClassesByAge(this.props.age).then(results => {
+            this.setState({ results: results.data, loading: false })
+
+        })
     }
 
     nextStep = (nameOfClass, schedule, classTrying, time, date) => {
@@ -62,34 +69,24 @@ export default class LeadForm extends Component {
     handleSubmit = event => {
         const { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, date, classTrying } = this.state
         const data = { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, trialDate: date, classTrying }
-
         API.createLead(data)
 
     }
 
     render() {
-
         const { step } = this.state;
         const { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, email, classTrying } = this.state;
         const values = { pFirstName, pLastName, cFirstName, cLastName, parentCellphone, age, email, classTrying };
 
         switch (step) {
             case 1:
-                return (
-                    <ParentForm
-                        nextStep={this.nextStep}
-                        handleChange={this.handleChange}
-                        values={values}
-                    />
-                )
-            case 2:
                 return <ChildForm
                     nextStep={this.nextStep}
                     previousStep={this.previousStep}
                     handleChange={this.handleChange}
                     values={values}
                 />
-            case 3:
+            case 2:
                 return (
                     <Results
                         cFirstName={this.state.cFirstName}
@@ -97,8 +94,7 @@ export default class LeadForm extends Component {
                         age={this.state.age}
                         previousStep={this.previousStep} />
                 )
-
-            case 4:
+            case 3:
                 return (
                     <PickATime
                         nextStep={this.nextStep}
@@ -109,6 +105,15 @@ export default class LeadForm extends Component {
                         time={this.state.time}
                     />
                 )
+
+            case 4:
+                return <ParentForm
+                    nextStep={this.nextStep}
+                    previousStep={this.previousStep}
+                    handleChange={this.handleChange}
+                    values={values}
+                />
+
             case 5:
                 return (
                     <Confirmation
