@@ -59,7 +59,7 @@ class ParentForm extends Component {
           </div>
           <div className="form-group">
             <button className="btn btn-danger mr-2" onClick={this.previousStep}>
-              <i class="fas fa-arrow-left"></i> Go Back
+              <i className="fas fa-arrow-left"></i> Go Back
                     </button>
             <button className="btn btn-success" onClick={this.continue}>
               Continue <i class="fas fa-arrow-right" />

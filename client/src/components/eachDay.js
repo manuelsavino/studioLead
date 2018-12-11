@@ -9,7 +9,7 @@ export default function EachDay({ id, day, next }) {
 
     (day <= moment().day()) ? count = 7 : count = 0;
     for (var i = count; i < 15; i += 7) {
-        console.log(moment().day(day).format('dddd'), i)
+        // console.log(moment().day(day).format('dddd'), i)
         let date = moment().day(day + i).format('MM/DD/YYYY')
         days.push(
             <div key={Math.random()} onClick={(e) => next(e, date, date, date, date, date)} className="eachday mb-2">

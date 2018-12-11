@@ -51,7 +51,7 @@ export default class PickATime extends Component {
           <div className="results">{dates}</div>
 
           <button className="btn btn-danger mr-2 mt-2" onClick={this.previousStep}>
-            <i class="fas fa-arrow-left"></i> Go Back
+            <i className="fas fa-arrow-left"></i> Go Back
                 </button>
         </div>
       </div>

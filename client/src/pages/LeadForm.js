@@ -88,14 +88,6 @@ export default class LeadForm extends Component {
                 />
             case 2:
                 return (
-                    <Results
-                        cFirstName={this.state.cFirstName}
-                        nextStep={this.nextStep}
-                        age={this.state.age}
-                        previousStep={this.previousStep} />
-                )
-            case 3:
-                return (
                     <PickATime
                         nextStep={this.nextStep}
                         previousStep={this.previousStep}
@@ -105,16 +97,17 @@ export default class LeadForm extends Component {
                         time={this.state.time}
                     />
                 )
-
-            case 4:
+                
+            case 3:
                 return <ParentForm
                     nextStep={this.nextStep}
                     previousStep={this.previousStep}
                     handleChange={this.handleChange}
                     values={values}
                 />
+                
 
-            case 5:
+            case 4:
                 return (
                     <Confirmation
                         info={this.state}
@@ -124,13 +117,8 @@ export default class LeadForm extends Component {
                     />
 
                 )
-            case 6:
-                return (
-                    <h1>Done</h1>
-
-                )
-
-
+            case 5:
+                return <h1>Done</h1>;
             default:
                 return null;
         }

@@ -40,8 +40,8 @@ export default class Confirmation extends Component {
 
                             <h4>Child's Name: <span className="text-muted">{this.props.info.cFirstName}  {this.props.info.cLastName}</span></h4>
                             <h4>Parent's Name: <span className="text-muted">{this.props.info.pFirstName}  {this.props.info.pLastName}</span></h4>
-                            <h4>Cell Phone:<span className="text-muted"> {this.props.info.cellPhone}</span></h4>
-                            <h4>Email:<span className="text-muted"> {this.props.info.emailAddress}</span></h4>
+                            <h4>Cell Phone:<span className="text-muted"> {this.props.info.parentCellphone}</span></h4>
+                            <h4>Email:<span className="text-muted"> {this.props.info.email}</span></h4>
                         </div>
                     </div>
                     <div className="card w-50 mt-2">
