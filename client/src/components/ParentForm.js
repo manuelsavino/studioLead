@@ -19,10 +19,9 @@ class ParentForm extends Component {
     return <div className="container">
       <div className="text-center">
         <ul id="progressbar">
-          <li className="active"> Parent Info</li>
-          <li>Child's Info</li>
-          <li>Choose a Class</li>
+          <li> Choose a class</li>
           <li>Pick a date</li>
+          <li className="active">Information</li>
           <li>Confirm</li>
           <li>Done</li>
         </ul>

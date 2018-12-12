@@ -32,10 +32,9 @@ export default class PickATime extends Component {
     return <div className="container">
       <div className="text-center">
         <ul id="progressbar">
-          <li> Parent Information</li>
-          <li>Child's Information</li>
-          <li>Choose a Class</li>
+          <li> Choose a class</li>
           <li className="active">Pick a date</li>
+          <li>Information</li>
           <li>Confirm</li>
           <li>Done</li>
         </ul>
@@ -46,7 +45,7 @@ export default class PickATime extends Component {
           <h2 className="display-4 sortaBlack">
             {this.props.nameOfClass} at {moment(this.props.time, "HH:mm").format("h:mm A")}
           </h2>
-          <p className="text-muted">Click on date continue</p>
+          <p className="text-muted">Click on date you would like to try the class to continue</p>
 
           <div className="results">{dates}</div>
 

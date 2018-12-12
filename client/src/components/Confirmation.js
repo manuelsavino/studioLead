@@ -19,10 +19,9 @@ export default class Confirmation extends Component {
         return <div className="container">
             <div className="text-center">
                 <ul id="progressbar">
-                    <li> Parent Information</li>
-                    <li>Child's Information</li>
-                    <li>Choose a Class</li>
+                    <li> Choose a class</li>
                     <li>Pick a date</li>
+                    <li>Information</li>
                     <li className="active">Confirm</li>
                     <li>Done</li>
                 </ul>
