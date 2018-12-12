@@ -49,7 +49,7 @@ export default class Confirmation extends Component {
                             <h4>Class: <span className="text-muted">{this.props.info.nameOfClass}</span></h4>
                             <h4>
                                 Trial Date:
-                                <span className="text-muted">{moment(this.props.info.date, "MM/DD/YYYY").format("dddd, MMMM Do YYYY")}</span>
+                                <span className="text-muted"> {moment(this.props.info.date, "MM/DD/YYYY").format("dddd, MMMM Do YYYY")}</span>
                             </h4>
                             <h4>Time: <span className="text-muted">{moment(this.props.info.time, "HH:mm").format("h:mm A")}</span></h4>
                         </div>

@@ -20,5 +20,9 @@ export default {
 
     getLeads: function () {
         return axios.get('/api/leads/')
-    }
+    },
+
+    getOneLead: function (id) {
+        return axios.get(`/api/leads/${id}`)
+    },
 }

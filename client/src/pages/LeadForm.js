@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ParentForm from '../components/ParentForm'
 import ChildForm from '../components/ChildForm'
-import Results from '../components/Results'
 import PickATime from '../components/pickATime'
 import Confirmation from '../components/Confirmation'
 import API from '../utils/API';

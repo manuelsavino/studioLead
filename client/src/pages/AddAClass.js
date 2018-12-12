@@ -40,6 +40,11 @@ export default class AddAClass extends Component {
         const { name } = event.target;
         event.preventDefault()
         if (this.state.min > 0 && this.state.max > 0) {
+            if (this.state.max  <= this.state.min) {
+                this.setState(
+                    { [name]: this.state[name] + 1, min: this.state.min -1 }
+                )
+            }
             this.setState(
                 { [name]: this.state[name] - 1 }
             )
@@ -49,6 +54,12 @@ export default class AddAClass extends Component {
     inc = (event) => {
         const { name } = event.target;
         event.preventDefault()
+        if(this.state.min + 1 >= this.state.max)
+        {
+            this.setState(
+                { [name]: this.state[name] + 1, max: this.state.min +2 }
+            )
+        }
         this.setState(
             { [name]: this.state[name] + 1 }
         )
@@ -99,11 +110,16 @@ export default class AddAClass extends Component {
             <Fragment>
                 <Navbar />
                 <div className="container">
+                <div className="card">
+                        <div className="card-body">
+
                     <h2 className="display-4">Add a class</h2>
                     <form>
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Name of Class" name="nameOfClass" onChange={this.handleChange} />
+                            <input type="text" className="form-control" placeholder="Name of Class" maxLength="20" name="nameOfClass" onChange={this.handleChange} />
                         </div>
+                                <label className="d-block">Days</label>
+
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="checkbox" id="monday" value="option1" onChange={this.handleCheckBoxChange('monday')} />
                             <label className="form-check-label" htmlFor="monday">Monday</label>
@@ -133,31 +149,49 @@ export default class AddAClass extends Component {
                             <label className="form-check-label" htmlFor="sunday">Sunday</label>
                         </div>
                         <div className="form-group">
+                                    <label>Time</label>
                             <input type="time" className="form-control" value={this.state.time} name="time" onChange={this.handleChange} />
                         </div>
 
+                        <div className="row">
+                        <div className="col-md-6 col-sm-12">
+                        <div className="input-group mb-3 mr-2 ">
+                            <label>Minimum Age:</label>
 
-                        <div className="input-group mb-3 w-25">
-                            <div className="input-group-prepend">
+                            <div className="input-group-prepend ml-2 ">
                                 <button className="btn btn-outline-secondary" name="min" onClick={this.dec}>-</button>
                             </div>
-                            <input disabled type="text" className="form-control" value={this.state.min} />
+
+                            <input type="text" className="form-control" value={this.state.min} />
+
                             <div className="input-group-append">
                                 <button className="btn btn-outline-secondary" name="min" onClick={this.inc}>+</button>
                             </div>
-                        </div>
 
-                        <div className="input-group mb-3 w-25">
-                            <div className="input-group-prepend">
+                        </div>
+                        </div>
+                        <div className="col-md-6 col-sm-12">
+
+                        <div className="input-group mb-3 ">
+                            <label>Maximum Age:</label>
+
+                            <div className="input-group-prepend ml-2">
                                 <button className="btn btn-outline-secondary" name="max" onClick={this.dec}>-</button>
                             </div>
-                            <input disabled type="text" className="form-control" value={this.state.max} />
+
+                            <input type="text" className="form-control" value={this.state.max} />
+
                             <div className="input-group-append">
                                 <button className="btn btn-outline-secondary" name="max" onClick={this.inc}>+</button>
                             </div>
                         </div>
+                        </div>
+                        </div>
+                    
                         <button className="btn btn-primary" onClick={this.handleFormSubmit}>Submit</button>
                     </form>
+                    </div>
+                    </div>
 
                 </div >
             </Fragment>

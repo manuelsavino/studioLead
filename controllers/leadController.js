@@ -20,6 +20,17 @@ module.exports = {
         })
     },
 
+    getOneLeadById(req, res)
+    {
+
+        const { id } = req.params;
+        console.log(id)
+        db.Lead.find({_id: id}).then(resp => {
+            res.json(resp)
+        })
+
+    },
+
     handleSmsIn(req, res) {
         let { From, Body } = req.body
 
