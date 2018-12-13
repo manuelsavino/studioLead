@@ -20,13 +20,17 @@ module.exports = {
         })
     },
 
-    getOneLeadById(req, res)
-    {
+    getOneLeadById(req, res) {
 
         const { id } = req.params;
         console.log(id)
-        db.Lead.find({_id: id}).then(resp => {
-            res.json(resp)
+        db.Lead.find({ _id: id }).populate('classTrying').populate('messages').exec((err, resp) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.json(resp)
+            }
         })
 
     },

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 const moment = require('moment');
+const message = require('./messages')
 
 const Twilio = require('twilio');
 
@@ -24,7 +25,8 @@ const LeadSchema = new Schema({
     sms: { type: Boolean, default: false },
     confirmed: { type: Boolean, default: false },
     messages: [{
-        type: Object
+        type: String,
+        ref: 'Message'
     }]
 
 })
@@ -58,9 +60,13 @@ LeadSchema.statics.sendNotification = () => {
                     // console.log(`messaged sent to ${lead.parentCellphone}`)
                     if (response) {
                         console.log('id:', lead._id)
-                        Lead.findOneAndUpdate({ _id: lead._id }, { $set: { 'sms': true } }).then(results => {
-                            console.log(results)
-                        })
+
+                        message.create({ from: options.from, to: lead.parentCellphone, body: options.body }).then
+                            (results => {
+                                Lead.findOneAndUpdate({ _id: lead._id }, { $set: { 'sms': true }, $push: { messages: results._id } }).then(results => { })
+                            }
+                            )
+
                     }
                 }
             })
