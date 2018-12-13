@@ -12,42 +12,71 @@ export default class LeadView extends Component {
     constructor() {
         super()
         this.state = {
-            result: ''
+            result: '',
+            message: ''
         }
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         const { id } = this.props.match.params
         API.getOneLead(id).then(result => {
             if (result.data.length) {
                 this.setState({ result: result.data[0] })
             }
-
         }
         )
     }
 
+
+
+    handleChange = (event) => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
+     handleSend =  () => {
+         const { parentCellphone, _id } = this.state.result
+        const messageData = {
+            to: parentCellphone,
+            body: this.state.message,
+            id: _id
+        }
+
+         API.sendSms(messageData).then(resp => {
+             setTimeout(() => {
+                 this.setState({ message: '' })
+                 this.componentDidMount()
+             }, 1000);
+             
+         })
+         
+         }
+     
+
     render() {
 
         const values = this.state.result
-        console.log(typeof values);
         if (this.state.result !== '') {
             const formatSchedule = values.classTrying.schedule.map(day => moment().day(day).format('ddd '))
-            // if (values.messages.length > 0) {
-            //     const messages = values.messages.map(message => { return <MessageBubble data={message} /> })
-            // }
+            if (values.messages.length > 0) {
+                const messages = values.messages.map(message => { return <MessageBubble data={message} /> })
+            }
             let messages = []
-            values.messages.length > 1 ? messages = values.messages.map(message => { return <MessageBubble data={message} /> }) : messages = [];
+            values.messages.length > 0 ? messages = values.messages.map(message => { return <MessageBubble key={message._id} data={message} /> }) : messages = [];
 
             return (
                 <Fragment>
                     <NavBar />
-                    {console.log(values)}
                     <div className="container mt-2">
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="card">
-                                    <div className="card-header  text-uppercase bg-dark pt-3 text-white"><h4>Contact Information</h4></div>
+                                    <div className="card-header d-flex  justify-content-between bg-dark pt-3 text-white">
+                                        <h4 className="text-uppercase">Contact Information <i className="fas fa-info"></i></h4>
+                                        <h5><i className="fas fa-pencil-alt"></i> Edit </h5>
+                                    </div>
                                     <div className="card-body">
                                         <table className="table w-100">
                                             <tbody>
@@ -79,7 +108,7 @@ export default class LeadView extends Component {
                             </div>
                             <div className="col-md-6">
                                 <div className="card">
-                                    <div className="card-header  text-uppercase bg-dark pt-3 text-white"><h4>Class Trying</h4></div>
+                                    <div className="card-header  text-uppercase bg-dark pt-3 text-white"><h4>Class Trying <i className="fas fa-vial"></i></h4></div>
                                     <div className="card-body">
                                         <table className="table w-100">
                                             <tbody>
@@ -109,38 +138,27 @@ export default class LeadView extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12 mt-4">
+                            <div className="col-md-6 mt-4">
                                 <div className="card">
-                                    <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white"><h4>Messages</h4><button className="btn btn-success">Send a message</button></div>
+                                    <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white"><h4>Messages <i className="fas fa-sms"></i></h4></div>
                                     <div className="card-body">
-                                        {/* <div className="d-flex flex-row-reverse">
-                                            <div className="message bg-primary mb-2 p-1 d-flex justify-content-between">
-                                                <p className="pt-3 text-white ml-3">Hello Manuel, Just a reminder your free trial class for Elliana is tomorrow at 5:30PM</p>
-                                                <i class="fas fa-user p-4 rounded-circle bg-dark text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div className="message bg-success  p-1 mb-2 d-flex justify-content-between">
-                                            <i class="fas fa-user p-4 rounded-circle bg-dark text-white"></i>
-                                            <p className="pt-3 mr-3 text-white">Ok, Great. Thank you!</p>
-                                        </div>
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="message bg-primary p-1 d-flex justify-content-between">
-                                                <p className="pt-3 text-white ml-3"> You're welcome. See you here!</p>
-                                                <i class="fas fa-user p-4 rounded-circle bg-dark text-white"></i>
-                                            </div>
-                                        </div> */}
                                         {messages}
-
                                     </div>
-                                    <div className="card-footer bg-transparent">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Message" aria-label="Recipient's username" aria-describedby="button-addon2" />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-success" type="button" id="button-addon2">Send</button>
+                                    <div className="card-footer p-1 bg-transparent">
+                                        <div className="input-group input-group-lg">
+                                            <input type="text" className="form-control" name="message" placeholder="Message" value={this.state.message} maxLength="140" onChange={this.handleChange} />
+                                            <div className="input-group-append">
+                                                <button className="btn btn-success" onClick={this.handleSend} type="button" id="button-addon2">Send</button>
                                             </div>
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div className="col-md-6 mt-4">
+                                <div className="card">
+                                    <div className="card-header text-uppercase bg-dark pt-3 text-white"><h4>Actions <i className="fas fa-toggle-on"></i></h4></div>
+                                    <div className="card-body"></div>
                                 </div>
                             </div>
                         </div>

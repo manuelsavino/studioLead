@@ -66,7 +66,9 @@ export default class LeadForm extends Component {
     };
 
     handleSubmit = event => {
-        const { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, date, classTrying } = this.state
+        let { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, date, classTrying } = this.state
+        let re = /\D/g;
+        parentCellphone = '+1'+parentCellphone.replace(re,'');
         const data = { pFirstName, pLastName, cFirstName, cLastName, email, parentCellphone, age, trialDate: date, classTrying }
         API.createLead(data)
 

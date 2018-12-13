@@ -1,6 +1,48 @@
 .message{
     width: 75%;   
-    border-radius: 50px; 
+    border-radius: 25px; 
+}
+
+.speech-bubble-out {
+	position: relative;
+    border-radius: .4em;
+    width: 75%;   
+    
+}
+
+.speech-bubble-out:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.344em solid transparent;
+	border-left-color: #00aabb;
+	border-right: 0;
+	margin-top: -0.344em;
+	margin-right: -0.344em;
+}
+
+.speech-bubble-in {
+	position: relative;
+    border-radius: .4em;
+    width: 75%;   
+    
+}
+
+.speech-bubble-in:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.344em solid transparent;
+	border-right-color: #00aabb;
+	border-left: 0;
+	margin-top: -0.344em;
+	margin-left: -0.344em;
 }
 
 /* Smartphones (portrait and landscape) ----------- */

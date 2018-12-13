@@ -23,7 +23,6 @@ module.exports = {
     getOneLeadById(req, res) {
 
         const { id } = req.params;
-        console.log(id)
         db.Lead.find({ _id: id }).populate('classTrying').populate('messages').exec((err, resp) => {
             if (err) {
                 console.log(err)

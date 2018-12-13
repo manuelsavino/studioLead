@@ -25,11 +25,6 @@ module.exports = {
             }
             res.json(Class)
         })
-    },
-
-    createLead(req, res) {
-
     }
-
 
 }

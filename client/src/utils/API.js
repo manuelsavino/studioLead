@@ -25,4 +25,18 @@ export default {
     getOneLead: function (id) {
         return axios.get(`/api/leads/${id}`)
     },
+
+    sendSms: async function (messageData)
+    {
+
+        axios.post("/api/sms/out", messageData).then(resp=>{
+           
+       })
+
+
+    }
+    
+    
+        
+    
 }
