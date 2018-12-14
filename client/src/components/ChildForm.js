@@ -42,6 +42,7 @@ class ChildForm extends Component {
         const filteredClasses = this.state.results.filter(Class => {
             return this.state.age >= Class.min && this.state.age <= Class.max;
         }, this)
+
         const { values } = this.props;
         return <div className="container">
             <div className="text-center">
@@ -88,7 +89,7 @@ class ChildForm extends Component {
                     </div>
                             <div className="col">
                       <div className="form-group">
-                        <select name="age" className="form-control custom-select" disabled>
+                        <select name="age" className="form-control custom-select" disabled={!this.state.age}>
                           <option value="">Style</option>
                           <option value="3">Acrop</option>
                           <option value="4">Ballet</option>
@@ -106,7 +107,7 @@ class ChildForm extends Component {
                     </div>
                             <div className="col">
                       <div className="form-group">
-                        <select name="days" onChange={this.handleChange} className={!this.state.age ? "form-control custom-select disabled" : "form-control custom-select"} value={this.state.days}>
+                        <select name="days" disabled={!this.state.age} onChange={this.handleChange} className={!this.state.age ? "form-control custom-select disabled" : "form-control custom-select"} value={this.state.days}>
                           <option value="">Days</option>
                           <option value="1">Monday</option>
                           <option value="2">Tuesday</option>
@@ -126,32 +127,51 @@ class ChildForm extends Component {
                   </div> */}
                 </form>
 
-                {!this.props.values.age ? <div className="results">
-                    {this.state.results.map(EachClass => {
-                      return <ClassDetails key={EachClass._id} cssClass={"eachClassBefore"} age={`${EachClass.min} to  ${EachClass.max} years old`} classTrying={EachClass._id} NameOfClass={EachClass.nameOfClass} schedule={EachClass.schedule} time={EachClass.time} next={this.doNothing} />;
-                    }, this)}
-                  </div> : filteredClasses.length > 0 ? <div className="results">
-                    {filteredClasses.map(EachClass => {
-                      return <ClassDetails key={EachClass._id} cssClass={"eachClass"} age={`${EachClass.min} to  ${EachClass.max} years old`} classTrying={EachClass._id} NameOfClass={EachClass.nameOfClass} schedule={EachClass.schedule} time={EachClass.time} next={this.continue} />;
-                    }, this)}
-                  </div> : this.state.loading ? <div className="card-body text-center">
-                    <img className="my-auto" src="./loading.gif" alt="Loading" />
-                  </div> : <div className="text-center">
-                    <h1 className="text-danger">
-                      <i class="fas fa-frown" />
-                    </h1>
-                    <h1 className="display-5 sortaBlack">
-                      Sorry no classes available for this age
-                    </h1>
-                  </div>
-
-                // this.state.results
-                //     .filter(Class => {
-                //         return this.state.age >= Class.min && this.state.age <= Class.max;
-                //     }, this)
-                //     .map(EachClass => {
-                //         return <ClassDetails key={EachClass._id} cssClass={'eachClass'} age={`${EachClass.min} to  ${EachClass.max} years old`} classTrying={EachClass._id} NameOfClass={EachClass.nameOfClass} schedule={EachClass.schedule} time={EachClass.time} next={this.continue} />;
-                //     }, this)
+                {!this.props.values.age 
+                    ? 
+                    <div className="results">
+                        {this.state.results.map(EachClass => 
+                        // age has not been selected
+                        {
+                        return <ClassDetails 
+                        key={EachClass._id} 
+                        cssClass={"eachClassBefore"} 
+                        age={`${EachClass.min} to  ${EachClass.max} years old`} 
+                        classTrying={EachClass._id} 
+                        NameOfClass={EachClass.nameOfClass} 
+                        schedule={EachClass.schedule} 
+                        time={EachClass.time} 
+                        next={this.doNothing} />;
+                        }, this)
+                        }
+                  </div> 
+                    : filteredClasses.length > 0 
+                        ? 
+                        <div className="results">
+                        {/* age was chosen and there are matching results */}
+                            {filteredClasses.map(EachClass => 
+                            {
+                                return <ClassDetails key={EachClass._id} 
+                                cssClass={"eachClass"} 
+                                age={`${EachClass.min} to  ${EachClass.max} years old`} 
+                                classTrying={EachClass._id} 
+                                NameOfClass={EachClass.nameOfClass} 
+                                schedule={EachClass.schedule} 
+                                time={EachClass.time} 
+                                next={this.continue} />;
+                        }, this)}
+                    </div> 
+                        //if filteres classes array is empty, check if its still loading
+                        : this.state.loading 
+                            ? //if its still loading show image for loading
+                            <div className="card-body text-center">
+                                <img className="my-auto" src="./loading.gif" alt="Loading" />
+                            </div> 
+                            : //if its not, it means no classes matched the age
+                            <div className="text-center">
+                                <h1 className="text-danger"><i class="fas fa-frown" /></h1>
+                                <h1 className="display-5 sortaBlack">Sorry no classes available for this age</h1>
+                            </div>
                 }
               </div>
             </div>
