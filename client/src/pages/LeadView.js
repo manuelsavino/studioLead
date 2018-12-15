@@ -13,7 +13,8 @@ export default class LeadView extends Component {
         super()
         this.state = {
             result: '',
-            message: ''
+            message: '',
+            test: false
         }
     }
 
@@ -36,24 +37,24 @@ export default class LeadView extends Component {
         });
     }
 
-     handleSend =  () => {
-         const { parentCellphone, _id } = this.state.result
+    handleSend = () => {
+        const { parentCellphone, _id } = this.state.result
         const messageData = {
             to: parentCellphone,
             body: this.state.message,
             id: _id
         }
 
-         API.sendSms(messageData).then(resp => {
-             setTimeout(() => {
-                 this.setState({ message: '' })
-                 this.componentDidMount()
-             }, 1000);
-             
-         })
-         
-         }
-     
+        API.sendSms(messageData).then(resp => {
+            setTimeout(() => {
+                this.setState({ message: '' })
+                this.componentDidMount()
+            }, 1000);
+
+        })
+
+    }
+
 
     render() {
 
@@ -130,7 +131,7 @@ export default class LeadView extends Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Trial Date:</td>
-                                                    <td>{values.trialDate}</td>
+                                                    <td>{moment(values.trialDate).format('dddd, MMMM Do YYYY')}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -158,7 +159,19 @@ export default class LeadView extends Component {
                             <div className="col-md-6 mt-4">
                                 <div className="card">
                                     <div className="card-header text-uppercase bg-dark pt-3 text-white"><h4>Actions <i className="fas fa-toggle-on"></i></h4></div>
-                                    <div className="card-body"></div>
+                                    <div className="card-body">
+                                        {/* <label class="switch">
+                                            <input type="checkbox" value={!values.signedUp} />
+                                            <span class="slider round"></span>
+                                        </label> */}
+
+                                        <label class="switch">
+                                            <input type="checkbox" onChange={this.handleChange} name="test" checked={this.state.test} />
+                                            <span class="slider round"></span>
+                                        </label>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
