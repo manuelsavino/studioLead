@@ -8,12 +8,13 @@ const Twilio = require('twilio');
 
 
 const LeadSchema = new Schema({
-    pFirstName: String,
-    pLastName: String,
-    email: String,
-    parentCellphone: String,
+
     cFirstName: String,
     cLastName: String,
+    parent: {
+        type: String,
+        ref: 'Parent'
+    },
     age: Number,
     classTrying: {
         type: String,
@@ -24,11 +25,6 @@ const LeadSchema = new Schema({
     signedUp: { type: Boolean, default: false },
     sms: { type: Boolean, default: false },
     confirmed: { type: Boolean, default: false },
-    messages: [{
-        type: String,
-        ref: 'Message'
-    }]
-
 })
 
 
@@ -47,7 +43,7 @@ LeadSchema.statics.sendNotification = () => {
         leads.forEach(function (lead) {
 
             const options = {
-                to: `+1${lead.parentCellphone}`,
+                to: lead.parentCellphone,
                 from: process.env.TWILIO_PHONE_NUMBER,
                 body: `Hello ${lead.pFirstName}, Just a reminder your trial ${lead.classTrying.nameOfClass} class for ${lead.cFirstName} is tomorrow at ${moment(lead.classTrying.time, "HH:mm").format("h:mm A")}.`
             }
@@ -57,7 +53,7 @@ LeadSchema.statics.sendNotification = () => {
                     console.log(err)
                 }
                 else {
-                    // console.log(`messaged sent to ${lead.parentCellphone}`)
+                    // console.log(`messaged sent to ${ lead.parentCellphone } `)
                     if (response) {
                         console.log('id:', lead._id)
 

@@ -43,7 +43,7 @@ class ChildForm extends Component {
     if (this.state.days) {
       filteredClasses = (this.state.results.filter(Class => {
         return this.state.age >= Class.min && this.state.age <= Class.max
-      }, this)).filter(Class => { return Class.schedule.find(day => { return day == this.state.days }) }, this)
+      }, this)).filter(Class => { return Class.schedule.find(day => { return day === this.state.days }) }, this)
     }
     else {
       filteredClasses = this.state.results.filter(Class => {

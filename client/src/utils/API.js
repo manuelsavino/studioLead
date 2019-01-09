@@ -22,21 +22,13 @@ export default {
         return axios.get('/api/leads/')
     },
 
-    getOneLead: function (id) {
-        return axios.get(`/api/leads/${id}`)
+    getOneParent: function (id) {
+        return axios.get(`/api/parents/${id}`)
     },
 
-    sendSms: async function (messageData)
-    {
-
-        axios.post("/api/sms/out", messageData).then(resp=>{
-           
-       })
-
-
+    sendSms: async function (messageData) {
+        axios.post("/api/sms/out", messageData).then(resp => {
+            console.log(resp)
+        })
     }
-    
-    
-        
-    
 }

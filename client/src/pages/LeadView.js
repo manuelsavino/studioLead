@@ -20,15 +20,13 @@ export default class LeadView extends Component {
 
     componentDidMount = () => {
         const { id } = this.props.match.params
-        API.getOneLead(id).then(result => {
+        API.getOneParent(id).then(result => {
             if (result.data.length) {
                 this.setState({ result: result.data[0] })
             }
         }
         )
     }
-
-
 
     handleChange = (event) => {
         const { name, value } = event.target;
@@ -55,18 +53,29 @@ export default class LeadView extends Component {
 
     }
 
-
     render() {
 
         const values = this.state.result
+
+
         if (this.state.result !== '') {
-            const formatSchedule = values.classTrying.schedule.map(day => moment().day(day).format('ddd '))
+            // const formatSchedule = values.classTrying.schedule.map(day => moment().day(day).format('ddd '))
             if (values.messages.length > 0) {
                 const messages = values.messages.map(message => { return <MessageBubble data={message} /> })
             }
             let messages = []
             values.messages.length > 0 ? messages = values.messages.map(message => { return <MessageBubble key={message._id} data={message} /> }) : messages = [];
 
+            const children = values.children.map((child) => (
+                <tr>
+                    <td>{`${child.cFirstName} ${child.cLastName}`}</td>
+                    <td>{child.classTrying}</td>
+                    <td>{child.age}</td>
+                    <td></td>
+                    <td>{child.trialDate}</td>
+                </tr>
+            ))
+            console.log(children)
             return (
                 <Fragment>
                     <NavBar />
@@ -86,14 +95,6 @@ export default class LeadView extends Component {
                                                     <td className="border-top-0">{`${values.pFirstName} ${values.pLastName}`}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Child's Name: </td>
-                                                    <td>{`${values.cFirstName} ${values.cLastName}`}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Child's Age: </td>
-                                                    <td>{values.age}</td>
-                                                </tr>
-                                                <tr>
                                                     <td>Cell Phone: </td>
                                                     <td>{values.parentCellphone}</td>
                                                 </tr>
@@ -108,38 +109,6 @@ export default class LeadView extends Component {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="card">
-                                    <div className="card-header  text-uppercase bg-dark pt-3 text-white"><h4>Class Trying <i className="fas fa-vial"></i></h4></div>
-                                    <div className="card-body">
-                                        <table className="table w-100">
-                                            <tbody>
-                                                <tr>
-                                                    <td className="border-top-0">Class Name: </td>
-                                                    <td className="border-top-0">{values.classTrying.nameOfClass}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Schedule: </td>
-                                                    <td>{formatSchedule}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Age Group:</td>
-                                                    <td>{`${values.classTrying.min} to ${values.classTrying.max}`}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Time:</td>
-                                                    <td>{moment(values.classTrying.time, 'HH:mm').format('h:mm A')}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Trial Date:</td>
-                                                    <td>{moment(values.trialDate).format('dddd, MMMM Do YYYY')}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 mt-4">
                                 <div className="card">
                                     <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white"><h4>Messages <i className="fas fa-sms"></i></h4></div>
                                     <div className="card-body">
@@ -156,18 +125,41 @@ export default class LeadView extends Component {
 
                                 </div>
                             </div>
+                            <div className="col-md-12 mt-4">
+                                <div className="card">
+                                    <div className="card-header  text-uppercase bg-dark pt-3 text-white"><h4>Children <i className="fas fa-child"></i></h4></div>
+                                    <div className="card-body">
+                                        <table className="table w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Class Name</th>
+                                                    <th scope="col">Age</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Trial Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {children}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="col-md-6 mt-4">
                                 <div className="card">
                                     <div className="card-header text-uppercase bg-dark pt-3 text-white"><h4>Actions <i className="fas fa-toggle-on"></i></h4></div>
                                     <div className="card-body">
                                         {/* <label class="switch">
-                                            <input type="checkbox" value={!values.signedUp} />
-                                            <span class="slider round"></span>
-                                        </label> */}
+                                        <input type="checkbox" value={!values.signedUp} />
+                                        <span class="slider round"></span>
+                                    </label> */}
 
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input type="checkbox" onChange={this.handleChange} name="test" checked={this.state.test} />
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
 
 

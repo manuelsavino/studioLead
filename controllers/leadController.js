@@ -5,13 +5,39 @@ const moment = require('moment');
 module.exports = {
 
     createLead(req, res) {
-        const lead = req.body;
-        db.Lead.create(lead).then(res.send('done'))
+        const { parentCellphone } = req.body
+        db.Parent.find({ parentCellphone }).then((parentResp) => {
+            if (parentResp.length) {
+                console.log('parent found updating parent with new lead')
+                const { cFirstName, cLastName, age, trialDate, classTrying } = req.body;
+                const lead = { cFirstName, cLastName, age, trialDate, classTrying, parent: parentResp._id }
+                db.Lead.create(lead).then((leadResp) => {
+                    db.Parent.findOneAndUpdate({ parentCellphone, $push: { children: leadResp.id } }).then(updatedParent => {
+                        res.json(updatedParent)
+                    })
+                })
+            } else {
+                console.log('parent not found creating parent and updating with new lead')
+                const { pFirstName, pLastName, parentCellphone, email, cFirstName, cLastName, age, trialDate, classTrying } = req.body
+                const parent = { pFirstName, pLastName, parentCellphone, email }
+                console.log(parentCellphone)
+                db.Parent.create(parent).then((parentResp) => {
+                    const lead = { cFirstName, cLastName, age, trialDate, classTrying, parent: parentResp.id }
+                    db.Lead.create(lead).then((newLead) => {
+                        // console.log('new lead', newLead._id)
+                        db.Parent.findOneAndUpdate({ parentCellphone }, { $push: { children: newLead._id } }, (err, parentUpdate) => {
+                            res.json({ parentUpdate, newLead })
+                        })
+                    })
+                })
+            }
+        })
+        // db.Lead.create(lead).then(res.send('done'))
     },
 
     getAllLeads(req, res) {
         // db.Lead.sendNotification();
-        db.Lead.find({}).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).sort({ 'trialDate': 1 }).exec((err, resp) => {
+        db.Lead.find({}).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).sort({ 'trialDate': 1 }).populate('parent').exec((err, resp) => {
             if (err) {
                 console.log(err)
             } else {
@@ -23,7 +49,7 @@ module.exports = {
     getOneLeadById(req, res) {
 
         const { id } = req.params;
-        db.Lead.find({ _id: id }).populate('classTrying').populate('messages').exec((err, resp) => {
+        db.Lead.find({ _id: id }).populate('classTrying').populate('parent').exec((err, resp) => {
             if (err) {
                 console.log(err)
             }
