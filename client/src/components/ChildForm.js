@@ -41,6 +41,7 @@ class ChildForm extends Component {
   render() {
     let filteredClasses
     if (this.state.days) {
+      console.log(this.state.days)
       filteredClasses = (this.state.results.filter(Class => {
         return this.state.age >= Class.min && this.state.age <= Class.max
       }, this)).filter(Class => { return Class.schedule.find(day => { return day === this.state.days }) }, this)
@@ -180,7 +181,7 @@ class ChildForm extends Component {
                 </div>
                 : //if its not, it means no classes matched the age
                 <div className="text-center">
-                  <h1 className="text-danger"><i class="fas fa-frown" /></h1>
+                  <h1 className="text-danger"><i className="fas fa-frown" /></h1>
                   <h1 className="display-5 sortaBlack">Sorry no classes available for this age and or days</h1>
                 </div>
           }

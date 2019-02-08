@@ -1,8 +1,8 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+const Parent = require('./parent')
 const moment = require('moment');
 const message = require('./messages')
-
 const Twilio = require('twilio');
 
 
@@ -30,22 +30,25 @@ const LeadSchema = new Schema({
 
 LeadSchema.statics.sendNotification = () => {
     const tomorrow = moment().add(1, 'day').format('MM/DD/YYYY');
-    Lead.find({ trialDate: tomorrow }).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).exec((err, leads) => {
+    Lead.find({ trialDate: tomorrow }).populate('classTrying', { 'nameOfClass': 1, 'time': 1 }).populate("parent").exec((err, leads) => {
         // res.json(result)
         // console.log(result)
+        console.log(leads)
         if (leads.length > 0) {
             sendNotification(leads)
         }
     })
 
+
+
     function sendNotification(leads) {
         const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
         leads.forEach(function (lead) {
-
+            console.log(lead)
             const options = {
-                to: lead.parentCellphone,
+                to: lead.parent.parentCellphone,
                 from: process.env.TWILIO_PHONE_NUMBER,
-                body: `Hello ${lead.pFirstName}, Just a reminder your trial ${lead.classTrying.nameOfClass} class for ${lead.cFirstName} is tomorrow at ${moment(lead.classTrying.time, "HH:mm").format("h:mm A")}.`
+                body: `Hello ${lead.parent.pFirstName}, Just a reminder your trial ${lead.classTrying.nameOfClass} class for ${lead.cFirstName} is tomorrow at ${moment(lead.classTrying.time, "HH:mm").format("h:mm A")}.`
             }
 
             client.messages.create(options, function (err, response) {
@@ -53,15 +56,15 @@ LeadSchema.statics.sendNotification = () => {
                     console.log(err)
                 }
                 else {
-                    // console.log(`messaged sent to ${ lead.parentCellphone } `)
                     if (response) {
                         console.log('id:', lead._id)
 
                         message.create({ from: options.from, to: lead.parentCellphone, body: options.body }).then
                             (results => {
-                                Lead.findOneAndUpdate({ _id: lead._id }, { $set: { 'sms': true }, $push: { messages: results._id } }).then(results => { })
+                                Parent.findOneAndUpdate({ _id: lead.parent._id }, { $push: { messages: results._id } }).then(results => { })
                             }
                             )
+                        //$set: { 'sms': true }, 
 
                     }
                 }

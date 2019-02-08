@@ -4,7 +4,6 @@ import moment from 'moment'
 
 export default function DisplayLead({ data }) {
   return <tr>
-    {console.log(data)}
     {data.confirmed ? <td className="text-center">
       <i className="fas fa-lg fa-grin-beam text-warning" />
     </td> : data.sms ? <td className="text-center">
@@ -24,6 +23,6 @@ export default function DisplayLead({ data }) {
         View
           </a>
     </td>
-  </tr>;
+  </tr >;
 
 }

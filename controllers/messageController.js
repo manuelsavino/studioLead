@@ -21,7 +21,7 @@ module.exports = {
                 if (response) {
                     db.Message.create({ from, to, body }).then
                         (results => {
-                            db.Lead.findOneAndUpdate({ _id: id }, { $push: { messages: results._id } }).then(results => { })
+                            db.Parent.findOneAndUpdate({ _id: id }, { $push: { messages: results._id } }).then(results => { })
                         }
                         )
                 }

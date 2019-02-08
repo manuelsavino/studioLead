@@ -69,13 +69,12 @@ export default class LeadView extends Component {
             const children = values.children.map((child) => (
                 <tr>
                     <td>{`${child.cFirstName} ${child.cLastName}`}</td>
-                    <td>{child.classTrying}</td>
+                    <td>{child.classTrying.nameOfClass}</td>
                     <td>{child.age}</td>
-                    <td></td>
+                    <td>{moment(child.classTrying.time, "HH:mm").format("h:mm A")}</td>
                     <td>{child.trialDate}</td>
                 </tr>
             ))
-            console.log(children)
             return (
                 <Fragment>
                     <NavBar />

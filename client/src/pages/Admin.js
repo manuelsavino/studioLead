@@ -20,6 +20,7 @@ export default class Admin extends Component {
     }
 
     render() {
+        // console.log(this.state.results)
         const leads = this.state.results.map(lead => <DisplayLead key={lead._id} data={lead} />)
 
         return (
