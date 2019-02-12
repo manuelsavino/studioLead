@@ -9,7 +9,7 @@ let client = twilio(
 
 router.post("/call", function(req, res) {
   var leadParent = req.body.leadParent;
-  var url = `http://${req.headers.host}/outbound/${leadParent}`;
+  var url = `http://${req.headers.host}/api/calls/outbound/${leadParent}`;
 
   var options = {
     to: "+17863573069",
