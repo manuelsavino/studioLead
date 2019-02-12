@@ -18,18 +18,29 @@ export class LeadView extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentWillMount() {
+    const { id } = this.props.match.params;
+
+    setInterval(() => {
+      API.getOneParent(id).then(result => {
+        if (result.data.length) {
+          this.setState({ result: result.data[0] });
+        }
+      });
+    }, 30000);
+  }
+
+  componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/login");
     }
-
     const { id } = this.props.match.params;
     API.getOneParent(id).then(result => {
       if (result.data.length) {
         this.setState({ result: result.data[0] });
       }
     });
-  };
+  }
 
   handleChange = event => {
     const { name, value } = event.target;
