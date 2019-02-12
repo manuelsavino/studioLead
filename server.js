@@ -32,9 +32,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //Enable for Prod
-// app.get("*", (req, res)=>{
-//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// })
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log("App running on", PORT);
