@@ -31,6 +31,7 @@ module.exports = {
     });
   },
   smsIn(req, res) {
+    console.log("POST SMS IN HIT");
     let { From, Body } = req.body;
 
     db.Message.create({ from: From, to: "7867893310", body: Body }).then(
