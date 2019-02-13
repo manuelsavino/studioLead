@@ -31,6 +31,9 @@ export default {
     });
   },
   call: function(leadParent) {
-    axios.post("/api/calls/call", leadParent);
+    let data = {
+      leadParent: leadParent
+    };
+    axios.post("/api/calls/call", data);
   }
 };

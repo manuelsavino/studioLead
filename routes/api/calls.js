@@ -8,8 +8,9 @@ let client = twilio(
 );
 
 router.post("/call", function(req, res) {
-  console.log("post call hit");
-  var leadParent = req.body.leadParent;
+  var { leadParent } = req.body;
+
+  console.log(leadParent);
   var url = `http://${req.headers.host}/api/calls/outbound/${leadParent}`;
 
   var options = {
@@ -20,17 +21,17 @@ router.post("/call", function(req, res) {
 
   // Place an outbound call to the user, using the TwiML instructions
   // from the /outbound route
-  client.calls
-    .create(options)
-    .then(message => {
-      res.send({
-        message: "Connecting your Call."
-      });
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).send(error);
-    });
+  // client.calls
+  //   .create(options)
+  //   .then(message => {
+  //     res.send({
+  //       message: "Connecting your Call."
+  //     });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //     res.status(500).send(error);
+  //   });
 });
 
 // Return TwiML instuctions for the outbound call
