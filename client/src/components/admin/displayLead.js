@@ -24,7 +24,7 @@ export default function DisplayLead({ data }) {
       <td>{moment(data.trialDate).format("MM/DD/YYYY")}</td>
       <td>{data.classTrying.nameOfClass}</td>
       <td>{moment(data.classTrying.time, "HH:mm").format("h:mm A")}</td>
-      <td>
+      <td className="border-0">
         <a
           href={`/admin/leads/${data.parent._id}`}
           className="btn btn-success btn-sm"

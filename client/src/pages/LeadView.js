@@ -100,7 +100,7 @@ export class LeadView extends Component {
         <tr>
           <td>{`${child.cFirstName} ${child.cLastName}`}</td>
           <td>{child.classTrying.nameOfClass}</td>
-          <td>{child.age}</td>
+          <td className="d-md-none d-lg-table-cell">{child.age}</td>
           <td>{moment(child.classTrying.time, "HH:mm").format("h:mm A")}</td>
           <td>{child.trialDate}</td>
         </tr>
@@ -109,9 +109,9 @@ export class LeadView extends Component {
         <Fragment>
           <NavBar />
           <div className="container mt-2">
-            <div className="row">
+            <div className="row d-flex align-items-stretch">
               {/* Contact Info Start */}
-              <div className="col-md-6">
+              <div className="col-md-12 col-lg-6 mb-3">
                 <div className="card">
                   <div className="card-header d-flex  justify-content-between bg-dark pt-3 text-white">
                     <h4 className="text-uppercase">
@@ -121,8 +121,8 @@ export class LeadView extends Component {
                       <i className="fas fa-pencil-alt" /> Edit{" "}
                     </h5>
                   </div>
-                  <div className="card-body">
-                    <table className="table w-100">
+                  <div className="card-body table-responsive">
+                    <table className="table">
                       <tbody>
                         <tr>
                           <td className="border-top-0">Parent's Name: </td>
@@ -152,7 +152,7 @@ export class LeadView extends Component {
               {/* Contact Info End */}
 
               {/* Childre Start */}
-              <div className="col-md-12 mt-4">
+              <div className="col-md-12 col-sm-12 col-lg-6">
                 <div className="card">
                   <div className="card-header  text-uppercase bg-dark pt-3 text-white">
                     <h4>
@@ -165,7 +165,9 @@ export class LeadView extends Component {
                         <tr>
                           <th scope="col">Name</th>
                           <th scope="col">Class Name</th>
-                          <th scope="col">Age</th>
+                          <th class="d-md-none d-lg-table-cell" scope="col">
+                            Age
+                          </th>
                           <th scope="col">Time</th>
                           <th scope="col">Trial Date</th>
                         </tr>
@@ -177,7 +179,7 @@ export class LeadView extends Component {
               </div>
               {/* Children end */}
               {/* Messages Start */}
-              <div className="col-md-6 mt-4">
+              <div className="col-md-12 col-sm-12 col-lg-6 mt-4">
                 <div className="card">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
@@ -212,7 +214,7 @@ export class LeadView extends Component {
               </div>
               {/* Messages end */}
               {/* Calls Start */}
-              <div className="col-md-6 mt-4">
+              <div className="col-md-6 col-sm-12 mt-4">
                 <div className="card">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
