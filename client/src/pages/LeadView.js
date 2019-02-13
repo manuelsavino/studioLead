@@ -14,6 +14,7 @@ export class LeadView extends Component {
     this.state = {
       result: "",
       message: "",
+      callResp: "",
       test: false
     };
   }
@@ -63,6 +64,11 @@ export class LeadView extends Component {
         this.componentDidMount();
       }, 1000);
     });
+  };
+
+  handleCallClick = () => {
+    const { parentCellphone, _id } = this.state.result;
+    API.call(parentCellphone);
   };
 
   render() {
@@ -125,6 +131,12 @@ export class LeadView extends Component {
                         </tr>
                       </tbody>
                     </table>
+                    <button
+                      onClick={this.handleCallClick}
+                      className="btn btn-primary"
+                    >
+                      Call
+                    </button>
                   </div>
                 </div>
               </div>
