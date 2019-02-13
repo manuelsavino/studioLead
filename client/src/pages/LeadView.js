@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import NavBar from "../components/Navbar";
-import MessageBubble from "../components/messageBubble";
+import NavBar from "../components/admin/Navbar";
+import MessageBubble from "../components/admin/messageBubble";
 import API from "../utils/API";
 import moment from "moment";
 import "./admin.css";

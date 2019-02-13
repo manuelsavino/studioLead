@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/admin/Navbar";
 import API from "../utils/API";
-import DisplayLead from "../components/displayLead";
+import DisplayLead from "../components/admin/displayLead";
 import "./lead.css";
 import { connect } from "react-redux";
-import { loginUser } from "../actions/authActions";
 
 export class Admin extends Component {
   constructor() {

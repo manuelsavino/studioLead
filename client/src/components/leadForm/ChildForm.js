@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ClassDetails from "./ClassDetails";
-import API from "../utils/API";
+import API from "../../utils/API";
 
 class ChildForm extends Component {
   constructor(props) {
@@ -44,17 +44,18 @@ class ChildForm extends Component {
   render() {
     let filteredClasses;
     if (this.state.days) {
-      console.log(this.state.days);
+      console.log(this.state.results);
       filteredClasses = this.state.results
         .filter(Class => {
           return this.state.age >= Class.min && this.state.age <= Class.max;
         }, this)
         .filter(Class => {
           return Class.schedule.find(day => {
-            return day === this.state.days;
+            return day == this.state.days; //since day value save on state is a string, I used a == instead of a ===
           });
         }, this);
     } else {
+      console.log("day was not choosen ^");
       filteredClasses = this.state.results.filter(Class => {
         return this.state.age >= Class.min && this.state.age <= Class.max;
       }, this);
@@ -175,7 +176,7 @@ class ChildForm extends Component {
                         NameOfClass={EachClass.nameOfClass}
                         schedule={EachClass.schedule}
                         time={EachClass.time}
-                        next={this.doNothing}
+                        next={this.doNothing} //Makes it unclickable since they have note selected an age
                       />
                     );
                   }, this)}
