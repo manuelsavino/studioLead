@@ -5,17 +5,7 @@ import DisplayLead from "../components/admin/displayLead";
 import "./lead.css";
 import { connect } from "react-redux";
 import moment from "moment";
-
-import { Alert } from "reactstrap";
-import {
-  Card,
-  Button,
-  CardHeader,
-  CardFooter,
-  CardBody,
-  CardTitle,
-  CardText
-} from "reactstrap";
+import { Container, Card, Button, CardHeader, CardBody } from "reactstrap";
 
 export class Admin extends Component {
   constructor() {
@@ -53,7 +43,7 @@ export class Admin extends Component {
     return (
       <Fragment>
         <Navbar />
-        <div className="container mt-3">
+        <Container className="mt-3">
           <Card>
             <CardHeader
               tag="h4"
@@ -65,14 +55,14 @@ export class Admin extends Component {
               <table className="table w-100">
                 <thead>
                   <tr>
-                    <td scope="col">Status</td>
-                    <td scope="col">Student First Name</td>
-                    <td scope="col">Student Last Name</td>
-                    <td scope="col">Parent First Name</td>
-                    <td scope="col">Parent Last Name</td>
-                    <td scope="col">Date</td>
-                    <td scope="col">Class</td>
-                    <td scope="col">Time</td>
+                    <td>Status</td>
+                    <td>Student First Name</td>
+                    <td>Student Last Name</td>
+                    <td>Parent First Name</td>
+                    <td>Parent Last Name</td>
+                    <td>Date</td>
+                    <td>Class</td>
+                    <td>Time</td>
                   </tr>
                 </thead>
                 <tbody>{quickView}</tbody>
@@ -80,63 +70,29 @@ export class Admin extends Component {
             </CardBody>
           </Card>
 
-          {/* <div className="card">
-            <div className="card-header  text-uppercase bg-success pt-3 text-white">
-              <h4>
-                Today's Trials <i className="fas fa-calendar-day" />
-              </h4>
-            </div>
-            <div className="card-body">
-              {quickView.length ? ( //If there are items in the quickview array, display them
-                <table className="table w-100">
-                  <thead>
-                    <tr>
-                      <td scope="col">Status</td>
-                      <td scope="col">Student First Name</td>
-                      <td scope="col">Student Last Name</td>
-                      <td scope="col">Parent First Name</td>
-                      <td scope="col">Parent Last Name</td>
-                      <td scope="col">Date</td>
-                      <td scope="col">Class</td>
-                      <td scope="col">Time</td>
-                    </tr>
-                  </thead>
-                  <tbody>{quickView}</tbody>
-                </table>
-              ) : this.state.loading ? ( //
-                <div className="text-center">
-                  <img className="my-auto" src="./loading.gif" alt="Loading" />
-                </div>
-              ) : (
-                <h1>No Trials for today :(</h1>
-              )}
-            </div>
-          </div> */}
-          <div className="card mt-4">
-            <div className="card-header  text-uppercase bg-dark pt-3 text-white">
-              <h4>
-                All Leads <i className="fas fa-users" />
-              </h4>
-            </div>
-            <div className="card-body">
-              <table className="table table-striped">
+          <Card className="mt-4">
+            <CardHeader tag="h4" className="text-uppercase bg-dark text-light">
+              All Leads <i className="fas fa-users" />
+            </CardHeader>
+            <CardBody>
+              <table className="table w-100">
                 <thead>
                   <tr>
-                    <td scope="col">Status</td>
-                    <td scope="col">Student First Name</td>
-                    <td scope="col">Student Last Name</td>
-                    <td scope="col">Parent First Name</td>
-                    <td scope="col">Parent Last Name</td>
-                    <td scope="col">Date</td>
-                    <td scope="col">Class</td>
-                    <td scope="col">Time</td>
+                    <td>Status</td>
+                    <td>Student First Name</td>
+                    <td>Student Last Name</td>
+                    <td>Parent First Name</td>
+                    <td>Parent Last Name</td>
+                    <td>Date</td>
+                    <td>Class</td>
+                    <td>Time</td>
                   </tr>
                 </thead>
                 <tbody>{leads}</tbody>
               </table>
-            </div>
-          </div>
-        </div>
+            </CardBody>
+          </Card>
+        </Container>
       </Fragment>
     );
   }

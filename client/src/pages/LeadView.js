@@ -4,6 +4,7 @@ import MessageBubble from "../components/admin/messageBubble";
 import API from "../utils/API";
 import moment from "moment";
 import "./admin.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
@@ -15,7 +16,8 @@ export class LeadView extends Component {
       result: "",
       message: "",
       callResp: "",
-      test: false
+      test: false,
+      modal: false
     };
   }
 
@@ -67,8 +69,13 @@ export class LeadView extends Component {
   };
 
   handleCallClick = () => {
+    this.setState({ modal: !this.state.modal });
     const { parentCellphone } = this.state.result;
     API.call(parentCellphone);
+  };
+
+  handleModal = () => {
+    this.setState({ modal: !this.state.modal });
   };
 
   render() {
@@ -81,7 +88,7 @@ export class LeadView extends Component {
       values.calls.length > 0
         ? (calls = values.calls.map(call => {
             return (
-              <tr>
+              <tr key={call._id}>
                 <td>{call.callType}</td>
                 <td>{moment(call.date).format("ddd, MMM Do YY, h:mm:ss a")}</td>
               </tr>
@@ -97,7 +104,7 @@ export class LeadView extends Component {
         : (messages = []);
 
       const children = values.children.map(child => (
-        <tr>
+        <tr key={child._id}>
           <td>{`${child.cFirstName} ${child.cLastName}`}</td>
           <td>{child.classTrying.nameOfClass}</td>
           <td className="d-md-none d-lg-table-cell">{child.age}</td>
@@ -107,6 +114,24 @@ export class LeadView extends Component {
       ));
       return (
         <Fragment>
+          <div>
+            <Modal
+              isOpen={this.state.modal}
+              // toggle={this.toggle}
+              // className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggle}>Call Confirmation</ModalHeader>
+              <ModalBody>Are you sure want to call?</ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.handleCallClick}>
+                  Yes
+                </Button>{" "}
+                <Button color="secondary" onClick={this.handleModal}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
           <NavBar />
           <div className="container mt-2">
             <div className="row d-flex align-items-stretch">
@@ -141,7 +166,7 @@ export class LeadView extends Component {
                       </tbody>
                     </table>
                     <button
-                      onClick={this.handleCallClick}
+                      onClick={this.handleModal}
                       className="btn btn-primary"
                     >
                       Call <i className="fas fa-phone" />
@@ -165,7 +190,7 @@ export class LeadView extends Component {
                         <tr>
                           <th scope="col">Name</th>
                           <th scope="col">Class Name</th>
-                          <th class="d-md-none d-lg-table-cell" scope="col">
+                          <th className="d-md-none d-lg-table-cell" scope="col">
                             Age
                           </th>
                           <th scope="col">Time</th>
