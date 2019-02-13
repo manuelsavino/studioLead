@@ -21,7 +21,6 @@ export class LeadView extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-
     setInterval(() => {
       API.getOneParent(id).then(result => {
         if (result.data.length) {
@@ -39,6 +38,7 @@ export class LeadView extends Component {
     API.getOneParent(id).then(result => {
       if (result.data.length) {
         this.setState({ result: result.data[0] });
+        console.log("Nothing?", this.state.result);
       }
     });
   }
@@ -67,7 +67,7 @@ export class LeadView extends Component {
   };
 
   handleCallClick = () => {
-    const { parentCellphone, _id } = this.state.result;
+    const { parentCellphone } = this.state.result;
     API.call(parentCellphone);
   };
 
@@ -76,11 +76,19 @@ export class LeadView extends Component {
 
     if (this.state.result !== "") {
       // const formatSchedule = values.classTrying.schedule.map(day => moment().day(day).format('ddd '))
-      if (values.messages.length > 0) {
-        const messages = values.messages.map(message => {
-          return <MessageBubble data={message} />;
-        });
-      }
+
+      let calls = [];
+      values.calls.length > 0
+        ? (calls = values.calls.map(call => {
+            return (
+              <tr>
+                <td>{call.callType}</td>
+                <td>{moment(call.date).format("ddd, MMM Do YY, h:mm:ss a")}</td>
+              </tr>
+            );
+          }))
+        : (calls = []);
+
       let messages = [];
       values.messages.length > 0
         ? (messages = values.messages.map(message => {
@@ -102,6 +110,7 @@ export class LeadView extends Component {
           <NavBar />
           <div className="container mt-2">
             <div className="row">
+              {/* Contact Info Start */}
               <div className="col-md-6">
                 <div className="card">
                   <div className="card-header d-flex  justify-content-between bg-dark pt-3 text-white">
@@ -140,7 +149,35 @@ export class LeadView extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
+              {/* Contact Info End */}
+
+              {/* Childre Start */}
+              <div className="col-md-12 mt-4">
+                <div className="card">
+                  <div className="card-header  text-uppercase bg-dark pt-3 text-white">
+                    <h4>
+                      Children <i className="fas fa-child" />
+                    </h4>
+                  </div>
+                  <div className="card-body">
+                    <table className="table w-100">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Class Name</th>
+                          <th scope="col">Age</th>
+                          <th scope="col">Time</th>
+                          <th scope="col">Trial Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>{children}</tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {/* Children end */}
+              {/* Messages Start */}
+              <div className="col-md-6 mt-4">
                 <div className="card">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
@@ -173,30 +210,30 @@ export class LeadView extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12 mt-4">
+              {/* Messages end */}
+              {/* Calls Start */}
+              <div className="col-md-6 mt-4">
                 <div className="card">
-                  <div className="card-header  text-uppercase bg-dark pt-3 text-white">
+                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
-                      Children <i className="fas fa-child" />
+                      Calls <i className="fas fa-phone" />
                     </h4>
                   </div>
                   <div className="card-body">
-                    <table className="table w-100">
+                    <table className="table">
                       <thead>
                         <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Class Name</th>
-                          <th scope="col">Age</th>
-                          <th scope="col">Time</th>
-                          <th scope="col">Trial Date</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Date and Time</th>
                         </tr>
                       </thead>
-                      <tbody>{children}</tbody>
+                      <tbody>{calls}</tbody>
                     </table>
                   </div>
                 </div>
               </div>
-
+              {/* Calls end */}
+              {/* 
               <div className="col-md-6 mt-4">
                 <div className="card">
                   <div className="card-header text-uppercase bg-dark pt-3 text-white">
@@ -205,10 +242,10 @@ export class LeadView extends Component {
                     </h4>
                   </div>
                   <div className="card-body">
-                    {/* <label class="switch">
+                     <label class="switch">
                                         <input type="checkbox" value={!values.signedUp} />
                                         <span class="slider round"></span>
-                                    </label> */}
+                                    </label> 
 
                     <label className="switch">
                       <input
@@ -221,7 +258,7 @@ export class LeadView extends Component {
                     </label>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </Fragment>

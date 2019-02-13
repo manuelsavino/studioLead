@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const twilio = require("twilio");
 const VoiceResponse = twilio.twiml.VoiceResponse;
+const db = require("../../models/");
 
 let client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
@@ -9,8 +10,6 @@ let client = twilio(
 
 router.post("/call", function(req, res) {
   var { leadParent } = req.body;
-
-  console.log(leadParent);
   var url = `http://${req.headers.host}/api/calls/outbound/${leadParent}`;
 
   var options = {
@@ -18,6 +17,20 @@ router.post("/call", function(req, res) {
     from: process.env.TWILIO_PHONE_NUMBER,
     url: url
   };
+
+  let record = {
+    date: Date.now(),
+    callType: "Outgoing"
+  };
+
+  db.Parent.findOneAndUpdate(
+    { parentCellphone: leadParent },
+    { $push: { calls: record } },
+    (err, resp) => {
+      console.log(err);
+      console.log(resp);
+    }
+  );
 
   // Place an outbound call to the user, using the TwiML instructions
   // from the /outbound route
