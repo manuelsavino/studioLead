@@ -20,7 +20,7 @@ class ChildForm extends Component {
     this.props.nextStep(nameOfClass, schedule, classTrying, time);
   };
 
-  doNothing = () => {
+  showValidation = () => {
     this.setState({ needsValidation: true });
   };
 
@@ -176,7 +176,7 @@ class ChildForm extends Component {
                         NameOfClass={EachClass.nameOfClass}
                         schedule={EachClass.schedule}
                         time={EachClass.time}
-                        next={this.doNothing} //Makes it unclickable since they have note selected an age
+                        next={this.showValidation} //Makes it unclickable since they have note selected an age
                       />
                     );
                   }, this)}
