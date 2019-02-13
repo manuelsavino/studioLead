@@ -144,7 +144,7 @@ export class LeadView extends Component {
                       onClick={this.handleCallClick}
                       className="btn btn-primary"
                     >
-                      Call
+                      Call <i className="fas fa-phone" />
                     </button>
                   </div>
                 </div>
@@ -233,8 +233,19 @@ export class LeadView extends Component {
                     </table>
                   </div>
                 </div>
+                <div className="card mt-3">
+                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
+                    <h4>
+                      Notes <i className="fas fa-sticky-note" />
+                    </h4>
+                  </div>
+                  <div className="card-body" />
+                </div>
               </div>
               {/* Calls end */}
+              {/* Notes Start */}
+              <div className="col-md-6 col-sm-12 mt-4" />
+              {/* Notes end */}
               {/* 
               <div className="col-md-6 mt-4">
                 <div className="card">

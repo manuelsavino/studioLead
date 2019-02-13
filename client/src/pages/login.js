@@ -6,7 +6,8 @@ import { loginUser } from "../actions/authActions";
 export class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    errors: {}
   };
 
   onChange = e => {
@@ -35,6 +36,8 @@ export class Login extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <Fragment>
         <div
@@ -82,7 +85,8 @@ export class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 export default connect(
   mapStateToProps,

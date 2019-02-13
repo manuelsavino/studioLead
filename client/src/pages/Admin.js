@@ -6,6 +6,17 @@ import "./lead.css";
 import { connect } from "react-redux";
 import moment from "moment";
 
+import { Alert } from "reactstrap";
+import {
+  Card,
+  Button,
+  CardHeader,
+  CardFooter,
+  CardBody,
+  CardTitle,
+  CardText
+} from "reactstrap";
+
 export class Admin extends Component {
   constructor() {
     super();
@@ -43,7 +54,33 @@ export class Admin extends Component {
       <Fragment>
         <Navbar />
         <div className="container mt-3">
-          <div className="card">
+          <Card>
+            <CardHeader
+              tag="h4"
+              className="text-uppercase bg-success text-light"
+            >
+              Today's Trials <i className="fas fa-calendar-day" />
+            </CardHeader>
+            <CardBody>
+              <table className="table w-100">
+                <thead>
+                  <tr>
+                    <td scope="col">Status</td>
+                    <td scope="col">Student First Name</td>
+                    <td scope="col">Student Last Name</td>
+                    <td scope="col">Parent First Name</td>
+                    <td scope="col">Parent Last Name</td>
+                    <td scope="col">Date</td>
+                    <td scope="col">Class</td>
+                    <td scope="col">Time</td>
+                  </tr>
+                </thead>
+                <tbody>{quickView}</tbody>
+              </table>
+            </CardBody>
+          </Card>
+
+          {/* <div className="card">
             <div className="card-header  text-uppercase bg-success pt-3 text-white">
               <h4>
                 Today's Trials <i className="fas fa-calendar-day" />
@@ -54,14 +91,14 @@ export class Admin extends Component {
                 <table className="table w-100">
                   <thead>
                     <tr>
-                      <th scope="col">Status</th>
-                      <th scope="col">Student First Name</th>
-                      <th scope="col">Student Last Name</th>
-                      <th scope="col">Parent First Name</th>
-                      <th scope="col">Parent Last Name</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Class</th>
-                      <th scope="col">Time</th>
+                      <td scope="col">Status</td>
+                      <td scope="col">Student First Name</td>
+                      <td scope="col">Student Last Name</td>
+                      <td scope="col">Parent First Name</td>
+                      <td scope="col">Parent Last Name</td>
+                      <td scope="col">Date</td>
+                      <td scope="col">Class</td>
+                      <td scope="col">Time</td>
                     </tr>
                   </thead>
                   <tbody>{quickView}</tbody>
@@ -74,7 +111,7 @@ export class Admin extends Component {
                 <h1>No Trials for today :(</h1>
               )}
             </div>
-          </div>
+          </div> */}
           <div className="card mt-4">
             <div className="card-header  text-uppercase bg-dark pt-3 text-white">
               <h4>
@@ -85,14 +122,14 @@ export class Admin extends Component {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">Status</th>
-                    <th scope="col">Student First Name</th>
-                    <th scope="col">Student Last Name</th>
-                    <th scope="col">Parent First Name</th>
-                    <th scope="col">Parent Last Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Time</th>
+                    <td scope="col">Status</td>
+                    <td scope="col">Student First Name</td>
+                    <td scope="col">Student Last Name</td>
+                    <td scope="col">Parent First Name</td>
+                    <td scope="col">Parent Last Name</td>
+                    <td scope="col">Date</td>
+                    <td scope="col">Class</td>
+                    <td scope="col">Time</td>
                   </tr>
                 </thead>
                 <tbody>{leads}</tbody>
