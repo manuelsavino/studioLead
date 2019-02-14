@@ -25,7 +25,6 @@ module.exports = {
   },
 
   writeNote(req, res) {
-    console.log("POST WRITE NOT HIT");
     const { body, id } = req.body;
     const date = Date.now();
     const note = {

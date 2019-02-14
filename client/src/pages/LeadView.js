@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import NavBar from "../components/admin/Navbar";
 import MessageBubble from "../components/admin/messageBubble";
+import Note from "../components/admin/note";
 import API from "../utils/API";
 import moment from "moment";
 import "./admin.css";
@@ -159,9 +160,10 @@ export class LeadView extends Component {
       ));
 
       const notes = values.notes.map(note => (
-        <p key={note._id} className="p-2 bg-warning shadow-sm text-white">
-          {note.body}
-        </p>
+        <Note id={note._id} data={note} />
+        // <p key={note._id} className="p-2 bg-warning shadow-sm text-white">
+        //   {note.body}
+        // </p>
       ));
 
       return (
@@ -210,7 +212,7 @@ export class LeadView extends Component {
                     </table>
                     <button
                       onClick={this.handleModalForCall}
-                      className="btn btn-primary"
+                      className="btn btn-primary shadow-sm"
                     >
                       Call <i className="fas fa-phone" />
                     </button>
@@ -323,7 +325,7 @@ export class LeadView extends Component {
                     </div>
                     <button
                       onClick={this.handleNewNote}
-                      className="btn btn-primary"
+                      className="btn btn-primary shadow-sm"
                     >
                       Submit Note
                     </button>

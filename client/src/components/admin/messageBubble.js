@@ -7,7 +7,7 @@ export default function MessageBubble({ data }) {
       <Fragment>
         <div className="d-flex flex-row-reverse">
           <small className="text-muted">
-            {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+            {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss A")}
           </small>
         </div>
         <div className="d-flex flex-row-reverse">
@@ -21,7 +21,7 @@ export default function MessageBubble({ data }) {
     return (
       <div>
         <small className="text-muted">
-          {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+          {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss A")}
         </small>
         <div className="speech-bubble-in shadow bg-success  p-1 mb-2 d-flex justify-content-between">
           {/* <i class="fas fa-user p-4 rounded-circle bg-dark text-white"></i> */}
