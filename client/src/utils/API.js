@@ -26,14 +26,24 @@ export default {
   },
 
   sendSms: async function(messageData) {
-    axios.post("/api/sms/out", messageData).then(resp => {
-      console.log(resp);
-    });
+    const res = axios.post("/api/sms/out", messageData);
+    return await res;
   },
+
   call: function(leadParent) {
     let data = {
       leadParent: leadParent
     };
-    axios.post("/api/calls/call", data);
+    return axios.post("/api/calls/call", data);
+  },
+
+  writeNote: async function(note) {
+    let data = {
+      id: note.id,
+      body: note.body
+    };
+
+    const res = axios.post("/api/parents/writeNote", data);
+    return await res;
   }
 };

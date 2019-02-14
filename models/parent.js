@@ -12,7 +12,12 @@ const ParentSchema = new Schema({
       ref: "Message"
     }
   ],
-  notes: [{ type: String }],
+  notes: [
+    {
+      body: String,
+      date: Date
+    }
+  ],
   calls: [
     {
       date: Date,

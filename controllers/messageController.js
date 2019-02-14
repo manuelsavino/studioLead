@@ -24,7 +24,9 @@ module.exports = {
             db.Parent.findOneAndUpdate(
               { _id: id },
               { $push: { messages: results._id } }
-            ).then(results => {});
+            ).then(results => {
+              res.status(200).json({ message: "message sent" });
+            });
           });
         }
       }

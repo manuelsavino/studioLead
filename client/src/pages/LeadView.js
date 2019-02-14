@@ -4,48 +4,53 @@ import MessageBubble from "../components/admin/messageBubble";
 import API from "../utils/API";
 import moment from "moment";
 import "./admin.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import MyModal from "../components/generalUi/modal";
 
 import { connect } from "react-redux";
-import { loginUser } from "../actions/authActions";
+import { BindingContext } from "twilio/lib/rest/ipMessaging/v2/service/binding";
+// import { loginUser } from "../actions/authActions";
 
 export class LeadView extends Component {
   constructor() {
+    // this.handleChange = this.handleChange.bind(this);
     super();
     this.state = {
       result: "",
       message: "",
-      callResp: "",
-      test: false,
-      modal: false
+      note: "",
+      modal: false,
+      modalTitle: "",
+      modalBody: "",
+      modalAction: ""
     };
+  }
+
+  getLeadData() {
+    const { id } = this.props.match.params;
+    API.getOneParent(id).then(result => {
+      if (result.data.length) {
+        this.setState({ result: result.data[0] });
+      }
+    });
   }
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    setInterval(() => {
-      API.getOneParent(id).then(result => {
-        if (result.data.length) {
-          this.setState({ result: result.data[0] });
-        }
-      });
-    }, 30000);
+    setInterval(() => this.getLeadData, 30000);
   }
 
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/login");
     }
-    const { id } = this.props.match.params;
-    API.getOneParent(id).then(result => {
-      if (result.data.length) {
-        this.setState({ result: result.data[0] });
-        console.log("Nothing?", this.state.result);
-      }
-    });
+    this.getLeadData();
   }
 
   handleChange = event => {
+    console.log("name", event.target.name);
+    console.log("value", event.target.value);
+
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -61,29 +66,69 @@ export class LeadView extends Component {
     };
 
     API.sendSms(messageData).then(resp => {
-      setTimeout(() => {
-        this.setState({ message: "" });
-        this.componentDidMount();
-      }, 1000);
+      console.log(resp);
+      this.setState({ message: "" });
+      this.getLeadData();
     });
   };
 
   handleCallClick = () => {
-    this.setState({ modal: !this.state.modal });
+    this.setState({
+      modal: !this.state.modal
+    });
     const { parentCellphone } = this.state.result;
     API.call(parentCellphone);
   };
 
-  handleModal = () => {
-    this.setState({ modal: !this.state.modal });
+  handleNewNote = () => {
+    let data = {
+      id: this.state.result._id,
+      body: this.state.note
+    };
+    API.writeNote(data).then(note => {
+      this.setState({ note: "" });
+      this.getLeadData();
+    });
+  };
+
+  handleModalForCall = () => {
+    this.setState({
+      modal: !this.state.modal,
+      modalBody: "Are you sure you want to call?",
+      modalTitle: "Call Confirmation",
+      modalAction: this.handleCallClick
+    });
+  };
+
+  handleModalForNote = () => {
+    this.setState({
+      modal: !this.state.modal,
+      modalTitle: "New Note",
+      modalBody: (
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            onChange={this.handleChange}
+            name="note"
+            value={this.state.note}
+          />
+        </div>
+      ),
+      modalAction: this.handleCallClick
+    });
+  };
+
+  handleModalClose = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
   };
 
   render() {
     const values = this.state.result;
 
     if (this.state.result !== "") {
-      // const formatSchedule = values.classTrying.schedule.map(day => moment().day(day).format('ddd '))
-
       let calls = [];
       values.calls.length > 0
         ? (calls = values.calls.map(call => {
@@ -112,26 +157,24 @@ export class LeadView extends Component {
           <td>{child.trialDate}</td>
         </tr>
       ));
+
+      const notes = values.notes.map(note => (
+        <p key={note._id} className="p-2 bg-warning shadow-sm text-white">
+          {note.body}
+        </p>
+      ));
+
       return (
         <Fragment>
-          <div>
-            <Modal
-              isOpen={this.state.modal}
-              // toggle={this.toggle}
-              // className={this.props.className}
-            >
-              <ModalHeader toggle={this.toggle}>Call Confirmation</ModalHeader>
-              <ModalBody>Are you sure want to call?</ModalBody>
-              <ModalFooter>
-                <Button color="primary" onClick={this.handleCallClick}>
-                  Yes
-                </Button>{" "}
-                <Button color="secondary" onClick={this.handleModal}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
-          </div>
+          <MyModal
+            handleModal={this.handleModalClose}
+            modalAction={this.state.modalAction}
+            isOpen={this.state.modal}
+            modalBody={this.state.modalBody}
+            modalTitle={this.state.modalTitle}
+            modalOptions={this.state.modalOptions}
+          />
+
           <NavBar />
           <div className="container mt-2">
             <div className="row d-flex align-items-stretch">
@@ -166,7 +209,7 @@ export class LeadView extends Component {
                       </tbody>
                     </table>
                     <button
-                      onClick={this.handleModal}
+                      onClick={this.handleModalForCall}
                       className="btn btn-primary"
                     >
                       Call <i className="fas fa-phone" />
@@ -258,47 +301,40 @@ export class LeadView extends Component {
                     </table>
                   </div>
                 </div>
+                {/* Calls end */}
+                {/* Notes Start */}
                 <div className="card mt-3">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
                       Notes <i className="fas fa-sticky-note" />
                     </h4>
                   </div>
-                  <div className="card-body" />
+                  <div className="card-body">
+                    {notes}
+                    <div className="form-group">
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        onChange={this.handleChange}
+                        name="note"
+                        value={this.state.note}
+                        placeholder="Note text goes here..."
+                      />
+                    </div>
+                    <button
+                      onClick={this.handleNewNote}
+                      className="btn btn-primary"
+                    >
+                      Submit Note
+                    </button>
+                  </div>
                 </div>
               </div>
-              {/* Calls end */}
-              {/* Notes Start */}
-              <div className="col-md-6 col-sm-12 mt-4" />
               {/* Notes end */}
-              {/* 
-              <div className="col-md-6 mt-4">
-                <div className="card">
-                  <div className="card-header text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Actions <i className="fas fa-toggle-on" />
-                    </h4>
-                  </div>
-                  <div className="card-body">
-                     <label class="switch">
-                                        <input type="checkbox" value={!values.signedUp} />
-                                        <span class="slider round"></span>
-                                    </label> 
-
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        onChange={this.handleChange}
-                        name="test"
-                        checked={this.state.test}
-                      />
-                      <span className="slider round" />
-                    </label>
-                  </div>
-                </div>
-              </div> */}
             </div>
+            {/*Ends Row*/}
           </div>
+          {/*Ends Container*/}
         </Fragment>
       );
     } else {

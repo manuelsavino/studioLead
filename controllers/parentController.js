@@ -22,5 +22,20 @@ module.exports = {
         }
         res.json(resp);
       });
+  },
+
+  writeNote(req, res) {
+    console.log("POST WRITE NOT HIT");
+    const { body, id } = req.body;
+    const date = Date.now();
+    const note = {
+      body,
+      date
+    };
+
+    db.Parent.findByIdAndUpdate(id, { $push: { notes: note } }, (err, note) => {
+      if (err) return staus(500).json({ error: err });
+      res.status(200).json({ note: note });
+    });
   }
 };
