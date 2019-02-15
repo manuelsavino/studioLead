@@ -11,7 +11,7 @@ export default function Note({ data }) {
       </div>
       <div className="d-flex flex-row mb-2">
         <small className="text-muted">
-          {moment(data.date).format("MM/DD/YY, h:mm A")}
+          {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss A")}
         </small>
       </div>
     </Fragment>

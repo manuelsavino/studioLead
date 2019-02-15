@@ -23,7 +23,8 @@ export class LeadView extends Component {
       modal: false,
       modalTitle: "",
       modalBody: "",
-      modalAction: ""
+      modalAction: "",
+      checkbox: false
     };
   }
 
@@ -49,13 +50,17 @@ export class LeadView extends Component {
   }
 
   handleChange = event => {
-    console.log("name", event.target.name);
-    console.log("value", event.target.value);
-
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    const { name, value, type } = event.target;
+    console.log(event.target.type);
+    if (type === "checkbox") {
+      this.setState({
+        [name]: false
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
   };
 
   handleSend = () => {
@@ -312,6 +317,15 @@ export class LeadView extends Component {
                     </h4>
                   </div>
                   <div className="card-body">
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked={this.state.checkbox}
+                        onClick={this.handleChange}
+                        name="checkbox"
+                      />
+                      <span class="slider round" />
+                    </label>
                     {notes}
                     <div className="form-group">
                       <textarea
