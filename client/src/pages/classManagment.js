@@ -4,7 +4,14 @@ import API from "../utils/API";
 import "./lead.css";
 import { connect } from "react-redux";
 import moment from "moment";
-import { Container, Table, Button } from "reactstrap";
+import {
+  Container,
+  Table,
+  Button,
+  Card,
+  CardBody,
+  CardHeader
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 export class ClassManagment extends Component {
@@ -57,22 +64,33 @@ export class ClassManagment extends Component {
       <Fragment>
         <Navbar />
         <Container className="mt-3">
-          <Link to={`/admin/addAClass`}>
-            <Button>Add A Class</Button>
-          </Link>
-          <Table dark hover className="text-center">
-            {console.log(this.state.results)}
-            <thead>
-              <tr>
-                <th>Class Name</th>
-                <th>Schedule</th>
-                <th>Time</th>
-                <th>Age Group</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>{classes}</tbody>
-          </Table>
+          <Card>
+            <CardHeader
+              tag="h4"
+              className="text-uppercase bg-success text-light d-flex justify-content-between"
+            >
+              <span>
+                Classes <i className="fas fa-chalkboard" />
+              </span>
+              <Link to={`/admin/addAClass`}>
+                <Button>Add A Class</Button>
+              </Link>
+            </CardHeader>
+
+            <Table dark hover responsive className="text-center">
+              {console.log(this.state.results)}
+              <thead>
+                <tr>
+                  <th>Class Name</th>
+                  <th>Schedule</th>
+                  <th>Time</th>
+                  <th>Age Group</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>{classes}</tbody>
+            </Table>
+          </Card>
         </Container>
       </Fragment>
     );
