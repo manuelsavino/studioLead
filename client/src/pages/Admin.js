@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import Navbar from "../components/admin/Navbar";
 import API from "../utils/API";
-import DisplayLead from "../components/admin/displayLead";
+import LeadRow from "../components/admin/LeadRow";
 import "./lead.css";
 import { connect } from "react-redux";
 import moment from "moment";
-import { Container, Card, Button, CardHeader, CardBody } from "reactstrap";
+import { Container, Card, CardHeader, CardBody } from "reactstrap";
 
 export class Admin extends Component {
   constructor() {
@@ -29,7 +29,7 @@ export class Admin extends Component {
   render() {
     // console.log(this.state.results)
     const leads = this.state.results.map(lead => (
-      <DisplayLead key={lead._id} data={lead} />
+      <LeadRow key={lead._id} data={lead} />
     ));
 
     const quickView = this.state.results
@@ -38,7 +38,7 @@ export class Admin extends Component {
         let today = moment(Date.now()).format("MM/DD/YYYY");
         return leadDate === today;
       })
-      .map(lead => <DisplayLead key={lead._id} data={lead} />);
+      .map(lead => <LeadRow key={lead._id} data={lead} />);
 
     return (
       <Fragment>

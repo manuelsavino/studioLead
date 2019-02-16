@@ -81,37 +81,9 @@ module.exports = {
         });
       }
     });
-    // db.Parent.findOne({ parentCellPhone: parentCellphone }).exec(function (err, parentResp) {
-    //     if (parentResp.length) {
-    //         console.log(`Parent: ${parentResp.id}`)
-    //         console.log('parent found updating parent with new lead')
-    //         const { cFirstName, cLastName, age, trialDate, classTrying } = req.body;
-    //         const lead = { cFirstName, cLastName, age, trialDate, classTrying, parent: parentResp.id }
-    //         db.Lead.create(lead).then((leadResp) => {
-    //             db.Parent.findOneAndUpdate({ parentCellphone, $push: { children: leadResp.id } }).then(updatedParent => {
-    //                 res.json(updatedParent)
-    //             })
-    //         })
-    //     } else {
-    //         console.log('parent not found creating parent and updating with new lead')
-    //         const { pFirstName, pLastName, parentCellphone, email, cFirstName, cLastName, age, trialDate, classTrying } = req.body
-    //         const parent = { pFirstName, pLastName, parentCellphone, email }
-    //         console.log(parentCellphone)
-    //         db.Parent.create(parent).then((parentResp) => {
-    //             const lead = { cFirstName, cLastName, age, trialDate, classTrying, parent: parentResp.id }
-    //             db.Lead.create(lead).then((newLead) => {
-    //                 // console.log('new lead', newLead._id)
-    //                 db.Parent.findOneAndUpdate({ parentCellphone }, { $push: { children: newLead._id } }, (err, parentUpdate) => {
-    //                     res.json({ parentUpdate, newLead })
-    //                 })
-    //             })
-    //         })
-    //     }
-    // })
   },
 
   getAllLeads(req, res) {
-    // db.Lead.sendNotification();
     db.Lead.find({})
       .populate("classTrying", { nameOfClass: 1, time: 1 })
       .sort({ trialDate: 1 })
@@ -129,7 +101,6 @@ module.exports = {
     const { id } = req.params;
     db.Lead.find({ _id: id })
       .populate("classTrying")
-      .populate("parent")
       .exec((err, resp) => {
         if (err) {
           console.log(err);
@@ -151,5 +122,12 @@ module.exports = {
       }
     });
     res.send(`<Response></Response>`);
+  },
+
+  updateStatus(req, res) {
+    let { id } = req.params;
+    db.Lead.findByIdAndUpdate(id, { $set: req.body }, (err, lead) => {
+      res.status(200).json({ lead: lead });
+    });
   }
 };

@@ -5,7 +5,7 @@ export default function Note({ data }) {
   return (
     <Fragment>
       <div className="d-flex flex-row">
-        <div className="shadow-sm bg-warning p-1 d-flex justify-content-start">
+        <div className="shadow-sm bg-warning w-100 p-1 d-flex justify-content-start">
           <p className="pt-3 text-white mx-3">{data.body}</p>
         </div>
       </div>

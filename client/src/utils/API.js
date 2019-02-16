@@ -21,6 +21,11 @@ export default {
     return axios.get("/api/leads/");
   },
 
+  getOneLead: async function(id) {
+    const lead = axios.get(`/api/leads/${id}`);
+    return await lead;
+  },
+
   getOneParent: function(id) {
     return axios.get(`/api/parents/${id}`);
   },
@@ -45,5 +50,9 @@ export default {
 
     const res = axios.post("/api/parents/writeNote", data);
     return await res;
+  },
+
+  updateLeadStatus: function(data, id) {
+    return axios.put(`/api/leads/updateStatus/${id}`, data);
   }
 };

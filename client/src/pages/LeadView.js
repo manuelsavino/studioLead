@@ -5,11 +5,11 @@ import Note from "../components/admin/note";
 import API from "../utils/API";
 import moment from "moment";
 import "./admin.css";
-// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import DisplayLead from "../components/admin/displayLead";
 import MyModal from "../components/generalUi/modal";
+import ChildDetailsModal from "../components/admin/childDetailsModal";
 
 import { connect } from "react-redux";
-import { BindingContext } from "twilio/lib/rest/ipMessaging/v2/service/binding";
 // import { loginUser } from "../actions/authActions";
 
 export class LeadView extends Component {
@@ -21,10 +21,14 @@ export class LeadView extends Component {
       message: "",
       note: "",
       modal: false,
-      modalTitle: "",
-      modalBody: "",
-      modalAction: "",
-      checkbox: false
+      modalOptions: {
+        modalType: "",
+        modalTitle: "",
+        modalBody: "",
+        modalAction: "",
+        modalActionText: "",
+        data: ""
+      }
     };
   }
 
@@ -38,7 +42,6 @@ export class LeadView extends Component {
   }
 
   componentWillMount() {
-    const { id } = this.props.match.params;
     setInterval(() => this.getLeadData, 30000);
   }
 
@@ -51,7 +54,7 @@ export class LeadView extends Component {
 
   handleChange = event => {
     const { name, value, type } = event.target;
-    console.log(event.target.type);
+
     if (type === "checkbox") {
       this.setState({
         [name]: false
@@ -100,34 +103,32 @@ export class LeadView extends Component {
   handleModalForCall = () => {
     this.setState({
       modal: !this.state.modal,
-      modalBody: "Are you sure you want to call?",
-      modalTitle: "Call Confirmation",
-      modalAction: this.handleCallClick
-    });
-  };
-
-  handleModalForNote = () => {
-    this.setState({
-      modal: !this.state.modal,
-      modalTitle: "New Note",
-      modalBody: (
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            onChange={this.handleChange}
-            name="note"
-            value={this.state.note}
-          />
-        </div>
-      ),
-      modalAction: this.handleCallClick
+      modalOptions: {
+        modalBody: "Are you sure you want to call?",
+        modalTitle: "Call Confirmation",
+        modalActionText: "Yes",
+        modalAction: this.handleCallClick
+      }
     });
   };
 
   handleModalClose = () => {
     this.setState({
       modal: !this.state.modal
+    });
+  };
+
+  handleChildDetails = id => {
+    this.setState({
+      modal: !this.state.modal,
+      modalOptions: {
+        modalType: "lead",
+        modalBody: "Lead Information",
+        modalTitle: "Lead",
+        modalActionText: "Yes",
+        modalAction: this.handleCallClick,
+        data: id
+      }
     });
   };
 
@@ -155,24 +156,20 @@ export class LeadView extends Component {
         : (messages = []);
 
       const children = values.children.map(child => (
-        <tr key={child._id}>
-          <td>{`${child.cFirstName} ${child.cLastName}`}</td>
-          <td>{child.classTrying.nameOfClass}</td>
-          <td className="d-md-none d-lg-table-cell">{child.age}</td>
-          <td>{moment(child.classTrying.time, "HH:mm").format("h:mm A")}</td>
-          <td>{child.trialDate}</td>
-        </tr>
+        <DisplayLead
+          key={child._id}
+          // name={`${child.cFirstName} ${child.cLastName}`}
+          child={child}
+        />
       ));
 
       const notes = values.notes.map(note => (
-        <Note id={note._id} data={note} />
-        // <p key={note._id} className="p-2 bg-warning shadow-sm text-white">
-        //   {note.body}
-        // </p>
+        <Note key={note._id} data={note} />
       ));
 
       return (
         <Fragment>
+          <ChildDetailsModal isOpen={this.state.childDetailsModal} />
           <MyModal
             handleModal={this.handleModalClose}
             modalAction={this.state.modalAction}
@@ -180,6 +177,7 @@ export class LeadView extends Component {
             modalBody={this.state.modalBody}
             modalTitle={this.state.modalTitle}
             modalOptions={this.state.modalOptions}
+            modalActionText={this.state.modalActionText}
           />
 
           <NavBar />
@@ -234,22 +232,7 @@ export class LeadView extends Component {
                       Children <i className="fas fa-child" />
                     </h4>
                   </div>
-                  <div className="card-body">
-                    <table className="table w-100">
-                      <thead>
-                        <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Class Name</th>
-                          <th className="d-md-none d-lg-table-cell" scope="col">
-                            Age
-                          </th>
-                          <th scope="col">Time</th>
-                          <th scope="col">Trial Date</th>
-                        </tr>
-                      </thead>
-                      <tbody>{children}</tbody>
-                    </table>
-                  </div>
+                  <div className="card-body d-flex">{children}</div>
                 </div>
               </div>
               {/* Children end */}
@@ -317,15 +300,6 @@ export class LeadView extends Component {
                     </h4>
                   </div>
                   <div className="card-body">
-                    <label class="switch">
-                      <input
-                        type="checkbox"
-                        checked={this.state.checkbox}
-                        onClick={this.handleChange}
-                        name="checkbox"
-                      />
-                      <span class="slider round" />
-                    </label>
                     {notes}
                     <div className="form-group">
                       <textarea
