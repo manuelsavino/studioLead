@@ -23,12 +23,6 @@ export default class LeadForm extends Component {
     time: ""
   };
 
-  getClasses = () => {
-    API.getClassesByAge(this.props.age).then(results => {
-      this.setState({ results: results.data, loading: false });
-    });
-  };
-
   nextStep = (nameOfClass, schedule, classTrying, time, date) => {
     const { step } = this.state;
     nameOfClass = nameOfClass || this.state.nameOfClass;

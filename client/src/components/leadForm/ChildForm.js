@@ -36,7 +36,7 @@ class ChildForm extends Component {
   };
 
   loadClasses = () => {
-    API.getClasses().then(results => {
+    API.getActiveClasses().then(results => {
       this.setState({ results: results.data, loading: false });
     });
   };

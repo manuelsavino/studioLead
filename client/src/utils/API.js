@@ -8,11 +8,9 @@ export default {
   createClass: function(ClassData) {
     return axios.post("/api/classes", ClassData);
   },
-
-  getClassesByAge: function(age) {
-    return axios.get(`/api/classes/getClassesByAge/${age}`);
+  getActiveClasses: function() {
+    return axios.get("/api/classes/active");
   },
-
   createLead: function(data) {
     return axios.post("/api/leads/createLead", data);
   },

@@ -1,12 +1,10 @@
-const router = require('express').Router()
-const classController = require('../../controllers/classController')
+const router = require("express").Router();
+const classController = require("../../controllers/classController");
 
+router.post("/", classController.createClass);
 
-router.get("/getClassesByAge/:age", classController.getClassByAge)
+router.get("/", classController.getAll);
 
-router.post("/", classController.createClass)
-
-router.get("/", classController.getAll)
-
+router.get("/active", classController.getActiveClasses);
 
 module.exports = router;

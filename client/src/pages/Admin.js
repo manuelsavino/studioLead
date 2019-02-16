@@ -5,7 +5,7 @@ import LeadRow from "../components/admin/LeadRow";
 import "./lead.css";
 import { connect } from "react-redux";
 import moment from "moment";
-import { Container, Card, CardHeader, CardBody } from "reactstrap";
+import { Container, Card, CardHeader, CardBody, Table } from "reactstrap";
 
 export class Admin extends Component {
   constructor() {
@@ -69,9 +69,17 @@ export class Admin extends Component {
             >
               Today's Trials <i className="fas fa-calendar-day" />
             </CardHeader>
-            <CardBody>
-              <table className="table w-100 text-center">
-                {console.log(quickView)}
+            <CardBody
+              inverse
+              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
+            >
+              <Table
+                dark
+                responsive
+                hover
+                borderless
+                className="text-white w-100 text-center"
+              >
                 <thead>
                   <tr>
                     <td>Status</td>
@@ -83,7 +91,7 @@ export class Admin extends Component {
                   </tr>
                 </thead>
                 <tbody>{quickView}</tbody>
-              </table>
+              </Table>
             </CardBody>
           </Card>
 
@@ -94,8 +102,17 @@ export class Admin extends Component {
             >
               Follow Up <i className="fas fa-user-clock" />
             </CardHeader>
-            <CardBody>
-              <table className="table w-100 text-center">
+            <CardBody
+              inverse
+              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
+            >
+              <Table
+                borderless
+                dark
+                hover
+                responsive
+                className="text-white w-100 text-center"
+              >
                 <thead>
                   <tr>
                     <td>Status</td>
@@ -107,16 +124,28 @@ export class Admin extends Component {
                   </tr>
                 </thead>
                 <tbody>{followUp}</tbody>
-              </table>
+              </Table>
             </CardBody>
           </Card>
 
           <Card className="mt-4">
-            <CardHeader tag="h4" className="text-uppercase bg-dark text-light">
+            <CardHeader
+              tag="h4"
+              className="text-uppercase bg-primary text-light"
+            >
               Up Coming Trials <i className="fas fa-users" />
             </CardHeader>
-            <CardBody>
-              <table className="table w-100 text-center">
+            <CardBody
+              inverse
+              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
+            >
+              <Table
+                dark
+                hover
+                borderless
+                responsive
+                className="text-white w-100 text-center"
+              >
                 <thead>
                   <tr>
                     <td>Status</td>
@@ -128,7 +157,7 @@ export class Admin extends Component {
                   </tr>
                 </thead>
                 <tbody>{leads}</tbody>
-              </table>
+              </Table>
             </CardBody>
           </Card>
         </Container>

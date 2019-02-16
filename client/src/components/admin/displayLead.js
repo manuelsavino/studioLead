@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import API from "../../utils/API";
+import { Table } from "reactstrap";
 import classnames from "classnames";
 
 export default class DisplayLead extends Component {
@@ -42,10 +43,12 @@ export default class DisplayLead extends Component {
     return (
       <div
         className={classnames("w-100", {
-          "bg-warning": this.state.triedClass
+          "bg-warning": this.state.triedClass,
+          "bg-light border": !this.state.triedClass,
+          "bg-success": this.state.signedUp
         })}
       >
-        <table className="table">
+        <Table>
           <tbody
             className={classnames("", {
               "text-white": this.state.triedClass
@@ -98,7 +101,7 @@ export default class DisplayLead extends Component {
               </td>
             </tr>
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   }

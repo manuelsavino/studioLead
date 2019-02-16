@@ -31,8 +31,8 @@ export default function Navbar() {
             </a>
           </li> */}
           <li className="nav-item">
-            <a className="nav-link" href="/admin/addAClass">
-              Add a class
+            <a className="nav-link" href="/admin/classes">
+              Class Managment
             </a>
           </li>
         </ul>
