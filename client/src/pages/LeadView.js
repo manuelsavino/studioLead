@@ -26,8 +26,7 @@ export class LeadView extends Component {
         modalTitle: "",
         modalBody: "",
         modalAction: "",
-        modalActionText: "",
-        data: ""
+        modalActionText: ""
       }
     };
   }
@@ -118,20 +117,6 @@ export class LeadView extends Component {
     });
   };
 
-  handleChildDetails = id => {
-    this.setState({
-      modal: !this.state.modal,
-      modalOptions: {
-        modalType: "lead",
-        modalBody: "Lead Information",
-        modalTitle: "Lead",
-        modalActionText: "Yes",
-        modalAction: this.handleCallClick,
-        data: id
-      }
-    });
-  };
-
   render() {
     const values = this.state.result;
 
@@ -156,11 +141,7 @@ export class LeadView extends Component {
         : (messages = []);
 
       const children = values.children.map(child => (
-        <DisplayLead
-          key={child._id}
-          // name={`${child.cFirstName} ${child.cLastName}`}
-          child={child}
-        />
+        <DisplayLead key={child._id} child={child} />
       ));
 
       const notes = values.notes.map(note => (

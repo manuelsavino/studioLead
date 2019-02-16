@@ -39,7 +39,7 @@ export default class DisplayLead extends Component {
     } = this.props.child;
     const { nameOfClass, time } = this.props.child.classTrying;
     return (
-      <div className="border w-50 ml-1 mr-1">
+      <div className="border w-100 bg-light ml-1 mr-1">
         <table className="table">
           <tbody>
             <tr>
