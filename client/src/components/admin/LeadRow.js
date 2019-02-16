@@ -17,10 +17,8 @@ export default function LeadRow({ data }) {
           <i className="fas fa-lg fa-calendar text-primary" />
         </td>
       )}
-      <td>{data.cFirstName}</td>
-      <td>{data.cLastName}</td>
-      <td>{data.parent.pFirstName}</td>
-      <td>{data.parent.pLastName}</td>
+      <td>{`${data.cFirstName} ${data.cLastName}`}</td>
+      <td>{`${data.parent.pFirstName} ${data.parent.pLastName}`}</td>
       <td>{moment(data.trialDate).format("MM/DD/YYYY")}</td>
       <td>{data.classTrying.nameOfClass}</td>
       <td>{moment(data.classTrying.time, "HH:mm").format("h:mm A")}</td>

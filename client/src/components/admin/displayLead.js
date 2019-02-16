@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import API from "../../utils/API";
+import classnames from "classnames";
 
 export default class DisplayLead extends Component {
   constructor() {
@@ -39,9 +40,17 @@ export default class DisplayLead extends Component {
     } = this.props.child;
     const { nameOfClass, time } = this.props.child.classTrying;
     return (
-      <div className="border w-100 bg-light ml-1 mr-1">
+      <div
+        className={classnames("w-100", {
+          "bg-warning": this.state.triedClass
+        })}
+      >
         <table className="table">
-          <tbody>
+          <tbody
+            className={classnames("", {
+              "text-white": this.state.triedClass
+            })}
+          >
             <tr>
               <td>Name: </td>
               <td>{`${cFirstName} ${cLastName}`}</td>
@@ -61,20 +70,6 @@ export default class DisplayLead extends Component {
               <td>{trialDate}</td>
             </tr>
             <tr>
-              <td>Signed Up:</td>
-              <td>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={this.state.signedUp}
-                    onChange={this.handleChange}
-                    name="signedUp"
-                  />
-                  <span className="slider round" />
-                </label>
-              </td>
-            </tr>
-            <tr>
               <td>Tried Class:</td>
               <td>
                 <label className="switch">
@@ -83,6 +78,20 @@ export default class DisplayLead extends Component {
                     checked={this.state.triedClass}
                     onChange={this.handleChange}
                     name="triedClass"
+                  />
+                  <span className="slider round" />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>Signed Up:</td>
+              <td>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={this.state.signedUp}
+                    onChange={this.handleChange}
+                    name="signedUp"
                   />
                   <span className="slider round" />
                 </label>

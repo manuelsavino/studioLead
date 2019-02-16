@@ -26,17 +26,35 @@ export class Admin extends Component {
     }
   }
 
+  componentWillUpdate() {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    } else {
+      API.getLeads().then(results => {
+        this.setState({ results: results.data, loading: false });
+      });
+    }
+  }
+
   render() {
     // console.log(this.state.results)
-    const leads = this.state.results.map(lead => (
-      <LeadRow key={lead._id} data={lead} />
-    ));
+    const leads = this.state.results
+      .filter(lead => {
+        return lead.signedUp === false && lead.triedClass === false;
+      })
+      .map(lead => <LeadRow key={lead._id} data={lead} />);
 
     const quickView = this.state.results
       .filter(lead => {
         let leadDate = moment(lead.trialDate).format("MM/DD/YYYY");
         let today = moment(Date.now()).format("MM/DD/YYYY");
         return leadDate === today;
+      })
+      .map(lead => <LeadRow key={lead._id} data={lead} />);
+
+    const followUp = this.state.results
+      .filter(lead => {
+        return lead.triedClass === true && lead.signedUp === false;
       })
       .map(lead => <LeadRow key={lead._id} data={lead} />);
 
@@ -52,15 +70,14 @@ export class Admin extends Component {
               Today's Trials <i className="fas fa-calendar-day" />
             </CardHeader>
             <CardBody>
-              <table className="table w-100">
+              <table className="table w-100 text-center">
+                {console.log(quickView)}
                 <thead>
                   <tr>
                     <td>Status</td>
-                    <td>Student First Name</td>
-                    <td>Student Last Name</td>
-                    <td>Parent First Name</td>
-                    <td>Parent Last Name</td>
-                    <td>Date</td>
+                    <td>Student</td>
+                    <td>Parent</td>
+                    <td>Trial Date</td>
                     <td>Class</td>
                     <td>Time</td>
                   </tr>
@@ -71,19 +88,41 @@ export class Admin extends Component {
           </Card>
 
           <Card className="mt-4">
-            <CardHeader tag="h4" className="text-uppercase bg-dark text-light">
-              All Leads <i className="fas fa-users" />
+            <CardHeader
+              tag="h4"
+              className="text-uppercase bg-warning text-light"
+            >
+              Follow Up <i className="fas fa-user-clock" />
             </CardHeader>
             <CardBody>
-              <table className="table w-100">
+              <table className="table w-100 text-center">
                 <thead>
                   <tr>
                     <td>Status</td>
-                    <td>Student First Name</td>
-                    <td>Student Last Name</td>
-                    <td>Parent First Name</td>
-                    <td>Parent Last Name</td>
-                    <td>Date</td>
+                    <td>Student</td>
+                    <td>Parent</td>
+                    <td>Trial Date</td>
+                    <td>Class</td>
+                    <td>Time</td>
+                  </tr>
+                </thead>
+                <tbody>{followUp}</tbody>
+              </table>
+            </CardBody>
+          </Card>
+
+          <Card className="mt-4">
+            <CardHeader tag="h4" className="text-uppercase bg-dark text-light">
+              Up Coming Trials <i className="fas fa-users" />
+            </CardHeader>
+            <CardBody>
+              <table className="table w-100 text-center">
+                <thead>
+                  <tr>
+                    <td>Status</td>
+                    <td>Student</td>
+                    <td>Parent</td>
+                    <td>Trial Date</td>
                     <td>Class</td>
                     <td>Time</td>
                   </tr>
