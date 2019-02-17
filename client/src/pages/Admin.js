@@ -26,15 +26,15 @@ export class Admin extends Component {
     }
   }
 
-  componentWillUpdate() {
-    if (!this.props.auth.isAuthenticated) {
-      this.props.history.push("/login");
-    } else {
-      API.getLeads().then(results => {
-        this.setState({ results: results.data, loading: false });
-      });
-    }
-  }
+  // componentWillUpdate() {
+  //   if (!this.props.auth.isAuthenticated) {
+  //     this.props.history.push("/login");
+  //   } else {
+  //     API.getLeads().then(results => {
+  //       this.setState({ results: results.data, loading: false });
+  //     });
+  //   }
+  // }
 
   render() {
     // console.log(this.state.results)

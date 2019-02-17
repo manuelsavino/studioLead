@@ -34,7 +34,7 @@ export class EachClass extends Component {
     const { eachClass } = this.props;
     return (
       //   <div>{console.log("props", this.props.eachClass)}</div>
-      <tr className="">
+      <tr className={classnames({ "bg-danger": !this.state.status })}>
         <td>{eachClass.nameOfClass}</td>
         <td>
           {eachClass.schedule.map(day =>
