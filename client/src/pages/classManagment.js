@@ -12,6 +12,7 @@ import {
   CardBody,
   CardHeader
 } from "reactstrap";
+import { EachClass } from "../components/admin/eachClass";
 import { Link } from "react-router-dom";
 
 export class ClassManagment extends Component {
@@ -43,21 +44,7 @@ export class ClassManagment extends Component {
 
   render() {
     const classes = this.state.results.map(eachClass => {
-      return (
-        <tr className="">
-          <td>{eachClass.nameOfClass}</td>
-          <td>
-            {eachClass.schedule.map(day =>
-              moment()
-                .day(day)
-                .format("ddd ")
-            )}
-          </td>
-          <td>{moment(eachClass.time, "HH:mm").format("h:mm A")}</td>
-          <td>{`${eachClass.min} - ${eachClass.max}`}</td>
-          <td>{this.classStatusToString(eachClass.status)}</td>
-        </tr>
-      );
+      return <EachClass key={eachClass._id} eachClass={eachClass} />;
     });
 
     return (
@@ -78,7 +65,6 @@ export class ClassManagment extends Component {
             </CardHeader>
 
             <Table dark hover responsive className="text-center">
-              {console.log(this.state.results)}
               <thead>
                 <tr>
                   <th>Class Name</th>

@@ -7,4 +7,6 @@ router.get("/", classController.getAll);
 
 router.get("/active", classController.getActiveClasses);
 
+router.put("/updateStatus/:id", classController.updateStatus);
+
 module.exports = router;

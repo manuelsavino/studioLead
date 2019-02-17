@@ -8,6 +8,7 @@ import "./admin.css";
 import DisplayLead from "../components/admin/displayLead";
 import MyModal from "../components/generalUi/modal";
 import ChildDetailsModal from "../components/admin/childDetailsModal";
+import { Spinner } from "reactstrap";
 
 import { connect } from "react-redux";
 // import { loginUser } from "../actions/authActions";
@@ -313,7 +314,13 @@ export class LeadView extends Component {
         <Fragment>
           <NavBar />
           <div className="container text-center">
-            <img className="my-auto" src="/loading.gif" alt="Loading" />
+            {/* <img className="my-auto" src="/loading.gif" alt="Loading" /> */}
+            <Spinner
+              className="mt-5"
+              style={{ width: "10rem", height: "10rem" }}
+              color="primary"
+              type="grow"
+            />
           </div>
         </Fragment>
       );

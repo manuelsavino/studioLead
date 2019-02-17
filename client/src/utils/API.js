@@ -52,5 +52,8 @@ export default {
 
   updateLeadStatus: function(data, id) {
     return axios.put(`/api/leads/updateStatus/${id}`, data);
+  },
+  updateClassStatus: function(data, id) {
+    return axios.put(`/api/classes/updateStatus/${id}`, data);
   }
 };

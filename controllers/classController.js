@@ -21,5 +21,11 @@ module.exports = {
       }
       res.json(Class);
     });
+  },
+  updateStatus(req, res) {
+    let { id } = req.params;
+    db.Class.findByIdAndUpdate(id, { $set: req.body }, (err, Class) => {
+      res.status(200).json({ Class: Class });
+    });
   }
 };
