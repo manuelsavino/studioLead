@@ -35,8 +35,6 @@ module.exports = {
 
   smsIn(req, res) {
     let { From, Body } = req.body;
-    console.log(Body);
-
     if (Body.toUpperCase() === "CONFIRM") {
       db.Message.create({ from: From, to: "7867893310", body: Body }).then(
         results => {

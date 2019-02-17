@@ -55,7 +55,9 @@ LeadSchema.statics.sendNotification = () => {
         } class for ${lead.cFirstName} is tomorrow at ${moment(
           lead.classTrying.time,
           "HH:mm"
-        ).format("h:mm A")}.`
+        ).format(
+          "h:mm A"
+        )}. Please reply CONFIRM to confirm you will be coming in.`
       };
 
       client.messages.create(options, function(err, response) {
@@ -75,9 +77,16 @@ LeadSchema.statics.sendNotification = () => {
                 Parent.findOneAndUpdate(
                   { _id: lead.parent._id },
                   { $push: { messages: results._id } }
-                ).then(results => {});
+                ).then(results => {
+                  Lead.findByIdAndUpdate(
+                    lead.id,
+                    { $set: { sms: true } },
+                    (err, leadResp) => {
+                      console.log(leadResp);
+                    }
+                  );
+                });
               });
-            //$set: { 'sms': true },
           }
         }
       });
