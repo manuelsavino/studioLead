@@ -37,7 +37,7 @@ module.exports = {
     let { From, Body } = req.body;
     console.log(Body);
 
-    if (Body.toUppercase() === "CONFIRM") {
+    if (Body.toUpperCase() === "CONFIRM") {
       db.Message.create({ from: From, to: "7867893310", body: Body }).then(
         results => {
           db.Parent.findOneAndUpdate(
