@@ -44,8 +44,14 @@ module.exports = {
             { parentCellphone: From },
             { $push: { messages: results._id } }
           ).then(result => {
-            console.log(result);
-            res.send(`<Response></Response>`);
+            db.Lead.update(
+              { parent: result._id, sms: true },
+              { $set: { confirmed: true } },
+              res => {
+                console.log(res);
+                res.send(`<Response></Response>`);
+              }
+            );
           });
         }
       );
