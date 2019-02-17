@@ -47,8 +47,10 @@ module.exports = {
             db.Lead.update(
               { parent: result._id, sms: true },
               { $set: { confirmed: true } },
-              res => {
-                console.log(res);
+              (err, resp) => {
+                if (err) {
+                  console.log("err", err);
+                }
                 res.send(`<Response></Response>`);
               }
             );
