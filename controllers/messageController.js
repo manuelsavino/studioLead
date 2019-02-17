@@ -34,18 +34,31 @@ module.exports = {
   },
 
   smsIn(req, res) {
-    console.log("POST SMS IN HIT");
     let { From, Body } = req.body;
 
-    db.Message.create({ from: From, to: "7867893310", body: Body }).then(
-      results => {
-        db.Parent.findOneAndUpdate(
-          { parentCellphone: From },
-          { $push: { messages: results._id } }
-        ).then(results => {
-          res.send(`<Response></Response>`);
-        });
-      }
-    );
+    if (Body.toUppercase === "CONFIRM") {
+      db.Message.create({ from: From, to: "7867893310", body: Body }).then(
+        results => {
+          db.Parent.findOneAndUpdate(
+            { parentCellphone: From },
+            { $push: { messages: results._id } }
+          ).then(result => {
+            console.log(result);
+            res.send(`<Response></Response>`);
+          });
+        }
+      );
+    } else {
+      db.Message.create({ from: From, to: "7867893310", body: Body }).then(
+        results => {
+          db.Parent.findOneAndUpdate(
+            { parentCellphone: From },
+            { $push: { messages: results._id } }
+          ).then(results => {
+            res.send(`<Response></Response>`);
+          });
+        }
+      );
+    }
   }
 };

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ClassDetails from "./ClassDetails";
+import { Spinner } from "reactstrap";
 import API from "../../utils/API";
 
 class ChildForm extends Component {

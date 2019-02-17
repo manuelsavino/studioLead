@@ -7,7 +7,6 @@ import moment from "moment";
 import "./admin.css";
 import DisplayLead from "../components/admin/displayLead";
 import MyModal from "../components/generalUi/modal";
-import ChildDetailsModal from "../components/admin/childDetailsModal";
 import { Spinner } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -151,7 +150,6 @@ export class LeadView extends Component {
 
       return (
         <Fragment>
-          <ChildDetailsModal isOpen={this.state.childDetailsModal} />
           <MyModal
             handleModal={this.handleModalClose}
             modalAction={this.state.modalAction}
