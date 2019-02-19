@@ -44,7 +44,7 @@ export default class DisplayLead extends Component {
       <div
         className={classnames("w-100", {
           "bg-warning": this.state.triedClass,
-          "bg-light border": !this.state.triedClass,
+          "bg-light": !this.state.triedClass,
           "bg-success": this.state.signedUp
         })}
       >
@@ -55,23 +55,26 @@ export default class DisplayLead extends Component {
             })}
           >
             <tr>
-              <td>Name: </td>
-              <td>{`${cFirstName} ${cLastName}`}</td>
+              <td className="border-top-0" colspan="2">
+                Name:{" "}
+              </td>
+              <td
+                className="border-top-0"
+                colspan="2"
+              >{`${cFirstName} ${cLastName}`}</td>
             </tr>
             <tr>
-              <td>Age:</td>
-              <td>{age}</td>
+              <td colspan="2">Age:</td>
+              <td colspan="2">{age}</td>
             </tr>
             <tr>
-              <td>Class Trying: </td>
-              <td>{`${nameOfClass} at ${moment(time, "HH:mm").format(
-                "h:mm A"
-              )}`}</td>
+              <td colspan="2">Class Trying: </td>
+              <td colspan="2">{`${nameOfClass} at ${moment(
+                time,
+                "HH:mm"
+              ).format("h:mm A")} on ${trialDate}`}</td>
             </tr>
-            <tr>
-              <td>Trial Date:</td>
-              <td>{trialDate}</td>
-            </tr>
+
             <tr>
               <td>Tried Class:</td>
               <td>
@@ -85,8 +88,6 @@ export default class DisplayLead extends Component {
                   <span className="slider round" />
                 </label>
               </td>
-            </tr>
-            <tr>
               <td>Signed Up:</td>
               <td>
                 <label className="switch">

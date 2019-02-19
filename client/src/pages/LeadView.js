@@ -238,7 +238,7 @@ export class LeadView extends Component {
                       Children <i className="fas fa-child" />
                     </h4>
                   </div>
-                  <div className="card-body d-flex">{children}</div>
+                  <div className="card-body">{children}</div>
                 </div>
                 {/* Children end */}
                 {/* Notes Start */}
