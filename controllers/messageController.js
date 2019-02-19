@@ -44,8 +44,8 @@ module.exports = {
           ).then(result => {
             db.Lead.update(
               { parent: result._id, sms: true },
-              { multi: true },
               { $set: { confirmed: true } },
+              { multi: true },
               (err, resp) => {
                 if (err) {
                   console.log("err", err);
