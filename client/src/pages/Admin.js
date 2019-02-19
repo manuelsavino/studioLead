@@ -12,9 +12,16 @@ export class Admin extends Component {
     super();
     this.state = {
       results: [],
-      loading: true
+      loading: true,
+      popoverOpen: false
     };
   }
+
+  toggle = () => {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
+  };
 
   componentWillMount() {
     if (!this.props.auth.isAuthenticated) {
@@ -160,6 +167,7 @@ export class Admin extends Component {
               </Table>
             </CardBody>
           </Card>
+          <div />
         </Container>
       </Fragment>
     );

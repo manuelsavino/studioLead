@@ -55,5 +55,9 @@ export default {
   },
   updateClassStatus: function(data, id) {
     return axios.put(`/api/classes/updateStatus/${id}`, data);
+  },
+  deleteParent: async function(id) {
+    const res = axios.delete(`/api/parents/${id}`);
+    return await res;
   }
 };

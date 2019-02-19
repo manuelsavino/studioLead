@@ -117,6 +117,26 @@ export class LeadView extends Component {
     });
   };
 
+  handleDeleteClick = () => {
+    this.setState({
+      modal: !this.state.modal,
+      modalOptions: {
+        modalBody: "Are you sure you want to Delete this Parent?",
+        modalTitle: "Delete Parent Confirmation",
+        modalActionText: "Yes",
+        modalAction: this.deleteParent
+      }
+    });
+  };
+
+  deleteParent = () => {
+    const { _id: id } = this.state.result;
+
+    API.deleteParent(id).then(res => {
+      // this.setState({ modal: false });
+      window.location.href = "/admin";
+    });
+  };
   render() {
     const values = this.state.result;
 
@@ -252,7 +272,7 @@ export class LeadView extends Component {
               </div>
               {/* Messages end */}
               {/* Calls Start */}
-              <div className="col-md-6 col-sm-12 mt-4">
+              <div className="col-md-12 col-sm-12 col-lg-6 mt-4">
                 <div className="card">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
                     <h4>
@@ -303,6 +323,12 @@ export class LeadView extends Component {
               {/* Notes end */}
             </div>
             {/*Ends Row*/}
+            <button
+              onClick={this.handleDeleteClick}
+              className="mt-2 btn btn-danger shadow-sm"
+            >
+              Delete <i className="fas fa-trash-alt" />
+            </button>
           </div>
           {/*Ends Container*/}
         </Fragment>

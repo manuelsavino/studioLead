@@ -36,5 +36,21 @@ module.exports = {
       if (err) return staus(500).json({ error: err });
       res.status(200).json({ note: note });
     });
+  },
+
+  deleteParent(req, res) {
+    const { id } = req.params;
+    db.Parent.findById(id, (err, parent) => {
+      db.Message.deleteMany({ _id: { $in: parent.messages } }, err => {
+        if (err) {
+          console.log(err);
+        }
+        db.Lead.deleteMany({ _id: { $in: parent.children } }, err => {
+          db.Parent.findByIdAndRemove(id, err => {
+            res.status(200).json({ result: "done" });
+          });
+        });
+      });
+    });
   }
 };
