@@ -27,7 +27,8 @@ export class LeadView extends Component {
         modalBody: "",
         modalAction: "",
         modalActionText: ""
-      }
+      },
+      eventFeed: []
     };
   }
 
@@ -74,7 +75,6 @@ export class LeadView extends Component {
     };
 
     API.sendSms(messageData).then(resp => {
-      console.log(resp);
       this.setState({ message: "" });
       this.getLeadData();
     });
@@ -137,29 +137,27 @@ export class LeadView extends Component {
       window.location.href = "/admin";
     });
   };
+
+  sortArr = myArr => {
+    return myArr.sort(function compare(a, b) {
+      var dateA = new Date(a.date);
+      var dateB = new Date(b.date);
+      return dateA - dateB;
+    });
+  };
   render() {
     const values = this.state.result;
+    let feed = [];
+    if (this.state.result.messages) {
+      feed = [...this.state.result.messages, ...this.state.result.calls];
+      console.log(this.sortArr(feed));
+    }
+
+    const actFeed = feed.map(item => {
+      return <MessageBubble key={item._id} data={item} />;
+    });
 
     if (this.state.result !== "") {
-      let calls = [];
-      values.calls.length > 0
-        ? (calls = values.calls.map(call => {
-            return (
-              <tr key={call._id}>
-                <td>{call.callType}</td>
-                <td>{moment(call.date).format("ddd, MMM Do YY, h:mm:ss a")}</td>
-              </tr>
-            );
-          }))
-        : (calls = []);
-
-      let messages = [];
-      values.messages.length > 0
-        ? (messages = values.messages.map(message => {
-            return <MessageBubble key={message._id} data={message} />;
-          }))
-        : (messages = []);
-
       const children = values.children.map(child => (
         <DisplayLead key={child._id} child={child} />
       ));
@@ -183,8 +181,8 @@ export class LeadView extends Component {
           <NavBar />
           <div className="container mt-2">
             <div className="row d-flex align-items-stretch">
-              {/* Contact Info Start */}
-              <div className="col-md-12 col-lg-6 mb-3">
+              <div className="col-md-12 col-sm-12 col-lg-6">
+                {/* Parent Start */}
                 <div className="card">
                   <div className="card-header d-flex  justify-content-between bg-dark pt-3 text-white">
                     <h4 className="text-uppercase">
@@ -213,20 +211,28 @@ export class LeadView extends Component {
                         </tr>
                       </tbody>
                     </table>
-                    <button
-                      onClick={this.handleModalForCall}
-                      className="btn btn-primary shadow-sm"
-                    >
-                      Call <i className="fas fa-phone" />
-                    </button>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        onClick={this.handleModalForCall}
+                        className="btn btn-primary shadow-sm"
+                      >
+                        Call <i className="fas fa-phone" />
+                      </button>
+                      <button className="mt-2 btn btn-danger shadow-sm">
+                        Archive <i className="fas fa-archive" />
+                      </button>
+                      {/* <button
+                        onClick={this.handleDeleteClick}
+                        className="mt-2 btn btn-danger shadow-sm"
+                      >
+                        Delete <i className="fas fa-trash-alt" />
+                      </button> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* Contact Info End */}
-
-              {/* Childre Start */}
-              <div className="col-md-12 col-sm-12 col-lg-6">
-                <div className="card">
+                {/* Parent end */}
+                {/* Children Start */}
+                <div className="card mt-3">
                   <div className="card-header  text-uppercase bg-dark pt-3 text-white">
                     <h4>
                       Children <i className="fas fa-child" />
@@ -234,64 +240,7 @@ export class LeadView extends Component {
                   </div>
                   <div className="card-body d-flex">{children}</div>
                 </div>
-              </div>
-              {/* Children end */}
-              {/* Messages Start */}
-              <div className="col-md-12 col-sm-12 col-lg-6 mt-4">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Messages <i className="fas fa-sms" />
-                    </h4>
-                  </div>
-                  <div className="card-body">{messages}</div>
-                  <div className="card-footer p-1 bg-transparent">
-                    <div className="input-group input-group-lg">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="message"
-                        placeholder="Message"
-                        value={this.state.message}
-                        maxLength="140"
-                        onChange={this.handleChange}
-                      />
-                      <div className="input-group-append">
-                        <button
-                          className="btn btn-success"
-                          onClick={this.handleSend}
-                          type="button"
-                          id="button-addon2"
-                        >
-                          Send
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Messages end */}
-              {/* Calls Start */}
-              <div className="col-md-12 col-sm-12 col-lg-6 mt-4">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Calls <i className="fas fa-phone" />
-                    </h4>
-                  </div>
-                  <div className="card-body">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Type</th>
-                          <th scope="col">Date and Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>{calls}</tbody>
-                    </table>
-                  </div>
-                </div>
-                {/* Calls end */}
+                {/* Children end */}
                 {/* Notes Start */}
                 <div className="card mt-3">
                   <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
@@ -319,16 +268,47 @@ export class LeadView extends Component {
                     </button>
                   </div>
                 </div>
+                {/* Notes end */}
               </div>
-              {/* Notes end */}
+              {/* Contact, info and notes  end */}
+              {/* Communication Feed Start */}
+              <div className="col-md-12 col-sm-12 col-lg-6">
+                <div className="card">
+                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
+                    <h4>
+                      Communication Feed <i className="fas fa-comments" />
+                    </h4>
+                  </div>
+                  <div className="card-body">{actFeed}</div>
+                  <div className="card-footer p-1 bg-transparent">
+                    <div className="input-group input-group-lg">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="message"
+                        placeholder="Message"
+                        value={this.state.message}
+                        maxLength="140"
+                        onChange={this.handleChange}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          className="btn btn-success"
+                          onClick={this.handleSend}
+                          type="button"
+                          id="button-addon2"
+                        >
+                          Send
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Messages end */}
+              {/* Calls Start */}
             </div>
             {/*Ends Row*/}
-            <button
-              onClick={this.handleDeleteClick}
-              className="mt-2 btn btn-danger shadow-sm"
-            >
-              Delete <i className="fas fa-trash-alt" />
-            </button>
           </div>
           {/*Ends Container*/}
         </Fragment>

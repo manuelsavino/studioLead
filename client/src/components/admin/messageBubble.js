@@ -1,33 +1,53 @@
 import React, { Fragment } from "react";
 import moment from "moment";
+import classname from "classnames";
 
 export default function MessageBubble({ data }) {
-  if (data.from === "7867893310" || data.from === "+17867893310") {
-    return (
-      <Fragment>
-        <div className="d-flex flex-row-reverse">
-          <small className="text-muted">
-            {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss A")}
-          </small>
-        </div>
-        <div className="d-flex flex-row-reverse">
-          <div className="speech-bubble-out shadow bg-primary mb-2 p-1 d-flex justify-content-between">
-            <p className="pt-3 text-white mx-3">{data.body}</p>
-          </div>
-        </div>
-      </Fragment>
-    );
-  } else {
-    return (
-      <div>
+  return (
+    <Fragment>
+      <div
+        className={classname({
+          "d-flex flex-row-reverse":
+            data.from === "7867893310" ||
+            data.from === "+17867893310" ||
+            data.callType
+        })}
+      >
         <small className="text-muted">
           {moment(data.date).format("dddd, MMMM Do YYYY, h:mm:ss A")}
         </small>
-        <div className="speech-bubble-in shadow bg-success  p-1 mb-2 d-flex justify-content-between">
-          {/* <i class="fas fa-user p-4 rounded-circle bg-dark text-white"></i> */}
-          <p className="pt-3 mx-3 text-white">{data.body}</p>
+      </div>
+      <div
+        className={classname({
+          "d-flex flex-row-reverse":
+            data.from === "7867893310" ||
+            data.from === "+17867893310" ||
+            data.callType
+        })}
+      >
+        <div
+          className={classname(
+            "shadow mb-2 p-1 d-flex justify-content-between",
+            {
+              "call-bubble-out bg-warning": data.callType === "Outgoing",
+              "speech-bubble-out bg-primary":
+                data.from === "7867893310" || data.from === "+17867893310",
+              "speech-bubble-in bg-success":
+                data.from != undefined && data.from != "7867893310"
+            }
+          )}
+        >
+          {console.log(data.from)}
+          {data.body ? (
+            <p className="pt-3 text-white mx-3">{data.body}</p>
+          ) : (
+            <p className="pt-3 text-white mx-3">
+              {" "}
+              <i className="fas fa-phone fa-lg" /> Out Going Call
+            </p>
+          )}
         </div>
       </div>
-    );
-  }
+    </Fragment>
+  );
 }

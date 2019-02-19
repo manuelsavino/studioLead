@@ -1,7 +1,7 @@
-.message {
+/* .message {
   width: 75%;
   border-radius: 25px;
-}
+} */
 
 .speech-bubble-out {
   position: relative;
@@ -41,6 +41,12 @@
   border-left: 0;
   margin-top: -0.344em;
   margin-left: -0.344em;
+}
+
+.call-bubble-out {
+  position: relative;
+  border-radius: 0.4em;
+  width: 75%;
 }
 
 /* Smartphones (portrait and landscape) ----------- */
