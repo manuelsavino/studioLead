@@ -150,7 +150,7 @@ export class LeadView extends Component {
     let feed = [];
     if (this.state.result.messages) {
       feed = [...this.state.result.messages, ...this.state.result.calls];
-      console.log(this.sortArr(feed));
+      feed = this.sortArr(feed).reverse();
     }
 
     const actFeed = feed.map(item => {
@@ -231,6 +231,37 @@ export class LeadView extends Component {
                   </div>
                 </div>
                 {/* Parent end */}
+                <div className="card mt-3">
+                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
+                    <h4>
+                      SEND SMS <i className="fas fa-sms" />
+                    </h4>
+                  </div>
+                  <div className="card-body">
+                    <div className="input-group input-group-lg">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="message"
+                        placeholder="Message"
+                        value={this.state.message}
+                        maxLength="140"
+                        onChange={this.handleChange}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          className="btn btn-success"
+                          onClick={this.handleSend}
+                          type="button"
+                          id="button-addon2"
+                        >
+                          Send
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Children Start */}
                 <div className="card mt-3">
                   <div className="card-header  text-uppercase bg-dark pt-3 text-white">
@@ -268,6 +299,7 @@ export class LeadView extends Component {
                     </button>
                   </div>
                 </div>
+
                 {/* Notes end */}
               </div>
               {/* Contact, info and notes  end */}
@@ -280,29 +312,6 @@ export class LeadView extends Component {
                     </h4>
                   </div>
                   <div className="card-body">{actFeed}</div>
-                  <div className="card-footer p-1 bg-transparent">
-                    <div className="input-group input-group-lg">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="message"
-                        placeholder="Message"
-                        value={this.state.message}
-                        maxLength="140"
-                        onChange={this.handleChange}
-                      />
-                      <div className="input-group-append">
-                        <button
-                          className="btn btn-success"
-                          onClick={this.handleSend}
-                          type="button"
-                          id="button-addon2"
-                        >
-                          Send
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               {/* Messages end */}
