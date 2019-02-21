@@ -67,108 +67,97 @@ export class Admin extends Component {
 
     return (
       <Fragment>
-        <Navbar />
-        <Container className="mt-3">
-          <Card>
-            <CardHeader
-              tag="h4"
-              className="text-uppercase bg-success text-light"
-            >
-              Today's Trials <i className="fas fa-calendar-day" />
-            </CardHeader>
-            <CardBody
-              inverse
-              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
-            >
-              <Table
-                dark
-                responsive
-                hover
-                borderless
-                className="text-white w-100 text-center"
+        <div className="wrapper">
+          <Navbar />
+          <Container className="mt-3">
+            <Card className="mt-4 shadow-sm">
+              <CardHeader
+                tag="h4"
+                className="text-uppercase bg-purple text-light"
               >
-                <thead>
-                  <tr>
-                    <td>Status</td>
-                    <td>Student</td>
-                    <td>Parent</td>
-                    <td>Trial Date</td>
-                    <td>Class</td>
-                    <td>Time</td>
-                  </tr>
-                </thead>
-                <tbody>{quickView}</tbody>
-              </Table>
-            </CardBody>
-          </Card>
+                Today's Trials <i className="fas fa-calendar-day" />
+              </CardHeader>
+              <CardBody>
+                <Table
+                  borderless
+                  hover
+                  responsive
+                  className=" w-100 text-center"
+                >
+                  <thead>
+                    <tr>
+                      <td>Status</td>
+                      <td>Student</td>
+                      <td>Parent</td>
+                      <td>Trial Date</td>
+                      <td>Class</td>
+                      <td>Time</td>
+                    </tr>
+                  </thead>
+                  <tbody>{quickView}</tbody>
+                </Table>
+              </CardBody>
+            </Card>
+            <Card className="mt-4 shadow-sm">
+              <CardHeader
+                tag="h4"
+                className="text-uppercase bg-wiretap text-light"
+              >
+                Follow Up <i className="fas fa-user-clock" />
+              </CardHeader>
+              <CardBody>
+                <Table
+                  borderless
+                  hover
+                  responsive
+                  className=" w-100 text-center"
+                >
+                  <thead>
+                    <tr>
+                      <td>Status</td>
+                      <td>Student</td>
+                      <td>Parent</td>
+                      <td>Trial Date</td>
+                      <td>Class</td>
+                      <td>Time</td>
+                    </tr>
+                  </thead>
+                  <tbody>{followUp}</tbody>
+                </Table>
+              </CardBody>
+            </Card>
 
-          <Card className="mt-4">
-            <CardHeader
-              tag="h4"
-              className="text-uppercase bg-warning text-light"
-            >
-              Follow Up <i className="fas fa-user-clock" />
-            </CardHeader>
-            <CardBody
-              inverse
-              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
-            >
-              <Table
-                borderless
-                dark
-                hover
-                responsive
-                className="text-white w-100 text-center"
+            <Card className="mt-4 shadow-sm">
+              <CardHeader
+                tag="h4"
+                className="text-uppercase bg-purple text-light"
               >
-                <thead>
-                  <tr>
-                    <td>Status</td>
-                    <td>Student</td>
-                    <td>Parent</td>
-                    <td>Trial Date</td>
-                    <td>Class</td>
-                    <td>Time</td>
-                  </tr>
-                </thead>
-                <tbody>{followUp}</tbody>
-              </Table>
-            </CardBody>
-          </Card>
-
-          <Card className="mt-4">
-            <CardHeader
-              tag="h4"
-              className="text-uppercase bg-primary text-light"
-            >
-              Up Coming Trials <i className="fas fa-users" />
-            </CardHeader>
-            <CardBody
-              inverse
-              style={{ backgroundColor: "#343A40", borderColor: "#333" }}
-            >
-              <Table
-                dark
-                hover
-                borderless
-                responsive
-                className="text-white w-100 text-center"
-              >
-                <thead>
-                  <tr>
-                    <td>Status</td>
-                    <td>Student</td>
-                    <td>Parent</td>
-                    <td>Trial Date</td>
-                    <td>Class</td>
-                    <td>Time</td>
-                  </tr>
-                </thead>
-                <tbody>{leads}</tbody>
-              </Table>
-            </CardBody>
-          </Card>
-          <div />
-        </Container>
+                Up Coming Trials <i className="fas fa-users" />
+              </CardHeader>
+              <CardBody>
+                <Table
+                  hover
+                  borderless
+                  responsive
+                  className="w-100 text-center"
+                >
+                  <thead>
+                    <tr>
+                      <td>Status</td>
+                      <td>Student</td>
+                      <td>Parent</td>
+                      <td>Trial Date</td>
+                      <td>Class</td>
+                      <td>Time</td>
+                    </tr>
+                  </thead>
+                  <tbody>{leads}</tbody>
+                </Table>
+              </CardBody>
+            </Card>
+            <div />
+          </Container>
+        </div>
       </Fragment>
     );
   }

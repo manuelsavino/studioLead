@@ -168,172 +168,169 @@ export class LeadView extends Component {
 
       return (
         <Fragment>
-          <MyModal
-            handleModal={this.handleModalClose}
-            modalAction={this.state.modalAction}
-            isOpen={this.state.modal}
-            modalBody={this.state.modalBody}
-            modalTitle={this.state.modalTitle}
-            modalOptions={this.state.modalOptions}
-            modalActionText={this.state.modalActionText}
-          />
+          <div className="wrapper">
+            <MyModal
+              handleModal={this.handleModalClose}
+              modalAction={this.state.modalAction}
+              isOpen={this.state.modal}
+              modalBody={this.state.modalBody}
+              modalTitle={this.state.modalTitle}
+              modalOptions={this.state.modalOptions}
+              modalActionText={this.state.modalActionText}
+            />
 
-          <NavBar />
-          <div className="container mt-2">
-            <div className="row d-flex align-items-stretch">
-              <div className="col-md-12 col-sm-12 col-lg-6">
-                {/* Parent Start */}
-                <div className="card">
-                  <div className="card-header d-flex  justify-content-between bg-dark pt-3 text-white">
-                    <h4 className="text-uppercase">
-                      Contact Information <i className="fas fa-info" />
-                    </h4>
-                    <h5>
-                      <i className="fas fa-pencil-alt" /> Edit{" "}
-                    </h5>
-                  </div>
-                  <div className="card-body table-responsive">
-                    <table className="table">
-                      <tbody>
-                        <tr>
-                          <td className="border-top-0">Parent's Name: </td>
-                          <td className="border-top-0">{`${values.pFirstName} ${
-                            values.pLastName
-                          }`}</td>
-                        </tr>
-                        <tr>
-                          <td>Cell Phone: </td>
-                          <td>{values.parentCellphone}</td>
-                        </tr>
-                        <tr>
-                          <td>Email: </td>
-                          <td>{values.email}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div className="d-flex justify-content-between">
-                      <button
-                        onClick={this.handleModalForCall}
-                        className="btn btn-primary shadow-sm"
-                      >
-                        Call <i className="fas fa-phone" />
-                      </button>
-                      <button className="mt-2 btn btn-danger shadow-sm">
-                        Archive <i className="fas fa-archive" />
-                      </button>
-                      {/* <button
+            <NavBar />
+            <div className="container mt-4">
+              <div className="row d-flex align-items-stretch">
+                <div className="col-md-12 col-sm-12 col-lg-6">
+                  {/* Parent Start */}
+                  <div className="card shadow-sm p-1">
+                    <div className="card-body table-responsive">
+                      <h2 className="heading mb-3">
+                        Contact Information <i className="fas fa-info" />
+                      </h2>
+                      <table className="table">
+                        <tbody>
+                          <tr>
+                            <td className="border-top-0">Parent's Name: </td>
+                            <td className="border-top-0">{`${
+                              values.pFirstName
+                            } ${values.pLastName}`}</td>
+                          </tr>
+                          <tr>
+                            <td>Cell Phone: </td>
+                            <td>
+                              {values.parentCellphone}{" "}
+                              <button
+                                onClick={this.handleModalForCall}
+                                className="btn btn-primary btn-sm ml-3 shadow-sm"
+                              >
+                                <i className="fas fa-phone mr-1" />
+                                Call
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Email: </td>
+                            <td>{values.email}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div className="d-flex justify-content-between">
+                        <button className="mt-2 btn btn-danger shadow-sm">
+                          Archive <i className="fas fa-archive" />
+                        </button>
+                        {/* <button
                         onClick={this.handleDeleteClick}
                         className="mt-2 btn btn-danger shadow-sm"
                       >
                         Delete <i className="fas fa-trash-alt" />
                       </button> */}
-                    </div>
-                  </div>
-                </div>
-                {/* Parent end */}
-                <div className="card mt-3">
-                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      SEND SMS <i className="fas fa-sms" />
-                    </h4>
-                  </div>
-                  <div className="card-body">
-                    <div className="input-group input-group-lg">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="message"
-                        placeholder="Message"
-                        value={this.state.message}
-                        maxLength="140"
-                        onChange={this.handleChange}
-                      />
-                      <div className="input-group-append">
-                        <button
-                          className="btn btn-success"
-                          onClick={this.handleSend}
-                          type="button"
-                          id="button-addon2"
-                        >
-                          Send
-                        </button>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Children Start */}
-                <div className="card mt-3">
-                  <div className="card-header  text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Children <i className="fas fa-child" />
-                    </h4>
-                  </div>
-                  <div className="card-body">{children}</div>
-                </div>
-                {/* Children end */}
-                {/* Notes Start */}
-                <div className="card mt-3">
-                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Notes <i className="fas fa-sticky-note" />
-                    </h4>
-                  </div>
-                  <div className="card-body">
-                    {notes}
-                    <div className="form-group">
-                      <textarea
-                        type="text"
-                        className="form-control"
-                        onChange={this.handleChange}
-                        name="note"
-                        value={this.state.note}
-                        placeholder="Note text goes here..."
-                      />
+                  {/* Parent end */}
+                  <div className="card mt-3 shadow-sm p-1">
+                    <div className="card-body">
+                      <h2 className="heading mb-3">
+                        Send SMS <i className="fas fa-sms" />
+                      </h2>
+                      <div className="input-group input-group-lg">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="message"
+                          placeholder="Message"
+                          value={this.state.message}
+                          maxLength="140"
+                          onChange={this.handleChange}
+                        />
+                        <div className="input-group-append">
+                          <button
+                            className="btn btn-success"
+                            onClick={this.handleSend}
+                            type="button"
+                            id="button-addon2"
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <button
-                      onClick={this.handleNewNote}
-                      className="btn btn-primary shadow-sm"
-                    >
-                      Submit Note
-                    </button>
                   </div>
-                </div>
 
-                {/* Notes end */}
-              </div>
-              {/* Contact, info and notes  end */}
-              {/* Communication Feed Start */}
-              <div className="col-md-12 col-sm-12 col-lg-6">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between text-uppercase bg-dark pt-3 text-white">
-                    <h4>
-                      Communication Feed <i className="fas fa-comments" />
-                    </h4>
+                  {/* Children Start */}
+                  <div className="card shadow-sm mt-3">
+                    <div className="card-body">
+                      <h2 className="heading mb-3">
+                        Children <i className="fas fa-child" />
+                      </h2>
+                      {children}
+                    </div>
                   </div>
-                  <div className="card-body">{actFeed}</div>
+                  {/* Children end */}
+                  {/* Notes Start */}
+                  <div className="card shadow-sm mt-3">
+                    <div className="card-body">
+                      <h2 className="heading mb-3">
+                        Notes <i className="fas fa-sticky-note" />
+                      </h2>
+                      {notes}
+                      <div className="form-group">
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          onChange={this.handleChange}
+                          name="note"
+                          value={this.state.note}
+                          placeholder="Note text goes here..."
+                        />
+                      </div>
+                      <button
+                        onClick={this.handleNewNote}
+                        className="btn btn-primary shadow-sm"
+                      >
+                        Submit Note
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Notes end */}
                 </div>
+                {/* Contact, info and notes  end */}
+                {/* Communication Feed Start */}
+                <div className="col-md-12 col-sm-12 col-lg-6">
+                  <div className="card shadow-sm p-1">
+                    <div className="card-body">
+                      <h2 className="mb-4 heading">
+                        Communication Feed <i className="fas fa-comments" />
+                      </h2>
+                      {actFeed}
+                    </div>
+                  </div>
+                </div>
+                {/* Messages end */}
+                {/* Calls Start */}
               </div>
-              {/* Messages end */}
-              {/* Calls Start */}
+              {/*Ends Row*/}
             </div>
-            {/*Ends Row*/}
+            {/*Ends Container*/}
           </div>
-          {/*Ends Container*/}
         </Fragment>
       );
     } else {
       return (
         <Fragment>
-          <NavBar />
-          <div className="container text-center">
-            {/* <img className="my-auto" src="/loading.gif" alt="Loading" /> */}
-            <Spinner
-              className="mt-5"
-              style={{ width: "10rem", height: "10rem" }}
-              color="primary"
-              type="grow"
-            />
+          <div className="wrapper">
+            <NavBar />
+            <div className="container text-center">
+              <Spinner
+                className="mt-5"
+                style={{ width: "10rem", height: "10rem" }}
+                color="primary"
+                type="grow"
+              />
+            </div>
           </div>
         </Fragment>
       );

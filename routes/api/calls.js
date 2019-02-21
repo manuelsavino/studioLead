@@ -29,7 +29,7 @@ router.post("/call", function(req, res) {
     { $push: { calls: record } },
     (err, resp) => {
       console.log(err);
-      console.log(resp);
+      // res.status(200).json({ status: "Call Placed" });
     }
   );
 

@@ -49,12 +49,12 @@ export class ClassManagment extends Component {
 
     return (
       <Fragment>
-        <Navbar />
+        <Navbar active="classMgmt" />
         <Container className="mt-3">
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader
               tag="h4"
-              className="text-uppercase bg-success text-light d-flex justify-content-between"
+              className="text-uppercase bg-green text-light d-flex justify-content-between"
             >
               <span>
                 Classes <i className="fas fa-chalkboard" />
@@ -64,7 +64,7 @@ export class ClassManagment extends Component {
               </Link>
             </CardHeader>
 
-            <Table dark hover responsive className="text-center">
+            <Table hover responsive className="text-center">
               <thead>
                 <tr>
                   <th>Class Name</th>

@@ -66,6 +66,7 @@ class ChildForm extends Component {
     return (
       <div className="container">
         <div className="text-center">
+          <img className="my-auto" src="./logo.png" alt="logo" />
           <ul id="progressbar">
             <li className="active"> Choose a class</li>
             <li>Pick a date</li>

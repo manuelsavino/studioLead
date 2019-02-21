@@ -1,23 +1,16 @@
-import React, { Component } from 'react'
-import EachDay from './eachDay'
-import moment from 'moment'
-
-
-
+import React, { Component } from "react";
+import EachDay from "./eachDay";
+import moment from "moment";
 
 export default class PickATime extends Component {
-
-
   continue = (e, date) => {
-    e.preventDefault()
+    e.preventDefault();
     this.props.nextStep("", "", "", "", date);
-  }
+  };
   previousStep = e => {
-    e.preventDefault()
+    e.preventDefault();
     this.props.previousStep();
-  }
-
-
+  };
 
   render() {
     const dates = this.props.schedule.map((day, index) => (
@@ -29,31 +22,41 @@ export default class PickATime extends Component {
         dayCount={this.props.schedule.length}
       />
     ));
-    return <div className="container">
-      <div className="text-center">
-        <ul id="progressbar">
-          <li> Choose a class</li>
-          <li className="active">Pick a date</li>
-          <li>Information</li>
-          <li>Confirm</li>
-          <li>Done</li>
-        </ul>
-      </div>
+    return (
+      <div className="container">
+        <div className="text-center">
+          <img className="my-auto" src="./logo.png" alt="logo" />
 
-      <div className="card">
-        <div className="card-body">
-          <h2 className="display-4 sortaBlack">
-            {this.props.nameOfClass} at {moment(this.props.time, "HH:mm").format("h:mm A")}
-          </h2>
-          <p className="text-muted">Click on date you would like to try the class to continue</p>
+          <ul id="progressbar">
+            <li> Choose a class</li>
+            <li className="active">Pick a date</li>
+            <li>Information</li>
+            <li>Confirm</li>
+            <li>Done</li>
+          </ul>
+        </div>
 
-          <div className="results">{dates}</div>
+        <div className="card">
+          <div className="card-body">
+            <h2 className="display-4 sortaBlack">
+              {this.props.nameOfClass} at{" "}
+              {moment(this.props.time, "HH:mm").format("h:mm A")}
+            </h2>
+            <p className="text-muted">
+              Click on date you would like to try the class to continue
+            </p>
 
-          <button className="btn btn-danger mr-2 mt-2" onClick={this.previousStep}>
-            <i className="fas fa-arrow-left"></i> Go Back
-                </button>
+            <div className="results">{dates}</div>
+
+            <button
+              className="btn btn-danger mr-2 mt-2"
+              onClick={this.previousStep}
+            >
+              <i className="fas fa-arrow-left" /> Go Back
+            </button>
+          </div>
         </div>
       </div>
-    </div>;
+    );
   }
 }

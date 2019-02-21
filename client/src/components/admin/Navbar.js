@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -16,8 +17,9 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="/admin">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-0 ">
+        <a className="navbar-brand" href="#">
+          <i className="fas fa-filter" />
           Studio Leads
         </a>
         <button
@@ -33,21 +35,49 @@ class Navbar extends Component {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item py-4 text-center">
+              <i className="material-icons">dashboard</i>
               <Link to={"/admin"} className="nav-link">
-                Home
+                Dashboard
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/admin/classes"} className="nav-link">
+            <li className="nav-item  py-4 text-center">
+              <i className="material-icons">class</i>
+              <Link
+                className="nav-link py-0"
+                to={"/admin/classes"}
+                className="nav-link"
+              >
                 Class Managment
               </Link>
             </li>
+
+            <li className="nav-item  py-4 text-center">
+              <i className="material-icons">contacts</i>
+              <Link className="nav-link" to={"/admin/#"}>
+                Parents
+              </Link>
+            </li>
+            <li className="nav-item  py-4 text-center">
+              <i className="material-icons">archive</i>
+              <Link className="nav-link" to={"/admin/#"}>
+                Lead Archive
+              </Link>
+            </li>
+            <li className="nav-item  py-4 text-center">
+              <i className="material-icons">show_chart</i>
+              <Link className="nav-link" to={"/admin/#"}>
+                Analytics
+              </Link>
+            </li>
+            <li onClick={this.onLogoutClick} class="nav-item  py-4 text-center">
+              <i class="material-icons">exit_to_app</i>
+              <Link className="nav-link" to={"/admin/#"}>
+                Logout
+              </Link>
+            </li>
           </ul>
-          <button onClick={this.onLogoutClick} className="btn btn-danger">
-            Logout
-          </button>
         </div>
       </nav>
     );

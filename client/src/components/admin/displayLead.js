@@ -3,6 +3,7 @@ import moment from "moment";
 import API from "../../utils/API";
 import { Table } from "reactstrap";
 import classnames from "classnames";
+import "./admin.css";
 
 export default class DisplayLead extends Component {
   constructor() {
