@@ -69,13 +69,13 @@ export class Admin extends Component {
       <Fragment>
         <div className="wrapper">
           <Navbar />
-          <Container className="mt-1">
-            <Card className="mt-2 shadow-sm">
+          <Container className="mt-3">
+            <Card className="mt-4 shadow-sm">
               <CardHeader
                 tag="h4"
                 className="text-uppercase bg-purple text-light"
               >
-                Today's Trials <i className="fas fa-calendar-day" />
+                Parents <i className="fas fa-user-friends" />
               </CardHeader>
               <CardBody>
                 <Table
@@ -95,63 +95,6 @@ export class Admin extends Component {
                     </tr>
                   </thead>
                   <tbody>{quickView}</tbody>
-                </Table>
-              </CardBody>
-            </Card>
-            <Card className="mt-4 shadow-sm">
-              <CardHeader
-                tag="h4"
-                className="text-uppercase bg-wiretap text-light"
-              >
-                Follow Up <i className="fas fa-user-clock" />
-              </CardHeader>
-              <CardBody>
-                <Table
-                  borderless
-                  hover
-                  responsive
-                  className=" w-100 text-center"
-                >
-                  <thead>
-                    <tr>
-                      <td>Status</td>
-                      <td>Student</td>
-                      <td>Parent</td>
-                      <td>Trial Date</td>
-                      <td>Class</td>
-                      <td>Time</td>
-                    </tr>
-                  </thead>
-                  <tbody>{followUp}</tbody>
-                </Table>
-              </CardBody>
-            </Card>
-
-            <Card className="mt-4 shadow-sm">
-              <CardHeader
-                tag="h4"
-                className="text-uppercase bg-purple text-light"
-              >
-                Up Coming Trials <i className="fas fa-users" />
-              </CardHeader>
-              <CardBody>
-                <Table
-                  hover
-                  borderless
-                  responsive
-                  className="w-100 text-center"
-                >
-                  <thead>
-                    <tr>
-                      <td>Status</td>
-                      <td>Student</td>
-                      <td>Parent</td>
-                      <td>Trial Date</td>
-                      <td>Class</td>
-                      <td>Time</td>
-                    </tr>
-                  </thead>
-                  <tbody>{leads}</tbody>
                 </Table>
               </CardBody>
             </Card>

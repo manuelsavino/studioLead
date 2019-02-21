@@ -14,7 +14,7 @@ export default class Confirmation extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container p-0">
         <div className="text-center">
           <img className="my-auto" src="./logo.png" alt="logo" />
           <ul id="progressbar">

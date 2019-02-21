@@ -180,8 +180,8 @@ export class LeadView extends Component {
             />
 
             <NavBar />
-            <div className="container mt-4">
-              <div className="row d-flex align-items-stretch">
+            <div className="container mt-2">
+              <div className="row d-flex align-items-stretch mt-2">
                 <div className="col-md-12 col-sm-12 col-lg-6">
                   {/* Parent Start */}
                   <div className="card shadow-sm p-1">

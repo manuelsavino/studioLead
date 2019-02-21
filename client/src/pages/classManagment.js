@@ -49,35 +49,39 @@ export class ClassManagment extends Component {
 
     return (
       <Fragment>
-        <Navbar active="classMgmt" />
-        <Container className="mt-3">
-          <Card className="shadow-sm">
-            <CardHeader
-              tag="h4"
-              className="text-uppercase bg-green text-light d-flex justify-content-between"
-            >
-              <span>
-                Classes <i className="fas fa-chalkboard" />
-              </span>
-              <Link to={`/admin/addAClass`}>
-                <Button>Add A Class</Button>
-              </Link>
-            </CardHeader>
+        <div className="wrapper">
+          <Navbar active="classMgmt" />
+          <Container className="mt-1">
+            <Card className="shadow-sm mt-2">
+              <CardHeader
+                tag="h4"
+                className="text-uppercase bg-purple text-light d-flex justify-content-between"
+              >
+                <span>
+                  Classes <i className="fas fa-chalkboard" />
+                </span>
+                <Link to={`/admin/addAClass`}>
+                  <Button color="info" size="sm">
+                    Add A Class
+                  </Button>
+                </Link>
+              </CardHeader>
 
-            <Table hover responsive className="text-center">
-              <thead>
-                <tr>
-                  <th>Class Name</th>
-                  <th>Schedule</th>
-                  <th>Time</th>
-                  <th>Age Group</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>{classes}</tbody>
-            </Table>
-          </Card>
-        </Container>
+              <Table hover borderless responsive className="text-center mt-3">
+                <thead>
+                  <tr>
+                    <th>Class Name</th>
+                    <th>Schedule</th>
+                    <th>Time</th>
+                    <th>Age Group</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>{classes}</tbody>
+              </Table>
+            </Card>
+          </Container>
+        </div>
       </Fragment>
     );
   }

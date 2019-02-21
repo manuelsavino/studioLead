@@ -1,141 +1,124 @@
-
-body{
-    /* background: url('/bg.png') repeat; */
-    background-color: #f4f4f4;
+.body {
+  font-family: "Roboto", sans-serif;
 }
 
-.sortaBlack{
-    color: #484848;
+.sortaBlack {
+  color: #484848;
 }
 
-
-.display-1,.display-2, .display-3, .display-4, .display-5
-{
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+h1,
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
 }
 
-.results{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
+.results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
 }
-
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-/* Styles */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* Styles */
 
-.results{
+  .results {
     grid-template-columns: 1fr;
+  }
 }
 
+.eachClass {
+  /* border: solid 1px #009688; */
+  text-align: center;
+  min-height: 200px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  color: #484848;
+  font-family: "Roboto", sans-serif;
 }
 
-
-
-.eachClass{
-    /* border: solid 1px #009688; */
-    text-align: center;
-    min-height: 200px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,.1);
-    color: #484848;
+.eachClass:hover {
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
+  /* background-color: #80DEEA; */
+  color: black;
 }
 
-.eachClass:hover{
-    box-shadow: 0px 2px 20px rgba(0,0,0,.3);
-    /* background-color: #80DEEA; */
-    color: black;
+.eachClassBefore {
+  text-align: center;
+  min-height: 250px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  color: #484848;
 }
 
-.eachClassBefore{
-    text-align: center;
-    min-height: 250px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,.1);
-    color: #484848;
+.eachday {
+  border: solid 1px #ff5722;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: #484848;
 }
 
-
-.eachClassBefore:hover{
-    /* box-shadow: 0px 2px 20px rgba(0,0,0,.1); */
+.eachday:hover {
+  background-color: #ff5722;
 }
-
-
-
-
-
-
-.eachday{
-    border: solid 1px #FF5722;
-    text-align: center;
-    box-shadow: 0px 2px 5px rgba(0,0,0,.2);
-    color: #484848;
-
-}
-
-.eachday:hover{
-    background-color: #FF5722;
-    color: white;
-}
-
-
 
 #progressbar {
-    margin-bottom: 30px;
-    margin-top: 30px;
-    overflow: hidden;
-    /*CSS counters to number the steps*/
-    counter-reset: step;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
 }
 
 #progressbar li {
-    list-style-type: none;
-    color: #272727;
-    text-transform: uppercase;
-    font-size: 9px;
-    width: 20%;
-    float: left;
-    position: relative;
-    letter-spacing: 1px;
+  list-style-type: none;
+  color: #272727;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 20%;
+  float: left;
+  position: relative;
+  letter-spacing: 1px;
 }
 
 #progressbar li:before {
-    content: counter(step);
-    counter-increment: step;
-    width: 24px;
-    height: 24px;
-    line-height: 26px;
-    display: block;
-    font-size: 12px;
-    color: white;
-    background: black;
-    border-radius: 25px;
-    margin: 0 auto 10px auto;
+  content: counter(step);
+  counter-increment: step;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  display: block;
+  font-size: 12px;
+  color: white;
+  background: black;
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
 }
 
 /*progressbar connectors*/
 #progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background:#E91E63;
-    position: absolute;
-    left: -50%;
-    top: 9px;
-    z-index: -1; /*put it behind the numbers*/
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: #e91e63;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /*put it behind the numbers*/
 }
 
-
 #progressbar li:first-child:after {
-    /*connector not needed before the first step*/
-    content: none;
+  /*connector not needed before the first step*/
+  content: none;
 }
 
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
-#progressbar li.active:before, #progressbar li.active:after {
-    background:#00BCD4;
-    color: white;
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #00bcd4;
+  color: white;
 }
-
-

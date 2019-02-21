@@ -23,7 +23,7 @@ export default class PickATime extends Component {
       />
     ));
     return (
-      <div className="container">
+      <div className="container p-0">
         <div className="text-center">
           <img className="my-auto" src="./logo.png" alt="logo" />
 

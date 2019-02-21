@@ -1,5 +1,7 @@
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 
 export default function LeadRow({ data }) {
   return (
@@ -23,12 +25,9 @@ export default function LeadRow({ data }) {
       <td>{data.classTrying.nameOfClass}</td>
       <td>{moment(data.classTrying.time, "HH:mm").format("h:mm A")}</td>
       <td className="border-0">
-        <a
-          href={`/admin/leads/${data.parent._id}`}
-          className="btn btn-success btn-sm"
-        >
-          View
-        </a>
+        <Link to={`/admin/leads/${data.parent._id}`}>
+          <Button color="info">View</Button>
+        </Link>
       </td>
     </tr>
   );

@@ -1,5 +1,10 @@
 .wrapper {
   background-color: #f6f7f9;
+  min-height: 100vh;
+}
+
+.container {
+  padding-top: 100px;
 }
 
 .bg-purple {
@@ -9,19 +14,10 @@
 .bg-wiretap {
   background: linear-gradient(to right, #8a2387, #e94057, #f27121) !important;
 }
-
-.bg-manofsteel {
-  background: linear-gradient(to right, #780206, #061161) !important;
-}
-
-.bg-green {
-  background-color: #009688 !important;
-}
-.bg-yellow {
-  background-color: #ffc107 !important;
-}
-.bg-blue {
-  background-color: #2196f3 !important;
+.navbar-brand {
+  font-family: "Roboto", sans-serif;
+  /* font-size: 1.6rem !important; */
+  color: #666 !important;
 }
 
 h1,

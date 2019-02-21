@@ -3,19 +3,20 @@ import ParentForm from "../components/leadForm/ParentForm";
 import ChildForm from "../components/leadForm/ChildForm";
 import PickATime from "../components/leadForm/pickATime";
 import Confirmation from "../components/leadForm/Confirmation";
+import Done from "../components/leadForm/done";
 import API from "../utils/API";
 import "./lead.css";
 
 export default class LeadForm extends Component {
   state = {
     step: 1,
-    pFirstName: "Manuel",
-    pLastName: "Savino",
-    cFirstName: "Elliana",
-    cLastName: "Lopera",
+    pFirstName: "",
+    pLastName: "",
+    cFirstName: "",
+    cLastName: "",
     age: "",
-    parentCellphone: "(786)434-5555",
-    email: "manuelsavino@gmai.com",
+    parentCellphone: "",
+    email: "",
     classTrying: "",
     nameOfClass: "",
     schedule: "",
@@ -149,7 +150,7 @@ export default class LeadForm extends Component {
           />
         );
       case 5:
-        return <h1>Done</h1>;
+        return <Done />;
       default:
         return null;
     }
