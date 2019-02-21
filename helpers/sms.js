@@ -17,11 +17,10 @@ module.exports = {
       //   body: `Hello ${parent.pFirstName}, Thank you for signing up ${lead.cFirstName} for a FREE trial class. We will send you a text message the day before to remind you. Hope to see you soon!`
       body: `Hi ${
         parent.pFirstName
-      }! You're receiving this message because you signed up for a FREE trial class in our studio for ${
+      }! You're receiving this message because you signed up ${
         lead.cFirstName
-      } ${
-        lead.cLastName
-      }. Please click below for next steps https://www.dancedoral.com/next-steps/ Ascendance Studio`
+      } for a FREE trial class in our studio. Please click below for next steps https://www.dancedoral.com/next-steps/ 
+      Ascendance Studio`
     };
 
     client.messages.create(options, function(err, response) {
