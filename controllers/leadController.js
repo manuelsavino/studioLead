@@ -1,6 +1,7 @@
 const db = require("../models");
 const moment = require("moment");
-
+const Twilio = require("twilio");
+const helpers = require("../helpers/sms");
 module.exports = {
   createLead(req, res) {
     const { parentCellphone } = req.body;
@@ -26,11 +27,11 @@ module.exports = {
           parent: parentResp._id
         };
         db.Lead.create(lead).then(leadResp => {
-          if (leadResp) {
-            console.log("leadResp", leadResp);
-          }
-          console.log("parent ID", parentId);
-          console.log("new Lead id", leadResp._id);
+          // if (leadResp) {
+          //   console.log("leadResp", leadResp);
+          // }
+          // console.log("parent ID", parentId);
+          // console.log("new Lead id", leadResp._id);
           db.Parent.findOneAndUpdate(
             { parentCellphone: parentResp.parentCellphone },
             { $push: { children: leadResp._id } },
@@ -43,9 +44,9 @@ module.exports = {
           );
         });
       } else {
-        console.log(
-          "parent not found creating parent and updating with new lead"
-        );
+        // console.log(
+        //   "parent not found creating parent and updating with new lead"
+        // );
         const {
           pFirstName,
           pLastName,
@@ -58,7 +59,7 @@ module.exports = {
           classTrying
         } = req.body;
         const parent = { pFirstName, pLastName, parentCellphone, email };
-        console.log(parentCellphone);
+        // console.log(parentCellphone);
         db.Parent.create(parent).then(parentResp => {
           const lead = {
             cFirstName,
@@ -74,6 +75,8 @@ module.exports = {
               { parentCellphone },
               { $push: { children: newLead._id } },
               (err, parentUpdate) => {
+                console.log(parentUpdate, newLead);
+                helpers.sendSms(parentUpdate, newLead);
                 res.json({ parentUpdate, newLead });
               }
             );
