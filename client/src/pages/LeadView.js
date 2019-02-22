@@ -217,15 +217,15 @@ export class LeadView extends Component {
                         </tbody>
                       </table>
                       <div className="d-flex justify-content-between">
-                        <button className="mt-2 btn btn-danger shadow-sm">
+                        {/* <button className="mt-2 btn btn-danger shadow-sm">
                           Archive <i className="fas fa-archive" />
+                        </button> */}
+                        <button
+                          onClick={this.handleDeleteClick}
+                          className="mt-2 btn btn-danger shadow-sm"
+                        >
+                          Delete <i className="fas fa-trash-alt" />
                         </button>
-                        {/* <button
-                        onClick={this.handleDeleteClick}
-                        className="mt-2 btn btn-danger shadow-sm"
-                      >
-                        Delete <i className="fas fa-trash-alt" />
-                      </button> */}
                       </div>
                     </div>
                   </div>
