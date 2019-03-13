@@ -8,7 +8,7 @@ const schedulerFactory = function() {
   return {
     start: function() {
       new CronJob(
-        "*/5 * * * *",
+        "* * * * *",
         function() {
           console.log(
             "Running Send Notifications Worker for " + moment().format()
