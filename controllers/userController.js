@@ -45,33 +45,37 @@ module.exports = {
   login(req, res) {
     const { userName, password } = req.body;
 
-    db.User.findOne({ userName }).then(user => {
-      if (!user) {
-        return res.status(404).json({ username: "Username not found" });
-      }
-      //Check Password
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          const payload = {
-            id: user.id,
-            name: `${user.firstName} ${user.lastName}`,
-            studio: user.studioId
-          };
-          jwt.sign(
-            payload,
-            process.env.SECRETORKEY,
-            { expiresIn: 36000 },
-            (err, token) => {
-              res.json({
-                success: true,
-                token: `Bearer ${token}`
-              });
-            }
-          );
-        } else {
-          return res.status(400).json({ password: "Password incorrect" });
+    db.User.findOne({ userName })
+      .populate("studioId")
+      .exec((err, user) => {
+        if (!user) {
+          return res.status(404).json({ username: "Username not found" });
         }
+        console.log(user);
+        //Check Password
+        bcrypt.compare(password, user.password).then(isMatch => {
+          if (isMatch) {
+            const payload = {
+              id: user.id,
+              name: `${user.firstName} ${user.lastName}`,
+              studio: user.studioId.id,
+              studioName: user.studioId.name
+            };
+            jwt.sign(
+              payload,
+              process.env.SECRETORKEY,
+              { expiresIn: 36000 },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: `Bearer ${token}`
+                });
+              }
+            );
+          } else {
+            return res.status(400).json({ password: "Password incorrect" });
+          }
+        });
       });
-    });
   }
 };
