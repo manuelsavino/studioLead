@@ -18,7 +18,7 @@ const userSchema = new Schema({
     type: String,
     require: true
   },
-  studioID: {
+  studioId: {
     type: String,
     ref: "Studio"
   },

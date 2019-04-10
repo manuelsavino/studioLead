@@ -2,6 +2,7 @@ const mongoose = require("mongoose"),
   Schema = mongoose.Schema;
 
 const ParentSchema = new Schema({
+  studioId: String,
   pFirstName: String,
   pLastName: String,
   email: String,

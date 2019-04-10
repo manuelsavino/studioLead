@@ -8,8 +8,9 @@ export default {
   createClass: function(ClassData) {
     return axios.post("/api/classes", ClassData);
   },
-  getActiveClasses: function() {
-    return axios.get("/api/classes/active");
+  getActiveClasses: function(id) {
+    console.log("from api util", id);
+    return axios.get(`/api/classes/active/${id}`);
   },
   createLead: function(data) {
     return axios.post("/api/leads/createLead", data);

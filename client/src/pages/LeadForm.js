@@ -80,7 +80,8 @@ export default class LeadForm extends Component {
       parentCellphone,
       age,
       trialDate: date,
-      classTrying
+      classTrying,
+      studioId: this.props.match.params.id
     };
     API.createLead(data);
   };
@@ -116,6 +117,7 @@ export default class LeadForm extends Component {
             previousStep={this.previousStep}
             handleChange={this.handleChange}
             values={values}
+            studioId={this.props.match.params.id}
           />
         );
       case 2:

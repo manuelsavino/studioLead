@@ -2,6 +2,8 @@ const db = require("../models");
 const moment = require("moment");
 const Twilio = require("twilio");
 const helpers = require("../helpers/sms");
+const getStudioFromJwt = require("../helpers/decodeJwt");
+
 module.exports = {
   createLead(req, res) {
     const { parentCellphone } = req.body;
@@ -17,14 +19,22 @@ module.exports = {
         let parentId = parentResp.id;
         // console.log(`Parent: ${parentId}`);
         // console.log("parent found updating parent with new lead");
-        const { cFirstName, cLastName, age, trialDate, classTrying } = req.body;
+        const {
+          cFirstName,
+          cLastName,
+          age,
+          trialDate,
+          classTrying,
+          studioId
+        } = req.body;
         const lead = {
           cFirstName,
           cLastName,
           age,
           trialDate,
           classTrying,
-          parent: parentResp._id
+          parent: parentResp._id,
+          studioId
         };
         db.Lead.create(lead).then(leadResp => {
           // if (leadResp) {
@@ -56,9 +66,16 @@ module.exports = {
           cLastName,
           age,
           trialDate,
-          classTrying
+          classTrying,
+          studioId
         } = req.body;
-        const parent = { pFirstName, pLastName, parentCellphone, email };
+        const parent = {
+          pFirstName,
+          pLastName,
+          parentCellphone,
+          email,
+          studioId
+        };
         // console.log(parentCellphone);
         db.Parent.create(parent).then(parentResp => {
           const lead = {
@@ -67,7 +84,8 @@ module.exports = {
             age,
             trialDate,
             classTrying,
-            parent: parentResp.id
+            parent: parentResp.id,
+            studioId
           };
           db.Lead.create(lead).then(newLead => {
             // console.log('new lead', newLead._id)
@@ -87,7 +105,9 @@ module.exports = {
   },
 
   getAllLeads(req, res) {
-    db.Lead.find({})
+    const { authorization } = req.headers;
+    const studioId = getStudioFromJwt.getStudioFromJwt(authorization);
+    db.Lead.find({ studioId })
       .populate("classTrying", { nameOfClass: 1, time: 1 })
       .sort({ trialDate: 1 })
       .populate("parent")

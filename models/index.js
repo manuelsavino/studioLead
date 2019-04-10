@@ -1,6 +1,6 @@
 module.exports = {
   Class: require("./class"),
-  Location: require("./location"),
+  Studio: require("./studio"),
   Lead: require("./lead"),
   Message: require("./messages"),
   Parent: require("./parent"),

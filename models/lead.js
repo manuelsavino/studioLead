@@ -6,6 +6,7 @@ const message = require("./messages");
 const Twilio = require("twilio");
 
 const LeadSchema = new Schema({
+  studioId: String,
   cFirstName: String,
   cLastName: String,
   parent: {

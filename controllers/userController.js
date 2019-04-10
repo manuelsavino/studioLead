@@ -6,6 +6,12 @@ const jwt = require("jsonwebtoken");
 const validateRegisterInput = require("../validation/register");
 
 module.exports = {
+  findAll(req, res) {
+    db.User.find({}, (err, resp) => {
+      res.json(resp);
+    });
+  },
+
   register(req, res) {
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -18,8 +24,8 @@ module.exports = {
       if (user) {
         return res.status(400).json({ useruname: "Username already exists" });
       } else {
-        let { firstName, lastName, userName, password } = req.body;
-        let user = { firstName, lastName, userName, password };
+        let { firstName, lastName, userName, password, studioId } = req.body;
+        let user = { firstName, lastName, userName, password, studioId };
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(password, salt, (err, hash) => {
             if (err) throw err;
@@ -48,7 +54,8 @@ module.exports = {
         if (isMatch) {
           const payload = {
             id: user.id,
-            name: `${user.firstName} ${user.lastName}`
+            name: `${user.firstName} ${user.lastName}`,
+            studio: user.studioId
           };
           jwt.sign(
             payload,

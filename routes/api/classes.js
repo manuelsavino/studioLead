@@ -5,7 +5,7 @@ router.post("/", classController.createClass);
 
 router.get("/", classController.getAll);
 
-router.get("/active", classController.getActiveClasses);
+router.get("/active/:id", classController.getActiveClasses);
 
 router.put("/updateStatus/:id", classController.updateStatus);
 

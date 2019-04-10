@@ -1,4 +1,5 @@
 const db = require("../models");
+const getStudioFromJwt = require("../helpers/decodeJwt");
 
 module.exports = {
   getAllParents(req, res) {
@@ -8,6 +9,9 @@ module.exports = {
   },
 
   getOneParent(req, res) {
+    const { authorization } = req.headers;
+    const studio = getStudioFromJwt.getStudioFromJwt(authorization);
+
     const { id: _id } = req.params;
 
     db.Parent.find({ _id })

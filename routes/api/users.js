@@ -4,6 +4,7 @@ const passport = require("passport");
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
+router.get("/", userController.findAll);
 
 router.get(
   "/current",

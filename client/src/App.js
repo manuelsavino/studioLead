@@ -29,13 +29,14 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route exact path="/" component={LeadForm} />
+            <Route exact path="/" component={Login} />
             <Route exact path="/login/" component={Login} />
             <Route exact path="/admin/parents/" component={Parents} />
             <Route exact path="/admin/addAClass" component={AddAClass} />
             <Route exact path="/admin/classes" component={ClassManagment} />
             <Route exact path="/admin/classes/:id" component={ClassView} />
             <Route exact path="/admin/leads/:id" component={LeadView} />
+            <Route exact path="/studio/:id" component={LeadForm} />
             <Route path="/admin" component={Admin} />
           </Switch>
         </Router>
