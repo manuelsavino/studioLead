@@ -3,7 +3,6 @@ const Twilio = require("twilio");
 
 module.exports = {
   sendSms(req, res) {
-    console.log("out post sms called");
     const client = new Twilio(
       process.env.TWILIO_ACCOUNT_SID,
       process.env.TWILIO_AUTH_TOKEN
