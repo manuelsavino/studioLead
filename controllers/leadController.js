@@ -6,102 +6,96 @@ const getStudioFromJwt = require("../helpers/decodeJwt");
 
 module.exports = {
   createLead(req, res) {
-    const { parentCellphone } = req.body;
-    console.log(parentCellphone);
+    const { parentCellphone, studioId } = req.body;
 
-    db.Parent.findOne({ parentCellphone: parentCellphone }).exec(function(
-      err,
-      parentResp
-    ) {
-      if (err) {
-        console.log(err);
-      } else if (parentResp) {
-        let parentId = parentResp.id;
-        // console.log(`Parent: ${parentId}`);
-        // console.log("parent found updating parent with new lead");
-        const {
-          cFirstName,
-          cLastName,
-          age,
-          trialDate,
-          classTrying,
-          studioId
-        } = req.body;
-        const lead = {
-          cFirstName,
-          cLastName,
-          age,
-          trialDate,
-          classTrying,
-          parent: parentResp._id,
-          studioId
-        };
-        db.Lead.create(lead).then(leadResp => {
-          // if (leadResp) {
-          //   console.log("leadResp", leadResp);
-          // }
-          // console.log("parent ID", parentId);
-          // console.log("new Lead id", leadResp._id);
-          db.Parent.findOneAndUpdate(
-            { parentCellphone: parentResp.parentCellphone },
-            { $push: { children: leadResp._id } },
-            (err, resp) => {
-              if (err) {
-                console.log(err);
-              }
-              res.json(resp);
-            }
-          );
-        });
-      } else {
-        // console.log(
-        //   "parent not found creating parent and updating with new lead"
-        // );
-        const {
-          pFirstName,
-          pLastName,
-          parentCellphone,
-          email,
-          cFirstName,
-          cLastName,
-          age,
-          trialDate,
-          classTrying,
-          studioId
-        } = req.body;
-        const parent = {
-          pFirstName,
-          pLastName,
-          parentCellphone,
-          email,
-          studioId
-        };
-        // console.log(parentCellphone);
-        db.Parent.create(parent).then(parentResp => {
+    db.Parent.findOne({ parentCellphone: parentCellphone, studioId }).exec(
+      function(err, parentResp) {
+        if (err) {
+          console.log(err);
+        } else if (parentResp) {
+          // parent found updating parent with new lead"
+          const {
+            cFirstName,
+            cLastName,
+            age,
+            trialDate,
+            classTrying,
+            studioId
+          } = req.body;
           const lead = {
             cFirstName,
             cLastName,
             age,
             trialDate,
             classTrying,
-            parent: parentResp.id,
+            parent: parentResp._id,
             studioId
           };
-          db.Lead.create(lead).then(newLead => {
-            // console.log('new lead', newLead._id)
+          db.Lead.create(lead).then(leadResp => {
+            // if (leadResp) {
+            //   console.log("leadResp", leadResp);
+            // }
+            // console.log("parent ID", parentId);
+            // console.log("new Lead id", leadResp._id);
             db.Parent.findOneAndUpdate(
-              { parentCellphone },
-              { $push: { children: newLead._id } },
-              (err, parentUpdate) => {
-                console.log(parentUpdate, newLead);
-                helpers.sendSms(parentUpdate, newLead);
-                res.json({ parentUpdate, newLead });
+              { parentCellphone: parentResp.parentCellphone },
+              { $push: { children: leadResp._id } },
+              (err, resp) => {
+                if (err) {
+                  console.log(err);
+                }
+                res.json(resp);
               }
             );
           });
-        });
+        } else {
+          //   "parent not found creating parent and updating with new lead"
+          const {
+            pFirstName,
+            pLastName,
+            parentCellphone,
+            email,
+            cFirstName,
+            cLastName,
+            age,
+            trialDate,
+            classTrying,
+            studioId
+          } = req.body;
+          const parent = {
+            pFirstName,
+            pLastName,
+            parentCellphone,
+            email,
+            studioId
+          };
+          // console.log(parentCellphone);
+          db.Parent.create(parent).then(parentResp => {
+            const lead = {
+              cFirstName,
+              cLastName,
+              age,
+              trialDate,
+              classTrying,
+              parent: parentResp.id,
+              studioId
+            };
+            db.Lead.create(lead).then(newLead => {
+              // console.log('new lead', newLead._id)
+              db.Parent.findOneAndUpdate(
+                { parentCellphone },
+                { $push: { children: newLead._id } },
+                (err, parentUpdate) => {
+                  console.log(parentUpdate, newLead);
+                  helpers.sendSms(parentUpdate, newLead);
+                  res.json({ parentUpdate, newLead });
+                }
+              );
+            });
+          });
+        }
       }
-    });
+    );
   },
 
   getAllLeads(req, res) {
