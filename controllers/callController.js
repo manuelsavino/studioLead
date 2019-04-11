@@ -1,6 +1,6 @@
 const twilio = require("twilio");
 const VoiceResponse = twilio.twiml.VoiceResponse;
-const db = require("../model");
+const db = require("../models");
 
 let client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
